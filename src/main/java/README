@@ -1,0 +1,17 @@
+O firma de taxi are nevoie de o aplicatie pentru a gestiona comenzile primite.
+
+Fiecare sofer are o tableta pe care vede comnezile trimise de dispecerat.
+
+Fiecare comanda are adresa unde trebuie sa ajunga soferul, standul din care se merge la comanda(cel mai apropiat de adresa), numele clientului si eventuale preferinte (model masina, are catel), pe langa asta are un buton cu care soferul accepta comanda. O sa fie ales primul din standul respectiv.
+
+LOGIN ????? fiecare sofer are un profil ID(nr matriculare masina sau indicativ). Nume, prenume, model si marca masina, culoare masina, forma masina (COMBI SAU NU), daca duce animale sau nu.
+
+Aplicatia arata soferului comenzile trimise de dispecerat
+
+Aplicatia arata soferului si dispeceratului in ce stand si pe ce loc in stand este soferul.(distanta)
+
+Toti soferii se pot anunta la aceeasi comanda . este ales primul din rand si care se anunta la respectiva comanda . daca nu se anunta nimeni se da la cel mai apropiat sofer care nu este in stand.
+
+Dispeceratul poate adauga, edita, si sterge comenzi.
+
+
