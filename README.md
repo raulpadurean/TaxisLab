@@ -12,7 +12,7 @@ Each driver has a car .A car has model and brand, license plate , car color, car
 
 The application shows the driver the commands sent by the dispatcher
 
-The application shows the driver and the dispatcher in which station and where the driver is in the booth. (distance)
+The application shows the driver and the dispatcher in which station and the position in respective station. (distance)
 
 All drivers can register for the same order.
 The app chooses the first driver in the station assigned to the order address 
