@@ -30,7 +30,5 @@ if the station is empty then, it is given to the nearest driver who is not in th
 
 The dispatcher can add, edit and delete orders.
 
+![uml](https://github.com/user-attachments/assets/8abdea22-b7da-48b3-8e95-5b50fc78c182)
 
-
-
-![WhatsApp Image 2024-10-30 at 08 20 33](https://github.com/user-attachments/assets/39192ad4-06d1-4fda-8bbc-db3b48c24bce)
