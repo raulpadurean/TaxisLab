@@ -21,7 +21,7 @@ public class OrderService {
         return orderRepository.read(id);
     }
 
-    public List<Order> getAllCompanies() {
+    public List<Order> getAllOrders() {
         return orderRepository.getAll();
     }
 

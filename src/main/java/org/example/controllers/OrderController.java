@@ -22,8 +22,8 @@ public class OrderController {
         return orderService.getOrder(id);
     }
 
-    public List<Order> getAllCompanies() {
-        return orderService.getAllCompanies();
+    public List<Order> getAllOrders() {
+        return orderService.getAllOrders();
     }
 
     public void updateOrder(Order order) {
