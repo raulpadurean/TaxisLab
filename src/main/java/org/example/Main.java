@@ -2,14 +2,17 @@ package org.example;
 
 import org.example.controllers.BasicServiceController;
 import org.example.controllers.CompanyController;
+import org.example.controllers.CustomServiceController;
 import org.example.controllers.OrderController;
 import org.example.models.BasicService;
 import org.example.models.Company;
+import org.example.models.CustomService;
 import org.example.models.Order;
 import org.example.repositories.IRepository;
 import org.example.repositories.InMemoryRepository;
 import org.example.services.BasicServiceService;
 import org.example.services.CompanyService;
+import org.example.services.CustomServiceService;
 import org.example.services.OrderService;
 
 import java.text.ParseException;
@@ -187,6 +190,64 @@ public class Main {
                 case 2:
                     System.out.println("List of Basic Services:");
                     basicServiceController.getAllBasicServices().forEach(System.out::println);
+                    break;
+
+                case 3:
+                    System.out.println("Exiting...");
+                    scanner.close();
+                    return;
+
+                default:
+                    System.out.println("Invalid option");
+            }
+
+        }
+
+
+    }
+    public static void customSerivceMenu() {
+        IRepository<CustomService> customServiceRepo = new InMemoryRepository<>();
+        CustomServiceService customServiceService = new CustomServiceService(customServiceRepo);
+        CustomServiceController customServiceController = new CustomServiceController(customServiceService);
+        Scanner scanner = new Scanner(System.in);
+        while (true) {
+            System.out.println("""
+                    Options:
+                    1. Add Custom Service
+                    2. View Custom Serivce
+                    3. Exit
+                    """);
+            int choice = scanner.nextInt();
+            scanner.nextLine(); // Consume newline
+
+            switch (choice) {
+                case 1:
+                    System.out.println("Enter Basic Service details (id, name, pricePerKm, extras):");
+                    try {
+                        System.out.print("Enter service ID: ");
+                        int id = Integer.parseInt(scanner.nextLine());
+
+                        System.out.print("Enter service name: ");
+                        String name = scanner.nextLine();
+
+                        System.out.print("Enter price per Km: ");
+                        int pricePerKm = Integer.parseInt(scanner.nextLine());
+
+                        System.out.print("Enter service extras: ");
+                        String extras = scanner.nextLine();
+
+                        // Create a BasicService object with the entered details
+                        CustomService customService = new CustomService(id, name, pricePerKm, extras);
+                        customServiceService.addCustomService(customService);  // Pass the object
+
+                    } catch (NumberFormatException e) {
+                        System.out.println("Invalid integer input.");
+                    }
+                    break;
+
+                case 2:
+                    System.out.println("List of Basic Services:");
+                    customServiceController.getAllCustomServices().forEach(System.out::println);
                     break;
 
                 case 3:
