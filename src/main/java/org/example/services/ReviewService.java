@@ -20,7 +20,7 @@ public class ReviewService {
         return reviewRepository.read(id);
     }
 
-    public List<Review> getAllReview() {
+    public List<Review> getAllReviews() {
         return reviewRepository.getAll();
     }
 
