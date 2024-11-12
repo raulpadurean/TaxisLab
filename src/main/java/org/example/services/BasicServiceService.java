@@ -5,10 +5,10 @@ import org.example.repositories.IRepository;
 
 import java.util.List;
 
-public class BasicServiceBasicService {
+public class BasicServiceService {
     private final IRepository<BasicService> serviceRepository;
 
-    public BasicServiceBasicService(IRepository<BasicService> serviceRepository) {
+    public BasicServiceService(IRepository<BasicService> serviceRepository) {
         this.serviceRepository = serviceRepository;
     }
 
