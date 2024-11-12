@@ -1,19 +1,10 @@
 package org.example;
 
-import org.example.controllers.BasicServiceController;
-import org.example.controllers.CompanyController;
-import org.example.controllers.CustomServiceController;
-import org.example.controllers.OrderController;
-import org.example.models.BasicService;
-import org.example.models.Company;
-import org.example.models.CustomService;
-import org.example.models.Order;
+import org.example.controllers.*;
+import org.example.models.*;
 import org.example.repositories.IRepository;
 import org.example.repositories.InMemoryRepository;
-import org.example.services.BasicServiceService;
-import org.example.services.CompanyService;
-import org.example.services.CustomServiceService;
-import org.example.services.OrderService;
+import org.example.services.*;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -32,7 +23,9 @@ public class Main {
                     0. Exit
                     1. Company
                     2. Order
-                    
+                    3. Basic Service
+                    4. Custom Service
+                    5. Rating
                     """);
             int choice = scanner.nextInt();
             scanner.nextLine(); // Consume newline
@@ -46,6 +39,15 @@ public class Main {
                     break;
                 case 2:
                     orderMenu();
+                    break;
+                case 3:
+                    basicSerivceMenu();
+                    break;
+                case 4:
+                    customSerivceMenu();
+                    break;
+                case 5:
+                    reviewMenu();
                     break;
 
                 default:
@@ -263,4 +265,64 @@ public class Main {
 
 
     }
+
+    public static void reviewMenu() {
+        IRepository<Review> reviewRepo = new InMemoryRepository<>();
+        ReviewService reviewService = new ReviewService(reviewRepo);
+        ReviewController reviewController = new ReviewController(reviewService);
+        Scanner scanner = new Scanner(System.in);
+
+        while (true) {
+            System.out.println("""
+                Options:
+                1. Add Review
+                2. View Reviews
+                3. Exit
+                """);
+            int choice = scanner.nextInt();
+            scanner.nextLine(); // Consume newline
+
+            switch (choice) {
+                case 1:
+                    System.out.println("Enter Review details (clientId, driverId, companyId, rating, description):");
+                    try {
+                        System.out.print("Enter client ID: ");
+                        int clientId = Integer.parseInt(scanner.nextLine());
+
+                        System.out.print("Enter driver ID: ");
+                        int driverId = Integer.parseInt(scanner.nextLine());
+
+                        System.out.print("Enter company ID: ");
+                        int companyId = Integer.parseInt(scanner.nextLine());
+
+                        System.out.print("Enter rating: ");
+                        int rating = Integer.parseInt(scanner.nextLine());
+
+                        System.out.print("Enter description: ");
+                        String description = scanner.nextLine();  // Keep description as a String
+
+                        // Call the addReview method with the correct parameters
+                        reviewController.addReview(companyId, driverId, clientId, rating, description);
+                    } catch (NumberFormatException e) {
+                        System.out.println("Invalid integer input.");
+                    }
+                    break;
+
+                case 2:
+                    System.out.println("List of Reviews:");
+                    reviewController.getAllReviews().forEach(System.out::println);
+                    break;
+
+                case 3:
+                    System.out.println("Exiting...");
+                    scanner.close();  // Close scanner only when exiting the loop
+                    return;
+
+                default:
+                    System.out.println("Invalid option");
+            }
+        }
+    }
+
+
 }
