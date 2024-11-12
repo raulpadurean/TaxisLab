@@ -30,6 +30,7 @@ public class Main {
                     7. Client
                     8. Driver
                     9. Driver Schedule
+                    10. Company Drivers
                     """);
             int choice = scanner.nextInt();
             scanner.nextLine(); // Consume newline
@@ -61,6 +62,12 @@ public class Main {
                     break;
                 case 8:
                     driverMenu();
+                    break;
+                case 9:
+                    //driverScheduleMenu();
+                    break;
+                case 10:
+                    //CompanyDriversMenu();
                     break;
 
                 default:
