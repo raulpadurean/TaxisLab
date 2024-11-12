@@ -20,7 +20,7 @@ public class BasicServiceService {
         return serviceRepository.read(id);
     }
 
-    public List<BasicService> getAllCompanies() {
+    public List<BasicService> getAllBasicServices() {
         return serviceRepository.getAll();
     }
 

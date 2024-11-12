@@ -21,8 +21,8 @@ public class BasicServiceController {
         return basicServiceService.getBasicService(id);
     }
 
-    public List<BasicService> getAllCompanies() {
-        return basicServiceService.getAllCompanies();
+    public List<BasicService> getAllBasicServices() {
+        return basicServiceService.getAllBasicServices();
     }
 
     public void updateBasicService(BasicService basicService) {

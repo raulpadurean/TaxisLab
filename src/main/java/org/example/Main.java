@@ -1,11 +1,14 @@
 package org.example;
 
+import org.example.controllers.BasicServiceController;
 import org.example.controllers.CompanyController;
 import org.example.controllers.OrderController;
+import org.example.models.BasicService;
 import org.example.models.Company;
 import org.example.models.Order;
 import org.example.repositories.IRepository;
 import org.example.repositories.InMemoryRepository;
+import org.example.services.BasicServiceService;
 import org.example.services.CompanyService;
 import org.example.services.OrderService;
 
@@ -143,5 +146,60 @@ public class Main {
                     System.out.println("Invalid option");
             }
         }
+    }
+    public static void basicSerivceMenu() {
+        IRepository<BasicService> basicServiceRepo = new InMemoryRepository<>();
+        BasicServiceService basicServiceService = new BasicServiceService(basicServiceRepo);
+        BasicServiceController basicServiceController = new BasicServiceController(basicServiceService);
+        Scanner scanner = new Scanner(System.in);
+        while (true) {
+            System.out.println("""
+                    Options:
+                    1. Add Basic Service
+                    2. View Basic Serivce
+                    3. Exit
+                    """);
+            int choice = scanner.nextInt();
+            scanner.nextLine(); // Consume newline
+
+            switch (choice) {
+                case 1:
+                    System.out.println("Enter Basic Service details (id, name, pricePerKm):");
+                    try {
+                        System.out.print("Enter service ID: ");
+                        int id = Integer.parseInt(scanner.nextLine());
+
+                        System.out.print("Enter service name: ");
+                        String name = scanner.nextLine();
+
+                        System.out.print("Enter price per Km: ");
+                        int pricePerKm = Integer.parseInt(scanner.nextLine());
+
+                        // Create a BasicService object with the entered details
+                        BasicService basicService = new BasicService(id, name, pricePerKm);
+                        basicServiceService.addBasicService(basicService);  // Pass the object
+
+                    } catch (NumberFormatException e) {
+                        System.out.println("Invalid integer input.");
+                    }
+                    break;
+
+                case 2:
+                    System.out.println("List of Basic Services:");
+                    basicServiceController.getAllBasicServices().forEach(System.out::println);
+                    break;
+
+                case 3:
+                    System.out.println("Exiting...");
+                    scanner.close();
+                    return;
+
+                default:
+                    System.out.println("Invalid option");
+            }
+
+        }
+
+
     }
 }
