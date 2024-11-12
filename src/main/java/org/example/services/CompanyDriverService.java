@@ -16,8 +16,8 @@ public class CompanyDriverService {
         companyDriverRepository.create(companyDriver);
     }
 
-    public CompanyDriver getCompanyDriver(int id) {
-        return companyDriverRepository.read(id);
+    public CompanyDriver getCompanyDriver(int Id) {
+        return companyDriverRepository.read(Id);
     }
 
     public List<CompanyDriver> getAllCompanyDrivers() {
