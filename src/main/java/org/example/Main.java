@@ -98,7 +98,7 @@ public class Main {
                     String brand = scanner.nextLine();
                     String model = scanner.nextLine();
                     String plateNr = scanner.nextLine();
-                    //String driverId = scanner.nextLine();
+
                     int driverId = Integer.parseInt(scanner.nextLine());
                     carController.addCar(brand, model , plateNr, driverId);
                     break;
