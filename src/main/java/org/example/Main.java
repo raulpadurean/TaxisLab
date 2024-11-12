@@ -137,7 +137,7 @@ public class Main {
                     break;
                 case 2:
                     System.out.println("List of Companies:");
-                    orderController.getAllCompanies().forEach(System.out::println);
+                    orderController.getAllOrders().forEach(System.out::println);
                     break;
                 case 3:
                     System.out.println("Exiting...");
