@@ -29,6 +29,7 @@ public class Main {
                     6. Car
                     7. Client
                     8. Driver
+                    9. Driver Schedule
                     """);
             int choice = scanner.nextInt();
             scanner.nextLine(); // Consume newline
