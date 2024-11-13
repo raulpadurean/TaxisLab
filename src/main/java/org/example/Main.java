@@ -28,6 +28,8 @@ public class Main {
                     5. Rating
                     6. Car
                     7. Client
+                    8. Driver
+                    9. Driver Schedule
                     """);
             int choice = scanner.nextInt();
             scanner.nextLine(); // Consume newline
@@ -56,6 +58,9 @@ public class Main {
                     break;
                 case 7:
                     clientMenu();
+                    break;
+                case 8:
+                    driverMenu();
                     break;
 
                 default:
@@ -130,6 +135,43 @@ public class Main {
                 case 2:
                     System.out.println("List of Clients:");
                     clientController.getAllClients().forEach(System.out::println);
+                    break;
+                case 3:
+                    System.out.println("Exiting...");
+                    return;
+                default:
+                    System.out.println("Invalid option");
+            }
+        }
+    }
+
+    public static void driverMenu() {
+        IRepository<Driver> driverRepo = new InMemoryRepository<>();
+        DriverService driverService = new DriverService(driverRepo);
+        DriverController driverController = new DriverController(driverService);
+        Scanner scanner = new Scanner(System.in);
+        while (true) {
+            System.out.println("""
+                    Options:
+                    1. Add Driver
+                    2. View Driver
+                    3. Exit
+                    """);
+            int choice = scanner.nextInt();
+            scanner.nextLine(); // Consume newline
+
+            switch (choice) {
+                case 1:
+                    System.out.println("Enter driver details (name, email, address, phone):");
+                    String name = scanner.nextLine();
+                    String email = scanner.nextLine();
+                    String address = scanner.nextLine();
+                    String phone = scanner.nextLine();
+                    driverController.addDriver(name, email, address, phone);
+                    break;
+                case 2:
+                    System.out.println("List of Drivers:");
+                    driverController.getAllDrivers().forEach(System.out::println);
                     break;
                 case 3:
                     System.out.println("Exiting...");
