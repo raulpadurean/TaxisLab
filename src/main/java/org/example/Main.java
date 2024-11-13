@@ -69,7 +69,7 @@ public class Main {
                     driverScheduleMenu();
                     break;
                 case 10:
-                    //CompanyDriversMenu();
+                    companyDriversMenu();
                     break;
 
                 default:
@@ -89,7 +89,8 @@ public class Main {
                     Options:
                     1. Add Car
                     2. View Car
-                    3. Exit
+                    3. Delete Car
+                    4. Exit
                     """);
             int choice = scanner.nextInt();
             scanner.nextLine(); // Consume newline
@@ -109,6 +110,56 @@ public class Main {
                     carController.getAllCars().forEach(System.out::println);
                     break;
                 case 3:
+
+                    System.out.println("Car Id: ");
+                    int id = Integer.parseInt(scanner.nextLine());
+                    carController.deleteCar(id);
+                    break;
+                case 4:
+                    System.out.println("Exiting...");
+                    return;
+                default:
+                    System.out.println("Invalid option");
+            }
+        }
+    }
+
+
+    public static void companyDriversMenu() {
+        IRepository<CompanyDriver> companyDriverRepo = new InMemoryRepository<>();
+        CompanyDriverService companyDriverService = new CompanyDriverService(companyDriverRepo);
+        CompanyDriverController companyDriverController = new CompanyDriverController(companyDriverService);
+        Scanner scanner = new Scanner(System.in);
+        while (true) {
+            System.out.println("""
+                    Options:
+                    1. Add Company Driver
+                    2. View Company Driver
+                    4. Exit
+                    3. Delete Company Driver
+                    """);
+            int choice = scanner.nextInt();
+            scanner.nextLine(); // Consume newline
+
+            switch (choice) {
+                case 1:
+                    System.out.println("Enter Company Driver details (driver id, company id):");
+
+                    int driverId = Integer.parseInt(scanner.nextLine());
+                    int companyId = Integer.parseInt(scanner.nextLine());
+                    companyDriverController.addCompanyDriver(driverId,companyId);
+                    break;
+                case 2:
+                    System.out.println("List of Company Drivers:");
+                    companyDriverController.getAllCompanyDrivers().forEach(System.out::println);
+                    break;
+                case 3:
+
+                    System.out.println("Driver Id: ");
+                    driverId = Integer.parseInt(scanner.nextLine());
+                    companyDriverController.deleteCompanyDriver(driverId);
+                    break;
+                case 4:
                     System.out.println("Exiting...");
                     return;
                 default:
