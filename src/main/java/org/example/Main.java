@@ -135,8 +135,8 @@ public class Main {
                     Options:
                     1. Add Company Driver
                     2. View Company Driver
-                    4. Exit
                     3. Delete Company Driver
+                    4. Exit
                     """);
             int choice = scanner.nextInt();
             scanner.nextLine(); // Consume newline
