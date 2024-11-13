@@ -6,6 +6,8 @@ import org.example.repositories.IRepository;
 import org.example.repositories.InMemoryRepository;
 import org.example.services.*;
 
+import java.text.DateFormat;
+import java.time.format.DateTimeFormatter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -14,7 +16,7 @@ import java.util.Scanner;
 // Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
 // then press Enter. You can now see whitespace characters in your code.
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ParseException {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Welcome to Taxi Service Management");
         while (true) {
@@ -30,6 +32,7 @@ public class Main {
                     7. Client
                     8. Driver
                     9. Driver Schedule
+                    10. Company Drivers
                     """);
             int choice = scanner.nextInt();
             scanner.nextLine(); // Consume newline
@@ -62,6 +65,12 @@ public class Main {
                 case 8:
                     driverMenu();
                     break;
+                case 9:
+                    driverScheduleMenu();
+                    break;
+                case 10:
+                    //CompanyDriversMenu();
+                    break;
 
                 default:
                     System.out.println("Invalid option");
@@ -91,7 +100,7 @@ public class Main {
                     String brand = scanner.nextLine();
                     String model = scanner.nextLine();
                     String plateNr = scanner.nextLine();
-                    //String driverId = scanner.nextLine();
+
                     int driverId = Integer.parseInt(scanner.nextLine());
                     carController.addCar(brand, model , plateNr, driverId);
                     break;
@@ -172,6 +181,55 @@ public class Main {
                 case 2:
                     System.out.println("List of Drivers:");
                     driverController.getAllDrivers().forEach(System.out::println);
+                    break;
+                case 3:
+                    System.out.println("Exiting...");
+                    return;
+                default:
+                    System.out.println("Invalid option");
+            }
+        }
+    }
+
+    public static void driverScheduleMenu() throws ParseException {
+        IRepository<DriverSchedule> driverScheduleRepo = new InMemoryRepository<>();
+        DriverScheduleService driverScheduleService = new DriverScheduleService(driverScheduleRepo);
+        DriverScheduleController driverScheduleController = new DriverScheduleController(driverScheduleService);
+        Scanner scanner = new Scanner(System.in);
+        while (true) {
+            System.out.println("""
+                    Options:
+                    1. Add DriverSchedule
+                    2. View DriverSchedule
+                    3. Exit
+                    """);
+            int choice = scanner.nextInt();
+            scanner.nextLine(); // Consume newline
+
+            switch (choice) {
+                case 1:
+                    System.out.println("Enter driver schedule (driverId, companyId, checkIn, checkout):");
+                    int driverId = Integer.parseInt(scanner.nextLine());
+                    int companyId = Integer.parseInt(scanner.nextLine());
+
+                    System.out.println("yyyy-MM-dd");
+                    String iDate = scanner.next();
+                    DateFormat formatter1 = new SimpleDateFormat("yyyy-MM-dd");
+                    Date checkIn = formatter1.parse(iDate);
+
+                    System.out.println("yyyy-MM-dd");
+                    String oDate = scanner.next();
+                    DateFormat formatter2 = new SimpleDateFormat("yyyy-MM-dd");
+                    Date checkOut = formatter2.parse(oDate);
+
+                    driverScheduleController.addDriverSchedule(driverId, companyId, checkIn, checkOut);
+
+                    break;
+
+
+                    case 2:
+                    System.out.println("List of DriverSchedules:");
+                    driverScheduleController.getAllDriverSchedules().forEach(System.out::println);
                     break;
                 case 3:
                     System.out.println("Exiting...");
