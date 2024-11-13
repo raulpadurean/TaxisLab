@@ -26,6 +26,7 @@ public class Main {
                     3. Basic Service
                     4. Custom Service
                     5. Rating
+                    6. Car
                     """);
             int choice = scanner.nextInt();
             scanner.nextLine(); // Consume newline
@@ -49,12 +50,53 @@ public class Main {
                 case 5:
                     reviewMenu();
                     break;
+                case 6:
+                    carMenu();
+                    break;
 
                 default:
                     System.out.println("Invalid option");
             }
         }
 
+    }
+
+    public static void carMenu() {
+        IRepository<Car> carRepo = new InMemoryRepository<>();
+        CarService carService = new CarService(carRepo);
+        CarController carController = new CarController(carService);
+        Scanner scanner = new Scanner(System.in);
+        while (true) {
+            System.out.println("""
+                    Options:
+                    1. Add Car
+                    2. View Car
+                    3. Exit
+                    """);
+            int choice = scanner.nextInt();
+            scanner.nextLine(); // Consume newline
+
+            switch (choice) {
+                case 1:
+                    System.out.println("Enter Car details (brand, model, number plate, driver id):");
+                    String brand = scanner.nextLine();
+                    String model = scanner.nextLine();
+                    String plateNr = scanner.nextLine();
+                    //String driverId = scanner.nextLine();
+                    int driverId = Integer.parseInt(scanner.nextLine());
+                    carController.addCar(brand, model , plateNr, driverId);
+                    break;
+                case 2:
+                    System.out.println("List of Cars:");
+                    carController.getAllCars().forEach(System.out::println);
+                    break;
+                case 3:
+                    System.out.println("Exiting...");
+                    return;
+                default:
+                    System.out.println("Invalid option");
+            }
+        }
     }
 
     public static void companyMenu() {
