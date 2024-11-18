@@ -7,9 +7,11 @@ public interface IRepository<T> {
 
     T read(int id);
 
+    T get(Integer id);
+
     void update(T obj);
 
-    void delete(int id);
+    void delete(Integer id);
 
     List<T> getAll();
 

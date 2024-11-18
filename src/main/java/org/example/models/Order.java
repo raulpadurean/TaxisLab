@@ -2,7 +2,7 @@ package org.example.models;
 
 import java.util.Date;
 
-public class Order {
+public class Order implements HasId {
 
     private int serviceId;
     private double totalKm;
@@ -78,5 +78,10 @@ public class Order {
                 ", companyId=" + companyId +
                 ", datetime=" + datetime +
                 '}';
+    }
+
+    @Override
+    public Integer getId() {
+        return null;
     }
 }

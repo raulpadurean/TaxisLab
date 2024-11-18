@@ -1,6 +1,6 @@
 package org.example.models;
 
-public class Driver {
+public class Driver implements HasId {
     private int id;
     private String name;
     private String email;
@@ -15,7 +15,7 @@ public class Driver {
         this.phone = phone;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 

@@ -1,6 +1,6 @@
 package org.example.models;
 
-public class Company {
+public class Company implements HasId {
 
     private int id;
     private String name;
@@ -16,7 +16,7 @@ public class Company {
         this.phone = phone;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 

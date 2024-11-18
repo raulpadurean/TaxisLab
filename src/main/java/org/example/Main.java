@@ -97,13 +97,14 @@ public class Main {
 
             switch (choice) {
                 case 1:
-                    System.out.println("Enter Car details (brand, model, number plate, driver id):");
+                    System.out.println("Enter Car details (id ,brand, model, number plate, driver id):");
+
+                    Integer id = Integer.parseInt(scanner.nextLine());
                     String brand = scanner.nextLine();
                     String model = scanner.nextLine();
                     String plateNr = scanner.nextLine();
-
                     int driverId = Integer.parseInt(scanner.nextLine());
-                    carController.addCar(brand, model , plateNr, driverId);
+                    carController.addCar(id,brand, model , plateNr, driverId);
                     break;
                 case 2:
                     System.out.println("List of Cars:");
@@ -111,10 +112,9 @@ public class Main {
                     break;
                 case 3:
 
-                    System.out.println("Car Id: ");
-                    int id = Integer.parseInt(scanner.nextLine());
-                    carController.deleteCar(id);
+                    carController.deleteCar(readCarId(scanner));
                     break;
+
                 case 4:
                     System.out.println("Exiting...");
                     return;
@@ -122,6 +122,11 @@ public class Main {
                     System.out.println("Invalid option");
             }
         }
+    }
+
+    private static int readCarId(Scanner scanner) {
+        System.out.print("Enter car ID: ");
+        return Integer.parseInt(scanner.nextLine());
     }
 
 

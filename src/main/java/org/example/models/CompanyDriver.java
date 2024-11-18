@@ -1,6 +1,6 @@
 package org.example.models;
 
-public class CompanyDriver {
+public class CompanyDriver implements HasId {
     private int driverId;
     private int companyId;
 
@@ -31,5 +31,10 @@ public class CompanyDriver {
                 "driverId=" + driverId +
                 ", companyId=" + companyId +
                 '}';
+    }
+
+    @Override
+    public Integer getId() {
+        return null;
     }
 }
