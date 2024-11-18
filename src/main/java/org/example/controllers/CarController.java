@@ -13,8 +13,8 @@ public class CarController {
         this.carService = carService;
     }
 
-    public void addCar(String brand,String model,String plateNr,int driverId){
-        Car car = new Car(0,brand,model,plateNr,driverId);
+    public void addCar(Integer id,String brand,String model,String plateNr,int driverId){
+        Car car = new Car(id,brand,model,plateNr,driverId);
         carService.addCar(car);
     }
 
@@ -30,7 +30,8 @@ public class CarController {
         carService.updateCar(car);
     }
 
-    public void deleteCar(int id){
-        carService.deleteCar(id);
+    public void deleteCar(Integer carId) {
+        carService.deleteCar(carId);
+
     }
 }

@@ -2,7 +2,7 @@ package org.example.models;
 
 import java.util.Date;
 
-public class DriverSchedule {
+public class DriverSchedule implements HasId {
     private int id;
     private int driverId;
     private int companyId;
@@ -17,7 +17,7 @@ public class DriverSchedule {
         this.checkOut = checkOut;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 

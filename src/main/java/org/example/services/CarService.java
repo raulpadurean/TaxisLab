@@ -25,7 +25,9 @@ public class CarService {
         carRepository.update(car);
     }
 
-    public void deleteCar(int id){
-        carRepository.delete(id);
+    public void deleteCar(Integer carId) {
+
+        carRepository.delete(carId);
     }
+
 }

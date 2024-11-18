@@ -1,6 +1,6 @@
 package org.example.models;
 
-public class BasicService {
+public class BasicService implements HasId {
 
     private int id;
     private String name;
@@ -12,11 +12,11 @@ public class BasicService {
         this.pricePerKm = pricePerKm;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

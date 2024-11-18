@@ -1,6 +1,6 @@
 package org.example.models;
 
-public class Review {
+public class Review implements HasId {
 
     private int companyId;
     private int driverId;
@@ -65,5 +65,10 @@ public class Review {
                 ", rating=" + rating +
                 ", description='" + description + '\'' +
                 '}';
+    }
+
+    @Override
+    public Integer getId() {
+        return null;
     }
 }
