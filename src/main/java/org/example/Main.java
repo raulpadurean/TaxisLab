@@ -143,6 +143,8 @@ public class Main {
                     3. Delete Company Driver
                     
                     5. Exit
+         
+
                     """);
             int choice = scanner.nextInt();
             scanner.nextLine(); // Consume newline
