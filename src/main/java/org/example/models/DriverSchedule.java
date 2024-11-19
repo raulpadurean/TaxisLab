@@ -3,13 +3,13 @@ package org.example.models;
 import java.util.Date;
 
 public class DriverSchedule implements HasId {
-    private int id;
+    private Integer id;
     private int driverId;
     private int companyId;
     private Date checkIn;
     private Date checkOut;
 
-    public DriverSchedule(int id, int driverId, int companyId, Date checkIn, Date checkOut) {
+    public DriverSchedule(Integer id, int driverId, int companyId, Date checkIn, Date checkOut) {
         this.id = id;
         this.driverId = driverId;
         this.companyId = companyId;
