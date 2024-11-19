@@ -13,7 +13,7 @@ public class OrderController {
         this.orderService = orderService;
     }
 
-    public void addOrder(int serviceId, double totalKm, int clientId, int driverId, int companyId, Date datetime) {
+    public void addOrder(Integer serviceId, double totalKm, int clientId, int driverId, int companyId, Date datetime) {
         Order order = new Order(serviceId, totalKm, clientId, driverId, companyId, datetime); // ID is set by repository
         orderService.addOrder(order);
     }
@@ -30,7 +30,8 @@ public class OrderController {
         orderService.updateOrder(order);
     }
 
-    public void deleteOrder(int id) {
-        orderService.deleteOrder(id);
+    public void deleteOrder(Integer orderId) {
+        orderService.deleteOrder(orderId);
+
     }
 }

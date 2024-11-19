@@ -383,7 +383,8 @@ public class Main {
                     Options:
                     1. Add Order
                     2. View Order
-                    3. Exit
+                    3. Delete Order
+                    5. Exit
                     """);
             int choice = scanner.nextInt();
             scanner.nextLine(); // Consume newline
@@ -393,7 +394,7 @@ public class Main {
                     System.out.println("Enter Order details (serviceId, totalKm, clientId, driverId, companyId, datetime):");
                     try {
                         System.out.print("Enter service ID: ");
-                        int serviceId = Integer.parseInt(scanner.nextLine());
+                        Integer serviceId = Integer.parseInt(scanner.nextLine());
 
                         System.out.print("Enter total Km: ");
                         int totalKm = Integer.parseInt(scanner.nextLine());
@@ -418,13 +419,17 @@ public class Main {
                         System.out.println("Invalid date format.");
                     }
 
-                    scanner.close();
+                   // scanner.close();
                     break;
                 case 2:
                     System.out.println("List of Companies:");
                     orderController.getAllOrders().forEach(System.out::println);
                     break;
                 case 3:
+
+                    orderController.deleteOrder(readId(scanner));
+                    break;
+                case 5:
                     System.out.println("Exiting...");
                     return;
                 default:
@@ -574,15 +579,19 @@ public class Main {
                 Options:
                 1. Add Review
                 2. View Reviews
-                3. Exit
+                3. Delete Review
+                5. Exit
                 """);
             int choice = scanner.nextInt();
             scanner.nextLine(); // Consume newline
 
             switch (choice) {
                 case 1:
-                    System.out.println("Enter Review details (clientId, driverId, companyId, rating, description):");
+                    System.out.println("Enter Review details (reviewId ,clientId, driverId, companyId, rating, description):");
                     try {
+                        System.out.print("Enter review ID: ");
+                        Integer id = Integer.parseInt(scanner.nextLine());
+
                         System.out.print("Enter client ID: ");
                         int clientId = Integer.parseInt(scanner.nextLine());
 
@@ -599,7 +608,7 @@ public class Main {
                         String description = scanner.nextLine();  // Keep description as a String
 
                         // Call the addReview method with the correct parameters
-                        reviewController.addReview(companyId, driverId, clientId, rating, description);
+                        reviewController.addReview(id,companyId, driverId, clientId, rating, description);
                     } catch (NumberFormatException e) {
                         System.out.println("Invalid integer input.");
                     }
@@ -611,6 +620,11 @@ public class Main {
                     break;
 
                 case 3:
+
+                   reviewController.deleteReview(readId(scanner));
+                    break;
+
+                case 5:
                     System.out.println("Exiting...");
                     scanner.close();  // Close scanner only when exiting the loop
                     return;

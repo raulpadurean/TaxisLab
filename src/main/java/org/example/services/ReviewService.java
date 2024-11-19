@@ -28,7 +28,8 @@ public class ReviewService {
         reviewRepository.update(review);
     }
 
-    public void deleteReview(int id) {
-        reviewRepository.delete(id);
+    public void deleteReview(Integer reviewId) {
+
+        reviewRepository.delete(reviewId);
     }
 }
