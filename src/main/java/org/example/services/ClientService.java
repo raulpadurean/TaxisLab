@@ -30,8 +30,9 @@ public class ClientService {
         clientRepository.update(client);
     }
 
-    public void deleteClient(int id) {
-        clientRepository.delete(id);
+    public void deleteClient(Integer clientId) {
+
+        clientRepository.delete(clientId);
     }
 
 }

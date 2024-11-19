@@ -2,11 +2,11 @@ package org.example.models;
 
 public class BasicService implements HasId {
 
-    private int id;
+    private Integer id;
     private String name;
     private double pricePerKm;
 
-    public BasicService(int id, String name, double pricePerKm) {
+    public BasicService(Integer id, String name, double pricePerKm) {
         this.id = id;
         this.name = name;
         this.pricePerKm = pricePerKm;

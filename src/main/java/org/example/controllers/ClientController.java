@@ -13,8 +13,8 @@ public class ClientController {
         this.clientService = clientService;
     }
 
-    public void addClient(String name, String email, String address, String phone) {
-        Client client = new Client(0, name, email, address, phone);
+    public void addClient(Integer id,String name, String email, String address, String phone) {
+        Client client = new Client(id, name, email, address, phone);
         clientService.addClient(client);
     }
 
@@ -30,7 +30,8 @@ public class ClientController {
         clientService.updateClient(client);
     }
 
-    public  void deleteClient(int id){
-        clientService.deleteClient(id);
+    public void deleteClient(Integer clientId) {
+        clientService.deleteClient(clientId);
+
     }
 }
