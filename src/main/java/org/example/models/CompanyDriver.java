@@ -1,10 +1,10 @@
 package org.example.models;
 
 public class CompanyDriver implements HasId {
-    private int driverId;
+    private Integer driverId;
     private int companyId;
 
-    public CompanyDriver(int driverId, int companyId) {
+    public CompanyDriver(Integer driverId, int companyId) {
         this.driverId = driverId;
         this.companyId = companyId;
     }
@@ -35,6 +35,6 @@ public class CompanyDriver implements HasId {
 
     @Override
     public Integer getId() {
-        return null;
+        return driverId;
     }
 }
