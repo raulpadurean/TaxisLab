@@ -28,8 +28,9 @@ public class DriverScheduleService {
         driverScheduleRepository.update(driverSchedule);
     }
 
-    public void deleteDriverSchedule(int id) {
-        driverScheduleRepository.delete(id);
+    public void deleteDriverSchedule(Integer driverScheduleId) {
+
+        driverScheduleRepository.delete(driverScheduleId);
     }
 
 }

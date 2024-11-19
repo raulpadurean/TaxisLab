@@ -27,8 +27,9 @@ public class DriverService {
         driverRepository.update(driver);
     }
 
-    public void deleteDriver(int id) {
-        driverRepository.delete(id);
+    public void deleteDriver(Integer driverId) {
+
+        driverRepository.delete(driverId);
     }
 
 }

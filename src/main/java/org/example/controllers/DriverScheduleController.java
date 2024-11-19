@@ -15,8 +15,8 @@ public class DriverScheduleController {
         this.driverScheduleService = driverScheduleService;
     }
 
-    public void addDriverSchedule(int driverId, int companyId, Date checkIn, Date checkOut) {
-        DriverSchedule driverSchedule = new DriverSchedule(0, driverId, companyId, checkIn, checkOut);
+    public void addDriverSchedule(Integer id,int driverId, int companyId, Date checkIn, Date checkOut) {
+        DriverSchedule driverSchedule = new DriverSchedule(id, driverId, companyId, checkIn, checkOut);
         driverScheduleService.addDriverSchedule(driverSchedule);
     }
 
@@ -32,7 +32,8 @@ public class DriverScheduleController {
         driverScheduleService.updateDriverSchedule(driverSchedule);
     }
 
-    public void deleteDriverSchedule(int id){
-        driverScheduleService.deleteDriverSchedule(id);
+    public void deleteDriverSchedule(Integer driverScheduleId) {
+        driverScheduleService.deleteDriverSchedule(driverScheduleId);
+
     }
 }
