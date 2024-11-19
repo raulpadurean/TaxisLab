@@ -3,7 +3,9 @@ package org.example.services;
 import org.example.models.Company;
 import org.example.repositories.IRepository;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class CompanyService {
     private final IRepository<Company> companyRepository;
@@ -31,5 +33,10 @@ public class CompanyService {
     public void deleteCompany(Integer companyId) {
 
         companyRepository.delete(companyId);
+    }
+    public List<Company> sortCompaniesByName() {
+        return companyRepository.getAll().stream()
+                .sorted(Comparator.comparing(Company::getName))
+                .collect(Collectors.toList());
     }
 }
