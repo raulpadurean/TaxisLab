@@ -2,17 +2,19 @@ package org.example.models;
 
 import java.util.Date;
 
-public class DriverSchedule implements HasId {
-    private Integer id;
-    private int driverId;
-    private int companyId;
+
+public class DriverSchedule {
+    private int id;
+    private Driver driver;
+    private Company company;
     private Date checkIn;
     private Date checkOut;
 
-    public DriverSchedule(Integer id, int driverId, int companyId, Date checkIn, Date checkOut) {
+    public DriverSchedule(int id, Driver driver, Company company, Date checkIn, Date checkOut) {
+
         this.id = id;
-        this.driverId = driverId;
-        this.companyId = companyId;
+        this.driver = driver;
+        this.company = company;
         this.checkIn = checkIn;
         this.checkOut = checkOut;
     }
@@ -25,20 +27,20 @@ public class DriverSchedule implements HasId {
         this.id = id;
     }
 
-    public int getDriverId() {
-        return driverId;
+    public Driver getDriver() {
+        return driver;
     }
 
-    public void setDriverId(int driverId) {
-        this.driverId = driverId;
+    public void setDriver(Driver driver) {
+        this.driver = driver;
     }
 
-    public int getCompanyId() {
-        return companyId;
+    public Company getCompany() {
+        return company;
     }
 
-    public void setCompanyId(int companyId) {
-        this.companyId = companyId;
+    public void setCompany(Company company) {
+        this.company = company;
     }
 
     public Date getCheckIn() {
@@ -61,8 +63,8 @@ public class DriverSchedule implements HasId {
     public String toString() {
         return "DriverSchedule{" +
                 "id=" + id +
-                ", driverId=" + driverId +
-                ", companyId=" + companyId +
+                ", driverId=" + driver +
+                ", companyId=" + company +
                 ", checkIn=" + checkIn +
                 ", checkOut=" + checkOut +
                 '}';

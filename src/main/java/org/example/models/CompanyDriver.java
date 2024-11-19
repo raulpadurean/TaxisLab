@@ -1,35 +1,39 @@
 package org.example.models;
 
-public class CompanyDriver implements HasId {
-    private Integer driverId;
-    private int companyId;
 
-    public CompanyDriver(Integer driverId, int companyId) {
-        this.driverId = driverId;
-        this.companyId = companyId;
+import java.security.cert.CertPath;
+
+public class CompanyDriver {
+    private Driver driver;
+    private Company company;
+
+    public CompanyDriver(Driver driver, Company company) {
+        this.driver = driver;
+        this.company = company;
+
     }
 
-    public int getDriverId() {
-        return driverId;
+    public Driver getDriver() {
+        return driver;
     }
 
-    public void setDriverId(int driverId) {
-        this.driverId = driverId;
+    public void setDriver(Driver driver) {
+        this.driver = driver;
     }
 
-    public int getCompanyId() {
-        return companyId;
+    public Company getCompany() {
+        return company;
     }
 
-    public void setCompanyId(int companyId) {
-        this.companyId = companyId;
+    public void setCompany(Company company) {
+        this.company = company;
     }
 
     @Override
     public String toString() {
         return "CompanyDriver{" +
-                "driverId=" + driverId +
-                ", companyId=" + companyId +
+                "driver=" + driver +
+                ", company=" + company +
                 '}';
     }
 
