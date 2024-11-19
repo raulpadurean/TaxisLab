@@ -2,6 +2,7 @@ package org.example;
 
 import org.example.controllers.*;
 import org.example.mappers.CompanyMapper;
+import org.example.mappers.OrderMapper;
 import org.example.models.*;
 import org.example.repositories.IRepository;
 import org.example.repositories.FileRepository;
@@ -389,7 +390,7 @@ public class Main {
         }
     }
     public static void orderMenu() {
-        IRepository<Order> orderRepo = new FileRepository<>();
+        IRepository<Order> orderRepo = new FileRepository<>("data/orders.csv", new OrderMapper());
         OrderService orderService = new OrderService(orderRepo);
         OrderController orderController = new OrderController(orderService);
         Scanner scanner = new Scanner(System.in);
@@ -517,6 +518,7 @@ public class Main {
         System.out.print("Enter Basic Service ID: ");
         return Integer.parseInt(scanner.nextLine());
     }
+
     public static void customSerivceMenu() {
         IRepository<CustomService> customServiceRepo = new FileRepository<>();
         CustomServiceService customServiceService = new CustomServiceService(customServiceRepo);
