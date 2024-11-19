@@ -90,7 +90,8 @@ public class Main {
                     1. Add Car
                     2. View Car
                     3. Delete Car
-                    4. Exit
+                    4. Update
+                    5. Exit
                     """);
             int choice = scanner.nextInt();
             scanner.nextLine(); // Consume newline
@@ -115,7 +116,19 @@ public class Main {
                     carController.deleteCar(readCarId(scanner));
                     break;
 
+
                 case 4:
+                    System.out.println("Enter Car details (id ,brand, model, number plate, driver id):");
+
+                    id = Integer.parseInt(scanner.nextLine());
+                    brand = scanner.nextLine();
+                    model = scanner.nextLine();
+                    plateNr = scanner.nextLine();
+                    driverId = Integer.parseInt(scanner.nextLine());
+                    carController.updateCar(id,brand, model , plateNr, driverId);
+                    break;
+
+                case 5:
                     System.out.println("Exiting...");
                     return;
                 default:
