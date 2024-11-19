@@ -1,4 +1,9 @@
 package org.example;
+/**
+ * The main package for the Taxi Service Management application.
+ * Contains the core functionality, including controllers, services, models,
+ * and repositories required for the application.
+ */
 
 import org.example.controllers.*;
 import org.example.models.*;
@@ -14,7 +19,20 @@ import java.util.*;
 
 // Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
 // then press Enter. You can now see whitespace characters in your code.
+
+/**
+ * The main entry point for the Taxi Service Management application.
+ * Provides a command-line interface for managing cars, clients, drivers,
+ * and other entities in the taxi service.
+ */
 public class Main {
+
+    /**
+     * Main method to start the Taxi Service Management application.
+     *
+     * @param args command-line arguments
+     * @throws ParseException if input parsing fails
+     */
     public static void main(String[] args) throws ParseException {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Welcome to Taxi Service Management");
@@ -77,7 +95,9 @@ public class Main {
         }
 
     }
-
+    /**
+     * Displays the car management menu and handles car-related operations.
+     */
     public static void carMenu() {
         IRepository<Car> carRepo = new InMemoryRepository<>();
         CarService carService = new CarService(carRepo);
@@ -136,13 +156,21 @@ public class Main {
             }
         }
     }
-
+    /**
+     * Utility method to read a car ID from the user.
+     *
+     * @param scanner the {@code Scanner} instance to read input
+     * @return the car ID as an integer
+     */
     private static int readCarId(Scanner scanner) {
         System.out.print("Enter car ID: ");
         return Integer.parseInt(scanner.nextLine());
     }
 
-
+    /**
+     * Displays the menu for managing company drivers.
+     * Allows adding, viewing, updating, and deleting company drivers.
+     */
     public static void companyDriversMenu() {
         IRepository<CompanyDriver> companyDriverRepo = new InMemoryRepository<>();
         CompanyDriverService companyDriverService = new CompanyDriverService(companyDriverRepo);
@@ -196,6 +224,9 @@ public class Main {
             }
         }
     }
+    /**
+     * Displays the client management menu and handles client-related operations.
+     */
 
     public static void clientMenu() {
         IRepository<Client> clientRepo = new InMemoryRepository<>();
@@ -250,11 +281,20 @@ public class Main {
             }
         }
     }
+
+    /**
+     * Utility method to read a generic ID from the user.
+     *
+     * @param scanner the {@code Scanner} instance to read input
+     * @return the ID as an integer
+     */
     private static int readId(Scanner scanner) {
         System.out.print("Enter the ID of the object you want to delete: ");
         return Integer.parseInt(scanner.nextLine());
     }
-
+    /**
+     * Displays the driver management menu and handles driver-related operations.
+     */
     public static void driverMenu() {
         IRepository<Driver> driverRepo = new InMemoryRepository<>();
         DriverService driverService = new DriverService(driverRepo);
@@ -309,7 +349,9 @@ public class Main {
             }
         }
     }
-
+    /**
+     * Displays the driver schedule management menu and handles driver schedule related operations.
+     */
     public static void driverScheduleMenu() throws ParseException {
         IRepository<DriverSchedule> driverScheduleRepo = new InMemoryRepository<>();
         DriverScheduleService driverScheduleService = new DriverScheduleService(driverScheduleRepo);
@@ -388,7 +430,9 @@ public class Main {
         }
     }
 
-
+    /**
+     * Displays the company management menu and handles company-related operations.
+     */
     public static void companyMenu() {
         IRepository<Company> companyRepo = new InMemoryRepository<>();
         CompanyService companyService = new CompanyService(companyRepo);
@@ -444,6 +488,10 @@ public class Main {
             }
         }
     }
+
+    /**
+     * Displays the order management menu and handles order-related operations.
+     */
     public static void orderMenu() {
         IRepository<Order> orderRepo = new InMemoryRepository<>();
         OrderService orderService = new OrderService(orderRepo);
@@ -542,6 +590,9 @@ public class Main {
             }
         }
     }
+    /**
+     * Displays the basic service management menu and handles basic service-related operations.
+     */
     public static void basicSerivceMenu() {
         IRepository<BasicService> basicServiceRepo = new InMemoryRepository<>();
         BasicServiceService basicServiceService = new BasicServiceService(basicServiceRepo);
@@ -625,10 +676,21 @@ public class Main {
 
     }
 
+    /**
+     * Utility method to read a basic service ID from the user.
+     *
+     * @param scanner the {@code Scanner} instance to read input
+     * @return the ID as an integer
+     */
+
     private static int readBasicServiceId(Scanner scanner) {
         System.out.print("Enter Basic Service ID: ");
         return Integer.parseInt(scanner.nextLine());
     }
+
+    /**
+     * Displays the custom service management menu and handles custom service-related operations.
+     */
     public static void customSerivceMenu() {
         IRepository<CustomService> customServiceRepo = new InMemoryRepository<>();
         CustomServiceService customServiceService = new CustomServiceService(customServiceRepo);
@@ -718,6 +780,10 @@ public class Main {
 
 
     }
+    /**
+     * Displays the menu for managing reviews.
+     * Allows adding, viewing, updating, and deleting reviews.
+     */
 
     public static void reviewMenu() {
         IRepository<Review> reviewRepo = new InMemoryRepository<>();
