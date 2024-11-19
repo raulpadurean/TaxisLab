@@ -141,7 +141,10 @@ public class Main {
                     1. Add Company Driver
                     2. View Company Driver
                     3. Delete Company Driver
-                    4. Exit
+                    
+                    5. Exit
+         
+
                     """);
             int choice = scanner.nextInt();
             scanner.nextLine(); // Consume newline
@@ -150,8 +153,9 @@ public class Main {
                 case 1:
                     System.out.println("Enter Company Driver details (driver id, company id):");
 
-                    int driverId = Integer.parseInt(scanner.nextLine());
+                    Integer driverId = Integer.parseInt(scanner.nextLine());
                     int companyId = Integer.parseInt(scanner.nextLine());
+
                     companyDriverController.addCompanyDriver(driverId,companyId);
                     break;
                 case 2:
@@ -160,11 +164,9 @@ public class Main {
                     break;
                 case 3:
 
-                    System.out.println("Driver Id: ");
-                    driverId = Integer.parseInt(scanner.nextLine());
-                    companyDriverController.deleteCompanyDriver(driverId);
+                    companyDriverController.deleteCompanyDriver(readId(scanner));
                     break;
-                case 4:
+                case 5:
                     System.out.println("Exiting...");
                     return;
                 default:
@@ -457,10 +459,8 @@ public class Main {
                     break;
 
                 case 3:
-
                     basicServiceController.deleteBasicService(readBasicServiceId(scanner));
                     break;
-
 
                 case 5:
                     System.out.println("Exiting...");
@@ -489,8 +489,10 @@ public class Main {
             System.out.println("""
                     Options:
                     1. Add Custom Service
-                    2. View Custom Serivce
-                    3. Exit
+                    2. View Custom Service
+                    3. Delete Custom Service
+                    
+                    4. Exit
                     """);
             int choice = scanner.nextInt();
             scanner.nextLine(); // Consume newline
@@ -526,6 +528,11 @@ public class Main {
                     break;
 
                 case 3:
+
+                    customServiceController.deleteCustomService(readId(scanner));
+                    break;
+
+                case 4:
                     System.out.println("Exiting...");
                     scanner.close();
                     return;
