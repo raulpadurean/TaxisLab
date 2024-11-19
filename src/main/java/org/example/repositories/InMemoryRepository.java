@@ -25,6 +25,7 @@ public class InMemoryRepository<T extends HasId> implements IRepository<T> {
         return dataStore.get(id);
     }
 
+
     @Override
     public void update(T obj) {
         dataStore.replace(obj.getId(), obj);

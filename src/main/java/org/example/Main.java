@@ -125,6 +125,7 @@ public class Main {
                     model = scanner.nextLine();
                     plateNr = scanner.nextLine();
                     driverId = Integer.parseInt(scanner.nextLine());
+
                     carController.updateCar(id,brand, model , plateNr, driverId);
                     break;
 

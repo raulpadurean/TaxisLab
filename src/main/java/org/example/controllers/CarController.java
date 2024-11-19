@@ -30,6 +30,7 @@ public class CarController {
         carService.updateCar(car);
     }
 
+
     public void updateCar(Integer id,String brand,String model,String plateNr,int driverId){
         Car car = new Car(id,brand,model,plateNr,driverId);
         carService.updateCar(car);
