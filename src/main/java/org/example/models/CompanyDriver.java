@@ -1,35 +1,37 @@
 package org.example.models;
 
+import java.security.cert.CertPath;
+
 public class CompanyDriver {
-    private int driverId;
-    private int companyId;
+    private Driver driver;
+    private Company company;
 
-    public CompanyDriver(int driverId, int companyId) {
-        this.driverId = driverId;
-        this.companyId = companyId;
+    public CompanyDriver(Driver driver, Company company) {
+        this.driver = driver;
+        this.company = company;
     }
 
-    public int getDriverId() {
-        return driverId;
+    public Driver getDriver() {
+        return driver;
     }
 
-    public void setDriverId(int driverId) {
-        this.driverId = driverId;
+    public void setDriver(Driver driver) {
+        this.driver = driver;
     }
 
-    public int getCompanyId() {
-        return companyId;
+    public Company getCompany() {
+        return company;
     }
 
-    public void setCompanyId(int companyId) {
-        this.companyId = companyId;
+    public void setCompany(Company company) {
+        this.company = company;
     }
 
     @Override
     public String toString() {
         return "CompanyDriver{" +
-                "driverId=" + driverId +
-                ", companyId=" + companyId +
+                "driver=" + driver +
+                ", company=" + company +
                 '}';
     }
 }

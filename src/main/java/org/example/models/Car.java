@@ -5,14 +5,14 @@ public class Car {
     private String brand;
     private String model;
     private String plateNr;
-    private int driverId;
+    private Driver driver;
 
-    public Car(int id, String brand, String model, String plateNr, int driverId) {
+    public Car(int id, String brand, String model, String plateNr, Driver driver) {
         this.id = id;
         this.brand = brand;
         this.model = model;
         this.plateNr = plateNr;
-        this.driverId = driverId;
+        this.driver = driver;
     }
 
     public int getId() {
@@ -47,12 +47,12 @@ public class Car {
         this.plateNr = plateNr;
     }
 
-    public int getDriverId() {
-        return driverId;
+    public Driver getDriver() {
+        return driver;
     }
 
-    public void setDriverId(int driverId) {
-        this.driverId = driverId;
+    public void setDriver(Driver driver) {
+        this.driver = driver;
     }
 
     @Override
@@ -62,7 +62,7 @@ public class Car {
                 ", brand='" + brand + '\'' +
                 ", model='" + model + '\'' +
                 ", plateNr='" + plateNr + '\'' +
-                ", driverId=" + driverId +
+                ", driverId=" + driver +
                 '}';
     }
 }

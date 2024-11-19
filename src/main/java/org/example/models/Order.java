@@ -6,17 +6,17 @@ public class Order {
 
     private int serviceId;
     private double totalKm;
-    private int clientId;
-    private int driverId;
-    private int companyId;
+    private Client client;
+    private Driver driver;
+    private Company company;
     private Date datetime;
 
-    public Order(int serviceId, double totalKm, int clientId, int driverId, int companyId, Date datetime) {
+    public Order(int serviceId, double totalKm, Client client, Driver driver, Company company, Date datetime) {
         this.serviceId = serviceId;
         this.totalKm = totalKm;
-        this.clientId = clientId;
-        this.driverId = driverId;
-        this.companyId = companyId;
+        this.client = client;
+        this.driver = driver;
+        this.company = company;
         this.datetime = datetime;
     }
 
@@ -36,28 +36,28 @@ public class Order {
         this.totalKm = totalKm;
     }
 
-    public int getClientId() {
-        return clientId;
+    public Client getClient() {
+        return client;
     }
 
-    public void setClientId(int clientId) {
-        this.clientId = clientId;
+    public void setClient(Client client) {
+        this.client = client;
     }
 
-    public int getDriverId() {
-        return driverId;
+    public Driver getDriver() {
+        return driver;
     }
 
-    public void setDriverId(int driverId) {
-        this.driverId = driverId;
+    public void setDriver(Driver driver) {
+        this.driver = driver;
     }
 
-    public int getCompanyId() {
-        return companyId;
+    public Company getCompany() {
+        return company;
     }
 
-    public void setCompanyId(int companyId) {
-        this.companyId = companyId;
+    public void setCompany(Company company) {
+        this.company = company;
     }
 
     public Date getDatetime() {
@@ -73,9 +73,9 @@ public class Order {
         return "Order{" +
                 "serviceId=" + serviceId +
                 ", totalKm=" + totalKm +
-                ", clientId=" + clientId +
-                ", driverId=" + driverId +
-                ", companyId=" + companyId +
+                ", client=" + client +
+                ", driver=" + driver +
+                ", company=" + company +
                 ", datetime=" + datetime +
                 '}';
     }
