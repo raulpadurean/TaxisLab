@@ -183,31 +183,44 @@ public class Main {
                     Options:
                     1. Add Client
                     2. View Client
-                    3. Exit
+                    3. Delete Client
+                    
+                    5. Exit
                     """);
             int choice = scanner.nextInt();
             scanner.nextLine(); // Consume newline
 
             switch (choice) {
                 case 1:
-                    System.out.println("Enter client details (name, email, address, phone):");
+                    System.out.println("Enter client details (id, name, email, address, phone):");
+                    int id = Integer.parseInt(scanner.nextLine());
                     String name = scanner.nextLine();
                     String email = scanner.nextLine();
                     String address = scanner.nextLine();
                     String phone = scanner.nextLine();
-                    clientController.addClient(name, email, address, phone);
+                    clientController.addClient(id,name, email, address, phone);
                     break;
                 case 2:
                     System.out.println("List of Clients:");
                     clientController.getAllClients().forEach(System.out::println);
                     break;
                 case 3:
+
+                    clientController.deleteClient(readId(scanner));
+                    break;
+
+
+                case 5:
                     System.out.println("Exiting...");
                     return;
                 default:
                     System.out.println("Invalid option");
             }
         }
+    }
+    private static int readId(Scanner scanner) {
+        System.out.print("Enter the ID of the object you want to delete: ");
+        return Integer.parseInt(scanner.nextLine());
     }
 
     public static void driverMenu() {
@@ -307,25 +320,33 @@ public class Main {
                     Options:
                     1. Add Company
                     2. View Companies
-                    3. Exit
+                    3. Delete Companies
+                    5. Exit
                     """);
             int choice = scanner.nextInt();
             scanner.nextLine(); // Consume newline
 
             switch (choice) {
                 case 1:
-                    System.out.println("Enter company details (name, email, address, phone):");
+                    System.out.println("Enter company details (id, name, email, address, phone):");
+                    Integer id = Integer.parseInt(scanner.nextLine());
                     String name = scanner.nextLine();
                     String email = scanner.nextLine();
                     String address = scanner.nextLine();
                     String phone = scanner.nextLine();
-                    companyController.addCompany(name, email, address, phone);
+                    companyController.addCompany(id,name, email, address, phone);
                     break;
                 case 2:
                     System.out.println("List of Companies:");
                     companyController.getAllCompanies().forEach(System.out::println);
                     break;
+
                 case 3:
+
+                    companyController.deleteCompany(readId(scanner));
+                    break;
+
+                case 5:
                     System.out.println("Exiting...");
                     return;
                 default:
@@ -402,7 +423,8 @@ public class Main {
                     Options:
                     1. Add Basic Service
                     2. View Basic Serivce
-                    3. Exit
+                    3. Delete Basic Service
+                    5. Exit
                     """);
             int choice = scanner.nextInt();
             scanner.nextLine(); // Consume newline
@@ -435,6 +457,12 @@ public class Main {
                     break;
 
                 case 3:
+
+                    basicServiceController.deleteBasicService(readBasicServiceId(scanner));
+                    break;
+
+
+                case 5:
                     System.out.println("Exiting...");
                     scanner.close();
                     return;
@@ -446,6 +474,11 @@ public class Main {
         }
 
 
+    }
+
+    private static int readBasicServiceId(Scanner scanner) {
+        System.out.print("Enter Basic Service ID: ");
+        return Integer.parseInt(scanner.nextLine());
     }
     public static void customSerivceMenu() {
         IRepository<CustomService> customServiceRepo = new InMemoryRepository<>();

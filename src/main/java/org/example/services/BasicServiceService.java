@@ -28,7 +28,8 @@ public class BasicServiceService {
         serviceRepository.update(service);
     }
 
-    public void deleteBasicService(int id) {
-        serviceRepository.delete(id);
+    public void deleteBasicService(Integer basicServiceId) {
+
+        serviceRepository.delete(basicServiceId);
     }
 }

@@ -12,8 +12,8 @@ public class CompanyController {
         this.companyService = companyService;
     }
 
-    public void addCompany(String name, String email, String address, String phone) {
-        Company company = new Company(0, name, email, address, phone); // ID is set by repository
+    public void addCompany(Integer id,String name, String email, String address, String phone) {
+        Company company = new Company(id, name, email, address, phone); // ID is set by repository
         companyService.addCompany(company);
     }
 
@@ -29,7 +29,8 @@ public class CompanyController {
         companyService.updateCompany(company);
     }
 
-    public void deleteCompany(int id) {
-        companyService.deleteCompany(id);
+    public void deleteCompany(Integer companyId) {
+        companyService.deleteCompany(companyId);
+
     }
 }
