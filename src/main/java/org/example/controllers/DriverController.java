@@ -13,8 +13,8 @@ public class DriverController {
         this.driverService = driverService;
     }
 
-    public void addDriver(String name, String email, String address, String phone) {
-        Driver driver = new Driver(0, name, email, address, phone);
+    public void addDriver(Integer id,String name, String email, String address, String phone) {
+        Driver driver = new Driver(id, name, email, address, phone);
         driverService.addDriver(driver);
     }
 
@@ -30,7 +30,8 @@ public class DriverController {
         driverService.updateDriver(driver);
     }
 
-    public  void deleteDriver(int id){
-        driverService.deleteDriver(id);
+    public void deleteDriver(Integer driverId) {
+        driverService.deleteDriver(driverId);
+
     }
 }

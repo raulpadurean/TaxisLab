@@ -6,29 +6,30 @@ import org.example.repositories.IRepository;
 import java.util.List;
 
 public class CustomServiceService {
-    private final IRepository<CustomService> serviceRepository;
+    private final IRepository<CustomService> customServiceRepository;
 
     public CustomServiceService(IRepository<CustomService> serviceRepository) {
-        this.serviceRepository = serviceRepository;
+        this.customServiceRepository = serviceRepository;
     }
 
     public void addCustomService(CustomService service) {
-        serviceRepository.create(service);
+        customServiceRepository.create(service);
     }
 
     public CustomService getCustomService(int id) {
-        return serviceRepository.read(id);
+        return customServiceRepository.read(id);
     }
 
     public List<CustomService> getAllCustomServices() {
-        return serviceRepository.getAll();
+        return customServiceRepository.getAll();
     }
 
     public void updateCustomService(CustomService service) {
-        serviceRepository.update(service);
+        customServiceRepository.update(service);
     }
 
-    public void deleteCustomService(int id) {
-        serviceRepository.delete(id);
+    public void deleteCustomService(Integer customServiceId) {
+
+        customServiceRepository.delete(customServiceId);
     }
 }

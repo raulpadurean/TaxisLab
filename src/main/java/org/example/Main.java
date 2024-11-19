@@ -141,7 +141,10 @@ public class Main {
                     1. Add Company Driver
                     2. View Company Driver
                     3. Delete Company Driver
-                    4. Exit
+                    
+                    5. Exit
+         
+
                     """);
             int choice = scanner.nextInt();
             scanner.nextLine(); // Consume newline
@@ -150,8 +153,9 @@ public class Main {
                 case 1:
                     System.out.println("Enter Company Driver details (driver id, company id):");
 
-                    int driverId = Integer.parseInt(scanner.nextLine());
+                    Integer driverId = Integer.parseInt(scanner.nextLine());
                     int companyId = Integer.parseInt(scanner.nextLine());
+
                     companyDriverController.addCompanyDriver(driverId,companyId);
                     break;
                 case 2:
@@ -160,11 +164,9 @@ public class Main {
                     break;
                 case 3:
 
-                    System.out.println("Driver Id: ");
-                    driverId = Integer.parseInt(scanner.nextLine());
-                    companyDriverController.deleteCompanyDriver(driverId);
+                    companyDriverController.deleteCompanyDriver(readId(scanner));
                     break;
-                case 4:
+                case 5:
                     System.out.println("Exiting...");
                     return;
                 default:
@@ -233,25 +235,33 @@ public class Main {
                     Options:
                     1. Add Driver
                     2. View Driver
-                    3. Exit
+                    3. Delete Driver
+                    
+                    5. Exit
                     """);
             int choice = scanner.nextInt();
             scanner.nextLine(); // Consume newline
 
             switch (choice) {
                 case 1:
-                    System.out.println("Enter driver details (name, email, address, phone):");
+                    System.out.println("Enter driver details (id, name, email, address, phone):");
+                    int id = Integer.parseInt(scanner.nextLine());
                     String name = scanner.nextLine();
                     String email = scanner.nextLine();
                     String address = scanner.nextLine();
                     String phone = scanner.nextLine();
-                    driverController.addDriver(name, email, address, phone);
+                    driverController.addDriver(id,name, email, address, phone);
                     break;
                 case 2:
                     System.out.println("List of Drivers:");
                     driverController.getAllDrivers().forEach(System.out::println);
                     break;
                 case 3:
+
+                    driverController.deleteDriver(readId(scanner));
+                    break;
+
+                case 5:
                     System.out.println("Exiting...");
                     return;
                 default:
@@ -270,14 +280,16 @@ public class Main {
                     Options:
                     1. Add DriverSchedule
                     2. View DriverSchedule
-                    3. Exit
+                    3. Delete DriverSchedule
+                    5. Exit
                     """);
             int choice = scanner.nextInt();
             scanner.nextLine(); // Consume newline
 
             switch (choice) {
                 case 1:
-                    System.out.println("Enter driver schedule (driverId, companyId, checkIn, checkout):");
+                    System.out.println("Enter driver schedule (id,driverId, companyId, checkIn, checkout):");
+                    int id = Integer.parseInt(scanner.nextLine());
                     int driverId = Integer.parseInt(scanner.nextLine());
                     int companyId = Integer.parseInt(scanner.nextLine());
 
@@ -291,7 +303,7 @@ public class Main {
                     DateFormat formatter2 = new SimpleDateFormat("yyyy-MM-dd");
                     Date checkOut = formatter2.parse(oDate);
 
-                    driverScheduleController.addDriverSchedule(driverId, companyId, checkIn, checkOut);
+                    driverScheduleController.addDriverSchedule(id,driverId, companyId, checkIn, checkOut);
 
                     break;
 
@@ -300,10 +312,17 @@ public class Main {
                     System.out.println("List of DriverSchedules:");
                     driverScheduleController.getAllDriverSchedules().forEach(System.out::println);
                     break;
-                case 3:
+
+                    case 3:
+                        driverScheduleController.deleteDriverSchedule(readId(scanner));
+                    break;
+
+
+                    case 5:
                     System.out.println("Exiting...");
                     return;
-                default:
+
+                    default:
                     System.out.println("Invalid option");
             }
         }
@@ -457,10 +476,8 @@ public class Main {
                     break;
 
                 case 3:
-
                     basicServiceController.deleteBasicService(readBasicServiceId(scanner));
                     break;
-
 
                 case 5:
                     System.out.println("Exiting...");
@@ -489,8 +506,10 @@ public class Main {
             System.out.println("""
                     Options:
                     1. Add Custom Service
-                    2. View Custom Serivce
-                    3. Exit
+                    2. View Custom Service
+                    3. Delete Custom Service
+                    
+                    4. Exit
                     """);
             int choice = scanner.nextInt();
             scanner.nextLine(); // Consume newline
@@ -526,6 +545,11 @@ public class Main {
                     break;
 
                 case 3:
+
+                    customServiceController.deleteCustomService(readId(scanner));
+                    break;
+
+                case 4:
                     System.out.println("Exiting...");
                     scanner.close();
                     return;

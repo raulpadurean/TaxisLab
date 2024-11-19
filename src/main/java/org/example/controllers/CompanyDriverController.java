@@ -16,7 +16,7 @@ public class CompanyDriverController {
     }
 
 
-    public void addCompanyDriver(int driverId, int companyId) {
+    public void addCompanyDriver(Integer driverId, int companyId) {
         CompanyDriver companyDriver = new CompanyDriver(driverId,companyId);
         companyDriverService.addCompanyDriver(companyDriver);
     }
@@ -33,8 +33,9 @@ public class CompanyDriverController {
         companyDriverService.updateCompanyDriver(companyDriver);
     }
 
-    public  void deleteCompanyDriver(int id){
-        companyDriverService.deleteCompanyDriver(id);
+    public void deleteCompanyDriver(Integer companyDriverId) {
+        companyDriverService.deleteCompanyDriver(companyDriverId);
+
     }
 
 }

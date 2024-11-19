@@ -4,11 +4,10 @@ public class CustomService extends Service {
 
     private final String extras;
 
-    public CustomService(int id, String name, double pricePerKm, String extras) {
-        super(id, name, pricePerKm);
-        if (extras == null || extras.trim().isEmpty()) {
-            throw new IllegalArgumentException("Extras cannot be null or empty.");
-        }
+
+
+    public CustomService(Integer id, String name, double pricePerKm, String extras) {
+        super(id, name, pricePerKm); // Call the constructor of BasicService
         this.extras = extras;
     }
 

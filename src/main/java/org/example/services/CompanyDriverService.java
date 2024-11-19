@@ -28,7 +28,8 @@ public class CompanyDriverService {
         companyDriverRepository.update(companyDriver);
     }
 
-    public void deleteCompanyDriver(int id) {
-        companyDriverRepository.delete(id);
+    public void deleteCompanyDriver(Integer companyDriverId) {
+
+        companyDriverRepository.delete(companyDriverId);
     }
 }
