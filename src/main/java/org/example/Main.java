@@ -457,10 +457,8 @@ public class Main {
                     break;
 
                 case 3:
-
                     basicServiceController.deleteBasicService(readBasicServiceId(scanner));
                     break;
-
 
                 case 5:
                     System.out.println("Exiting...");
@@ -489,8 +487,10 @@ public class Main {
             System.out.println("""
                     Options:
                     1. Add Custom Service
-                    2. View Custom Serivce
-                    3. Exit
+                    2. View Custom Service
+                    3. Delete Custom Service
+                    
+                    4. Exit
                     """);
             int choice = scanner.nextInt();
             scanner.nextLine(); // Consume newline
@@ -526,6 +526,11 @@ public class Main {
                     break;
 
                 case 3:
+
+                    customServiceController.deleteCustomService(readId(scanner));
+                    break;
+
+                case 4:
                     System.out.println("Exiting...");
                     scanner.close();
                     return;

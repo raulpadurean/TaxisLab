@@ -12,7 +12,7 @@ public class CustomServiceController {
         this.customServiceService = customServiceService;
     }
 
-    public void addCustomService(int id, String name, double pricePerKm, String extras) {
+    public void addCustomService(Integer id, String name, double pricePerKm, String extras) {
         CustomService customService = new CustomService(id, name, pricePerKm, extras); // ID is set by repository
         customServiceService.addCustomService(customService);
     }
@@ -29,7 +29,8 @@ public class CustomServiceController {
         customServiceService.updateCustomService(customService);
     }
 
-    public void deleteCustomService(int id) {
-        customServiceService.deleteCustomService(id);
+    public void deleteCustomService(Integer customServiceId) {
+        customServiceService.deleteCustomService(customServiceId);
+
     }
 }

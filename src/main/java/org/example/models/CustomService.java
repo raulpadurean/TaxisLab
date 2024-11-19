@@ -4,7 +4,7 @@ public class CustomService extends BasicService {
 
     private String extras;
 
-    public CustomService(int id, String name, double pricePerKm, String extras) {
+    public CustomService(Integer id, String name, double pricePerKm, String extras) {
         super(id, name, pricePerKm); // Call the constructor of BasicService
         this.extras = extras;
     }
