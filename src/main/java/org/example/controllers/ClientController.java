@@ -26,7 +26,8 @@ public class ClientController {
         return clientService.getAllClients();
     }
 
-    public void updateClient(Client client){
+    public void updateClient(Integer id,String name, String email, String address, String phone) {
+        Client client = new Client(id, name, email, address, phone);
         clientService.updateClient(client);
     }
 

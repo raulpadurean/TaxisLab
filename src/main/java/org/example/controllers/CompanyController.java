@@ -25,7 +25,8 @@ public class CompanyController {
         return companyService.getAllCompanies();
     }
 
-    public void updateCompany(Company company) {
+    public void updateCompany(Integer id,String name, String email, String address, String phone) {
+        Company company = new Company(id, name, email, address, phone); // ID is set by repository
         companyService.updateCompany(company);
     }
 

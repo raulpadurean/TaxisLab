@@ -25,7 +25,8 @@ public class CustomServiceController {
         return customServiceService.getAllCustomServices();
     }
 
-    public void updateCustomService(CustomService customService) {
+    public void updateCustomService(Integer id, String name, double pricePerKm, String extras) {
+        CustomService customService = new CustomService(id, name, pricePerKm, extras); // ID is set by repository
         customServiceService.updateCustomService(customService);
     }
 

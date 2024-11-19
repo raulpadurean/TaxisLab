@@ -29,10 +29,10 @@ public class CompanyDriverController {
         return companyDriverService.getAllCompanyDrivers();
     }
 
-    public void updateCompanyDriver(CompanyDriver companyDriver){
+    public void updateCompanyDriver(Integer driverId, int companyId) {
+        CompanyDriver companyDriver = new CompanyDriver(driverId,companyId);
         companyDriverService.updateCompanyDriver(companyDriver);
     }
-
     public void deleteCompanyDriver(Integer companyDriverId) {
         companyDriverService.deleteCompanyDriver(companyDriverId);
 

@@ -28,7 +28,8 @@ public class DriverScheduleController {
         return driverScheduleService.getAllDriverSchedules();
     }
 
-    public void updateDriverSchedule(DriverSchedule driverSchedule){
+    public void updateDriverSchedule(Integer id,int driverId, int companyId, Date checkIn, Date checkOut) {
+        DriverSchedule driverSchedule = new DriverSchedule(id, driverId, companyId, checkIn, checkOut);
         driverScheduleService.updateDriverSchedule(driverSchedule);
     }
 

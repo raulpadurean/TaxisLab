@@ -30,7 +30,8 @@ public class ReviewController {
         return reviewService.getAllReviews();
     }
 
-    public void updateReview(Review review) {
+    public void updateReview(Integer id,int companyId, int driverId, int clientId, int rating, String description) {
+        Review review = new Review(id,companyId, driverId, clientId, rating, description); // ID is set by repository
         reviewService.updateReview(review);
     }
 

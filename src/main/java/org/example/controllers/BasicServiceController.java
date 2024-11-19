@@ -25,7 +25,8 @@ public class BasicServiceController {
         return basicServiceService.getAllBasicServices();
     }
 
-    public void updateBasicService(BasicService basicService) {
+    public void updateBasicService(int id, String name, double pricePerKm) {
+        BasicService basicService = new BasicService(id, name, pricePerKm); // ID is set by repository
         basicServiceService.updateBasicService(basicService);
     }
 

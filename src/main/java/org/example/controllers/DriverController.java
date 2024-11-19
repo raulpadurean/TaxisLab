@@ -26,7 +26,8 @@ public class DriverController {
         return driverService.getAllDrivers();
     }
 
-    public void updateDriver(Driver driver){
+    public void updateDriver(Integer id,String name, String email, String address, String phone) {
+        Driver driver = new Driver(id, name, email, address, phone);
         driverService.updateDriver(driver);
     }
 

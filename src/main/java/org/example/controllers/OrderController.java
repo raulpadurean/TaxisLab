@@ -26,10 +26,10 @@ public class OrderController {
         return orderService.getAllOrders();
     }
 
-    public void updateOrder(Order order) {
+    public void updateOrder(Integer serviceId, double totalKm, int clientId, int driverId, int companyId, Date datetime) {
+        Order order = new Order(serviceId, totalKm, clientId, driverId, companyId, datetime); // ID is set by repository
         orderService.updateOrder(order);
     }
-
     public void deleteOrder(Integer orderId) {
         orderService.deleteOrder(orderId);
 

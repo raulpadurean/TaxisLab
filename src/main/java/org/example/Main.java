@@ -22,16 +22,16 @@ public class Main {
             System.out.println("""
                     Options:
                     0. Exit
-                    1. Company
-                    2. Order
+                    1. Show Company
+                    2. Show Order
                     3. Basic Service
                     4. Custom Service
-                    5. Rating
-                    6. Car
-                    7. Client
-                    8. Driver
-                    9. Driver Schedule
-                    10. Company Drivers
+                    5. Reviews
+                    6. Show Car
+                    7. Show Client
+                    8. Show Driver
+                    9. Show Driver Schedule
+                    10. Show Company Drivers
                     """);
             int choice = scanner.nextInt();
             scanner.nextLine(); // Consume newline
@@ -154,7 +154,7 @@ public class Main {
                     1. Add Company Driver
                     2. View Company Driver
                     3. Delete Company Driver
-                    
+                    4. Update Company Driver
                     5. Exit
          
 
@@ -179,6 +179,15 @@ public class Main {
 
                     companyDriverController.deleteCompanyDriver(readId(scanner));
                     break;
+
+                case 4:
+                    System.out.println("Enter Company Driver details (driver id, company id):");
+
+                         driverId = Integer.parseInt(scanner.nextLine());
+                         companyId = Integer.parseInt(scanner.nextLine());
+
+                    companyDriverController.updateCompanyDriver(driverId,companyId);
+                    break;
                 case 5:
                     System.out.println("Exiting...");
                     return;
@@ -199,7 +208,7 @@ public class Main {
                     1. Add Client
                     2. View Client
                     3. Delete Client
-                    
+                    4. Update Client
                     5. Exit
                     """);
             int choice = scanner.nextInt();
@@ -223,7 +232,15 @@ public class Main {
 
                     clientController.deleteClient(readId(scanner));
                     break;
-
+                case 4:
+                    System.out.println("Enter client details (id, name, email, address, phone):");
+                     id = Integer.parseInt(scanner.nextLine());
+                     name = scanner.nextLine();
+                     email = scanner.nextLine();
+                     address = scanner.nextLine();
+                    phone = scanner.nextLine();
+                    clientController.updateClient(id,name, email, address, phone);
+                    break;
 
                 case 5:
                     System.out.println("Exiting...");
@@ -249,7 +266,7 @@ public class Main {
                     1. Add Driver
                     2. View Driver
                     3. Delete Driver
-                    
+                    4. Update Driver
                     5. Exit
                     """);
             int choice = scanner.nextInt();
@@ -274,6 +291,16 @@ public class Main {
                     driverController.deleteDriver(readId(scanner));
                     break;
 
+                case 4:
+                    System.out.println("Enter driver details (id, name, email, address, phone):");
+                    id = Integer.parseInt(scanner.nextLine());
+                    name = scanner.nextLine();
+                    email = scanner.nextLine();
+                    address = scanner.nextLine();
+                    phone = scanner.nextLine();
+                    driverController.updateDriver(id,name, email, address, phone);
+                    break;
+
                 case 5:
                     System.out.println("Exiting...");
                     return;
@@ -294,6 +321,7 @@ public class Main {
                     1. Add DriverSchedule
                     2. View DriverSchedule
                     3. Delete DriverSchedule
+                    4. Update DriverSchedule
                     5. Exit
                     """);
             int choice = scanner.nextInt();
@@ -320,7 +348,6 @@ public class Main {
 
                     break;
 
-
                     case 2:
                     System.out.println("List of DriverSchedules:");
                     driverScheduleController.getAllDriverSchedules().forEach(System.out::println);
@@ -330,6 +357,26 @@ public class Main {
                         driverScheduleController.deleteDriverSchedule(readId(scanner));
                     break;
 
+                    case 4:
+
+                    System.out.println("Enter driver schedule (id,driverId, companyId, checkIn, checkout):");
+                    id = Integer.parseInt(scanner.nextLine());
+                    driverId = Integer.parseInt(scanner.nextLine());
+                    companyId = Integer.parseInt(scanner.nextLine());
+
+                    System.out.println("yyyy-MM-dd");
+                     iDate = scanner.next();
+                     formatter1 = new SimpleDateFormat("yyyy-MM-dd");
+                     checkIn = formatter1.parse(iDate);
+
+                    System.out.println("yyyy-MM-dd");
+                     oDate = scanner.next();
+                     formatter2 = new SimpleDateFormat("yyyy-MM-dd");
+                     checkOut = formatter2.parse(oDate);
+
+                    driverScheduleController.updateDriverSchedule(id,driverId, companyId, checkIn, checkOut);
+
+                    break;
 
                     case 5:
                     System.out.println("Exiting...");
@@ -353,6 +400,7 @@ public class Main {
                     1. Add Company
                     2. View Companies
                     3. Delete Companies
+                    4. Update Companies
                     5. Exit
                     """);
             int choice = scanner.nextInt();
@@ -378,6 +426,16 @@ public class Main {
                     companyController.deleteCompany(readId(scanner));
                     break;
 
+                case 4:
+                    System.out.println("Enter company details (id, name, email, address, phone):");
+                     id = Integer.parseInt(scanner.nextLine());
+                     name = scanner.nextLine();
+                     email = scanner.nextLine();
+                    address = scanner.nextLine();
+                     phone = scanner.nextLine();
+                    companyController.updateCompany(id,name, email, address, phone);
+                    break;
+
                 case 5:
                     System.out.println("Exiting...");
                     return;
@@ -397,6 +455,7 @@ public class Main {
                     1. Add Order
                     2. View Order
                     3. Delete Order
+                    4. Update Order
                     5. Exit
                     """);
             int choice = scanner.nextInt();
@@ -442,6 +501,39 @@ public class Main {
 
                     orderController.deleteOrder(readId(scanner));
                     break;
+
+                case 4:
+                    System.out.println("Enter Order details (serviceId, totalKm, clientId, driverId, companyId, datetime):");
+                    try {
+                        System.out.print("Enter service ID: ");
+                        Integer serviceId = Integer.parseInt(scanner.nextLine());
+
+                        System.out.print("Enter total Km: ");
+                        int totalKm = Integer.parseInt(scanner.nextLine());
+
+                        System.out.print("Enter client ID: ");
+                        int clientId = Integer.parseInt(scanner.nextLine());
+
+                        System.out.print("Enter driver ID: ");
+                        int driverId = Integer.parseInt(scanner.nextLine());
+
+                        System.out.print("Enter company ID: ");
+                        int companyId = Integer.parseInt(scanner.nextLine());
+
+                        System.out.print("Enter date and time (dd-MM-yyyy HH:mm): ");
+                        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+                        Date datetime = dateFormat.parse(scanner.nextLine());
+
+                        orderController.updateOrder(serviceId, totalKm, clientId, driverId, companyId, datetime);
+                    } catch (NumberFormatException e) {
+                        System.out.println("Invalid integer input.");
+                    } catch (ParseException e) {
+                        System.out.println("Invalid date format.");
+                    }
+
+                    // scanner.close();
+                    break;
+
                 case 5:
                     System.out.println("Exiting...");
                     return;
@@ -461,6 +553,7 @@ public class Main {
                     1. Add Basic Service
                     2. View Basic Serivce
                     3. Delete Basic Service
+                    4. Update Basic Service
                     5. Exit
                     """);
             int choice = scanner.nextInt();
@@ -497,6 +590,27 @@ public class Main {
                     basicServiceController.deleteBasicService(readBasicServiceId(scanner));
                     break;
 
+                case 4:
+                    System.out.println("Enter Basic Service details (id, name, pricePerKm):");
+                    try {
+                        System.out.print("Enter service ID: ");
+                        int id = Integer.parseInt(scanner.nextLine());
+
+                        System.out.print("Enter service name: ");
+                        String name = scanner.nextLine();
+
+                        System.out.print("Enter price per Km: ");
+                        int pricePerKm = Integer.parseInt(scanner.nextLine());
+
+                        // Create a BasicService object with the entered details
+                        BasicService basicService = new BasicService(id, name, pricePerKm);
+                        basicServiceService.updateBasicService(basicService);  // Pass the object
+
+                    } catch (NumberFormatException e) {
+                        System.out.println("Invalid integer input.");
+                    }
+                    break;
+
                 case 5:
                     System.out.println("Exiting...");
                     scanner.close();
@@ -526,8 +640,8 @@ public class Main {
                     1. Add Custom Service
                     2. View Custom Service
                     3. Delete Custom Service
-                    
-                    4. Exit
+                    4. Update Custom Service
+                    5. Exit
                     """);
             int choice = scanner.nextInt();
             scanner.nextLine(); // Consume newline
@@ -568,6 +682,30 @@ public class Main {
                     break;
 
                 case 4:
+                    System.out.println("Enter Basic Service details (id, name, pricePerKm, extras):");
+                    try {
+                        System.out.print("Enter service ID: ");
+                        int id = Integer.parseInt(scanner.nextLine());
+
+                        System.out.print("Enter service name: ");
+                        String name = scanner.nextLine();
+
+                        System.out.print("Enter price per Km: ");
+                        int pricePerKm = Integer.parseInt(scanner.nextLine());
+
+                        System.out.print("Enter service extras: ");
+                        String extras = scanner.nextLine();
+
+                        // Create a BasicService object with the entered details
+                        CustomService customService = new CustomService(id, name, pricePerKm, extras);
+                        customServiceService.updateCustomService(customService);  // Pass the object
+
+                    } catch (NumberFormatException e) {
+                        System.out.println("Invalid integer input.");
+                    }
+                    break;
+
+                case 5:
                     System.out.println("Exiting...");
                     scanner.close();
                     return;
@@ -614,6 +752,7 @@ public class Main {
                 3. Delete Review
                 5. Exit
                 6. Calculator
+                7. Update Review
                 """);
             int choice = scanner.nextInt();
             scanner.nextLine(); // Consume newline
@@ -663,10 +802,7 @@ public class Main {
                     return;
 
                 case 6:
-
-
-
-                // Find the best-rated driver for company
+                    // Find the best-rated driver for company
                     System.out.println("Enter Company Id");
                     int companyId = Integer.parseInt(scanner.nextLine());
                     Map.Entry<Driver, Double> result = reviewController.findBestRatedDriverInCompany(companyId, drivers, reviews);
@@ -682,6 +818,34 @@ public class Main {
 
                 default:
                     System.out.println("Invalid option");
+
+                case 7:
+                    System.out.println("Enter Review details (reviewId ,clientId, driverId, companyId, rating, description):");
+                    try {
+                        System.out.print("Enter review ID: ");
+                        Integer id = Integer.parseInt(scanner.nextLine());
+
+                        System.out.print("Enter client ID: ");
+                        int clientId = Integer.parseInt(scanner.nextLine());
+
+                        System.out.print("Enter driver ID: ");
+                        int driverId = Integer.parseInt(scanner.nextLine());
+
+                        System.out.print("Enter company ID: ");
+                         companyId = Integer.parseInt(scanner.nextLine());
+
+                        System.out.print("Enter rating: ");
+                        int rating = Integer.parseInt(scanner.nextLine());
+
+                        System.out.print("Enter description: ");
+                        String description = scanner.nextLine();  // Keep description as a String
+
+                        // Call the addReview method with the correct parameters
+                        reviewController.updateReview(id,companyId, driverId, clientId, rating, description);
+                    } catch (NumberFormatException e) {
+                        System.out.println("Invalid integer input.");
+                    }
+                    break;
             }
         }
     }
