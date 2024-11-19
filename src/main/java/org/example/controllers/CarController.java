@@ -26,7 +26,13 @@ public class CarController {
         return carService.getAllCars();
     }
 
-    public void updateCar(Car car){
+    public void updatesCar(Car car){
+        carService.updateCar(car);
+    }
+
+
+    public void updateCar(Integer id,String brand,String model,String plateNr,int driverId){
+        Car car = new Car(id,brand,model,plateNr,driverId);
         carService.updateCar(car);
     }
 
