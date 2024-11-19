@@ -1,6 +1,5 @@
 package org.example.models;
 
-
 import java.security.cert.CertPath;
 
 public class CompanyDriver {
@@ -10,7 +9,6 @@ public class CompanyDriver {
     public CompanyDriver(Driver driver, Company company) {
         this.driver = driver;
         this.company = company;
-
     }
 
     public Driver getDriver() {
