@@ -1,13 +1,13 @@
 package org.example.models;
 
-public class Client {
-    private int id;
+public class Client implements HasId {
+    private Integer id;
     private String name;
     private String email;
     private String address;
     private String phone;
 
-    public Client(int id, String name, String email, String address, String phone) {
+    public Client(Integer id, String name, String email, String address, String phone) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -15,7 +15,7 @@ public class Client {
         this.phone = phone;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 

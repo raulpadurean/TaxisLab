@@ -29,7 +29,8 @@ public class BasicServiceController {
         basicServiceService.updateBasicService(basicService);
     }
 
-    public void deleteBasicService(int id) {
-        basicServiceService.deleteBasicService(id);
+    public void deleteBasicService(Integer basicServiceId) {
+        basicServiceService.deleteBasicService(basicServiceId);
+
     }
 }

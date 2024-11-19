@@ -2,6 +2,7 @@ package org.example.models;
 
 import java.util.Date;
 
+
 public class DriverSchedule {
     private int id;
     private Driver driver;
@@ -10,6 +11,7 @@ public class DriverSchedule {
     private Date checkOut;
 
     public DriverSchedule(int id, Driver driver, Company company, Date checkIn, Date checkOut) {
+
         this.id = id;
         this.driver = driver;
         this.company = company;
@@ -17,7 +19,7 @@ public class DriverSchedule {
         this.checkOut = checkOut;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 

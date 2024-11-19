@@ -1,14 +1,23 @@
 package org.example.repositories;
+import org.example.models.HasId;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-public class InMemoryRepository<T> implements IRepository<T> {
+public class InMemoryRepository<T extends HasId> implements IRepository<T> {
     private final Map<Integer, T> dataStore = new HashMap<>();
-    private int idCounter = 1;
+
 
     @Override
     public void create(T obj) {
-        dataStore.put(idCounter++, obj);
+        dataStore.putIfAbsent(obj.getId(), obj);
+    }
+
+    @Override
+    public T get(Integer id) {
+        return dataStore.get(id);
     }
 
     @Override
@@ -21,7 +30,7 @@ public class InMemoryRepository<T> implements IRepository<T> {
     }
 
     @Override
-    public void delete(int id) {
+    public void delete(Integer id) {
         dataStore.remove(id);
     }
 
