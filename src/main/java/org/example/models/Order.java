@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class Order implements HasId {
 
-
+    private int id;
     private Service service;
     private double totalKm;
     private Client client;
@@ -13,14 +13,23 @@ public class Order implements HasId {
     private Date datetime;
 
 
-    public Order(Service service, double totalKm, Client client, Driver driver, Company company, Date datetime) {
+    public Order(int id,Service service, double totalKm, Client client, Driver driver, Company company, Date datetime) {
 
+        this.id = id;
         this.service = service;
         this.totalKm = totalKm;
         this.client = client;
         this.driver = driver;
         this.company = company;
         this.datetime = datetime;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public Service getService() {
@@ -74,7 +83,7 @@ public class Order implements HasId {
     @Override
     public String toString() {
         return "Order{" +
-                "serviceId=" + service +
+                "service=" + service +
                 ", totalKm=" + totalKm +
                 ", client=" + client +
                 ", driver=" + driver +
@@ -83,8 +92,4 @@ public class Order implements HasId {
                 '}';
     }
 
-    @Override
-    public Integer getId() {
-        return serviceId;
-    }
 }
