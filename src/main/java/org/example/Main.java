@@ -1,9 +1,10 @@
 package org.example;
 
 import org.example.controllers.*;
+import org.example.mappers.CompanyMapper;
 import org.example.models.*;
 import org.example.repositories.IRepository;
-import org.example.repositories.InMemoryRepository;
+import org.example.repositories.FileRepository;
 import org.example.services.*;
 
 import java.text.DateFormat;
@@ -80,7 +81,7 @@ public class Main {
     }
 
     public static void carMenu() {
-        IRepository<Car> carRepo = new InMemoryRepository<>();
+        IRepository<Car> carRepo = new FileRepository<>();
         CarService carService = new CarService(carRepo);
         CarController carController = new CarController(carService);
         Scanner scanner = new Scanner(System.in);
@@ -131,7 +132,7 @@ public class Main {
 
 
     public static void companyDriversMenu() {
-        IRepository<CompanyDriver> companyDriverRepo = new InMemoryRepository<>();
+        IRepository<CompanyDriver> companyDriverRepo = new FileRepository<>();
         CompanyDriverService companyDriverService = new CompanyDriverService(companyDriverRepo);
         CompanyDriverController companyDriverController = new CompanyDriverController(companyDriverService);
         Scanner scanner = new Scanner(System.in);
@@ -176,7 +177,7 @@ public class Main {
     }
 
     public static void clientMenu() {
-        IRepository<Client> clientRepo = new InMemoryRepository<>();
+        IRepository<Client> clientRepo = new FileRepository<>();
         ClientService clientService = new ClientService(clientRepo);
         ClientController clientController = new ClientController(clientService);
         Scanner scanner = new Scanner(System.in);
@@ -226,7 +227,7 @@ public class Main {
     }
 
     public static void driverMenu() {
-        IRepository<Driver> driverRepo = new InMemoryRepository<>();
+        IRepository<Driver> driverRepo = new FileRepository<>();
         DriverService driverService = new DriverService(driverRepo);
         DriverController driverController = new DriverController(driverService);
         Scanner scanner = new Scanner(System.in);
@@ -271,7 +272,7 @@ public class Main {
     }
 
     public static void driverScheduleMenu() throws ParseException {
-        IRepository<DriverSchedule> driverScheduleRepo = new InMemoryRepository<>();
+        IRepository<DriverSchedule> driverScheduleRepo = new FileRepository<>();
         DriverScheduleService driverScheduleService = new DriverScheduleService(driverScheduleRepo);
         DriverScheduleController driverScheduleController = new DriverScheduleController(driverScheduleService);
         Scanner scanner = new Scanner(System.in);
@@ -330,7 +331,7 @@ public class Main {
 
 
     public static void companyMenu() {
-        IRepository<Company> companyRepo = new InMemoryRepository<>();
+        IRepository<Company> companyRepo = new FileRepository<>("data/companies.csv", new CompanyMapper());
         CompanyService companyService = new CompanyService(companyRepo);
         CompanyController companyController = new CompanyController(companyService);
         Scanner scanner = new Scanner(System.in);
@@ -374,7 +375,7 @@ public class Main {
         }
     }
     public static void orderMenu() {
-        IRepository<Order> orderRepo = new InMemoryRepository<>();
+        IRepository<Order> orderRepo = new FileRepository<>();
         OrderService orderService = new OrderService(orderRepo);
         OrderController orderController = new OrderController(orderService);
         Scanner scanner = new Scanner(System.in);
@@ -433,7 +434,7 @@ public class Main {
         }
     }
     public static void basicSerivceMenu() {
-        IRepository<BasicService> basicServiceRepo = new InMemoryRepository<>();
+        IRepository<BasicService> basicServiceRepo = new FileRepository<>();
         BasicServiceService basicServiceService = new BasicServiceService(basicServiceRepo);
         BasicServiceController basicServiceController = new BasicServiceController(basicServiceService);
         Scanner scanner = new Scanner(System.in);
@@ -498,7 +499,7 @@ public class Main {
         return Integer.parseInt(scanner.nextLine());
     }
     public static void customSerivceMenu() {
-        IRepository<CustomService> customServiceRepo = new InMemoryRepository<>();
+        IRepository<CustomService> customServiceRepo = new FileRepository<>();
         CustomServiceService customServiceService = new CustomServiceService(customServiceRepo);
         CustomServiceController customServiceController = new CustomServiceController(customServiceService);
         Scanner scanner = new Scanner(System.in);
@@ -564,7 +565,7 @@ public class Main {
     }
 
     public static void reviewMenu() {
-        IRepository<Review> reviewRepo = new InMemoryRepository<>();
+        IRepository<Review> reviewRepo = new FileRepository<>();
         ReviewService reviewService = new ReviewService(reviewRepo);
         ReviewController reviewController = new ReviewController(reviewService);
         Scanner scanner = new Scanner(System.in);

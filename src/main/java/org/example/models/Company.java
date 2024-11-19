@@ -58,12 +58,6 @@ public class Company implements HasId {
 
     @Override
     public String toString() {
-        return "Company{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", email='" + email + '\'' +
-                ", address='" + address + '\'' +
-                ", phone='" + phone + '\'' +
-                '}';
+        return id + "," + name + ',' + email + ',' + address + ',' + phone;
     }
 }
