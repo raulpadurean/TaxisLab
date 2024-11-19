@@ -1,9 +1,6 @@
 package org.example.controllers;
 
-import org.example.models.Client;
-import org.example.models.Company;
-import org.example.models.Driver;
-import org.example.models.Order;
+import org.example.models.*;
 import org.example.services.OrderService;
 
 import java.util.Date;
@@ -17,8 +14,8 @@ public class OrderController {
     }
 
 
-    public void addOrder(int serviceId, double totalKm, Client client, Driver driver, Company company, Date datetime) {
-        Order order = new Order(serviceId, totalKm, client, driver, company, datetime); // ID is set by repository
+    public void addOrder(Service service, double totalKm, Client client, Driver driver, Company company, Date datetime) {
+        Order order = new Order(service, totalKm, client, driver, company, datetime); // ID is set by repository
 
         orderService.addOrder(order);
     }
