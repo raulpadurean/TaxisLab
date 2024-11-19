@@ -12,8 +12,8 @@ public class ReviewController {
         this.reviewService = reviewService;
     }
 
-    public void addReview(int companyId, int driverId, int clientId, int rating, String description) {
-        Review review = new Review(companyId, driverId, clientId, rating, description); // ID is set by repository
+    public void addReview(Integer id,int companyId, int driverId, int clientId, int rating, String description) {
+        Review review = new Review(id,companyId, driverId, clientId, rating, description); // ID is set by repository
         reviewService.addReview(review);
     }
 
@@ -29,7 +29,8 @@ public class ReviewController {
         reviewService.updateReview(review);
     }
 
-    public void deleteReview(int id) {
-        reviewService.deleteReview(id);
+    public void deleteReview(Integer reviewId) {
+        reviewService.deleteReview(reviewId);
+
     }
 }

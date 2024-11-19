@@ -4,14 +4,15 @@ import java.util.Date;
 
 public class Order implements HasId {
 
-    private int serviceId;
+
+    private Integer serviceId;
     private double totalKm;
     private int clientId;
     private int driverId;
     private int companyId;
     private Date datetime;
 
-    public Order(int serviceId, double totalKm, int clientId, int driverId, int companyId, Date datetime) {
+    public Order(Integer serviceId, double totalKm, int clientId, int driverId, int companyId, Date datetime) {
         this.serviceId = serviceId;
         this.totalKm = totalKm;
         this.clientId = clientId;
@@ -82,6 +83,6 @@ public class Order implements HasId {
 
     @Override
     public Integer getId() {
-        return null;
+        return serviceId;
     }
 }

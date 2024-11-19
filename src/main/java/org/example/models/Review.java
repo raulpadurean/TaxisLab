@@ -2,13 +2,15 @@ package org.example.models;
 
 public class Review implements HasId {
 
+    private Integer id;
     private int companyId;
     private int driverId;
     private int clientId;
     private int rating;
     private String description;
 
-    public Review(int companyId, int driverId, int clientId, int rating, String description) {
+    public Review(Integer id,int companyId, int driverId, int clientId, int rating, String description) {
+        this.id = id;
         this.companyId = companyId;
         this.driverId = driverId;
         this.clientId = clientId;
@@ -16,6 +18,10 @@ public class Review implements HasId {
         this.description = description;
     }
 
+
+
+
+    public void setId(Integer id){this.id=id;}
     public int getCompanyId() {
         return companyId;
     }
@@ -69,6 +75,6 @@ public class Review implements HasId {
 
     @Override
     public Integer getId() {
-        return null;
+        return id;
     }
 }
