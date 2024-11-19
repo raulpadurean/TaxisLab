@@ -65,7 +65,8 @@ public class Review implements HasId {
     @Override
     public String toString() {
         return "Review{" +
-                "companyId=" + companyId +
+                "Id=" + id +
+                ", companyId=" + companyId +
                 ", driverId=" + driverId +
                 ", clientId=" + clientId +
                 ", rating=" + rating +
