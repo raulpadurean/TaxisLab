@@ -10,8 +10,7 @@ import java.text.DateFormat;
 import java.time.format.DateTimeFormatter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Scanner;
+import java.util.*;
 
 // Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
 // then press Enter. You can now see whitespace characters in your code.
@@ -588,6 +587,25 @@ public class Main {
         ReviewController reviewController = new ReviewController(reviewService);
         Scanner scanner = new Scanner(System.in);
 
+        Company company300 = new Company(109, "Pritax", "pritax@a.com", "Observator", "9942");
+        Company company1 = new Company(101, "Company A", "email@a.com", "Address A", "123456");
+        Company company2 = new Company(102, "Company B", "email@b.com", "Address B", "789012");
+
+        Driver driver1 = new Driver(201, "Driver One", "one@drivers.com", "Address D1", "123456");
+        Driver driver2 = new Driver(202, "Driver Two", "two@drivers.com", "Address D2", "789012");
+        Driver driver3 = new Driver(203, "Driver Three", "three@drivers.com", "Address D3", "345678");
+
+        List<Driver> drivers = Arrays.asList(driver1, driver2, driver3);
+
+        List<Review> reviews = Arrays.asList(
+                new Review(1, 101, 201, 301, 4, "Good service."),
+                new Review(2, 101, 201, 302, 5, "Excellent driver."),
+                new Review(3, 102, 203, 303, 3, "Average service."),
+                new Review(4, 101, 202, 304, 4, "Reliable driver."),
+                new Review(9, 109, 203, 304, 10, "Reliable driver."),
+                new Review(5, 101, 201, 305, 3, "Decent experience.")
+        );
+
         while (true) {
             System.out.println("""
                 Options:
@@ -595,6 +613,7 @@ public class Main {
                 2. View Reviews
                 3. Delete Review
                 5. Exit
+                6. Calculator
                 """);
             int choice = scanner.nextInt();
             scanner.nextLine(); // Consume newline
@@ -643,11 +662,32 @@ public class Main {
                     scanner.close();  // Close scanner only when exiting the loop
                     return;
 
+                case 6:
+
+
+
+                // Find the best-rated driver for company
+                    System.out.println("Enter Company Id");
+                    int companyId = Integer.parseInt(scanner.nextLine());
+                    Map.Entry<Driver, Double> result = reviewController.findBestRatedDriverInCompany(companyId, drivers, reviews);
+
+                if (result != null) {
+                    System.out.printf("The best-rated driver for company " + companyId +
+                                    " is " + result.getKey().getName() +
+                                    " with an average rating of " + result.getValue() + "%n" );
+                } else {
+                    System.out.printf("No valid drivers found for company " + companyId + "%n" );
+                }
+                break;
+
                 default:
                     System.out.println("Invalid option");
             }
         }
     }
+
+
+
 
 
 }
