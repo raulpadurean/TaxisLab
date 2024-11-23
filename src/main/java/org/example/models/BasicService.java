@@ -13,7 +13,11 @@ public class BasicService extends Service {
 
     @Override
     public String toString() {
-        return String.format("BasicService { id=%d, name='%s', pricePerKm=%.2f, type='%s' }",
-                getId(), getName(), getPricePerKm(), getServiceType());
+        return this.id + "," + this.name + "," + this.pricePerKm;
+    }
+
+    public BasicService parse(String stringData) {
+        String[] data=stringData.split(",");
+        return new BasicService(Integer.parseInt(data[0]),data[1],Integer.parseInt(data[2]));
     }
 }

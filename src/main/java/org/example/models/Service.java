@@ -2,9 +2,9 @@ package org.example.models;
 
 public abstract class Service implements HasId {
 
-    private final Integer id;
-    private final String name;
-    private final double pricePerKm;
+    protected final Integer id;
+    protected final String name;
+    protected final double pricePerKm;
 
     public Service(int id, String name, double pricePerKm) {
         if (id <= 0) {
@@ -32,11 +32,6 @@ public abstract class Service implements HasId {
 
     public double getPricePerKm() {
         return pricePerKm;
-    }
-
-    @Override
-    public String toString() {
-        return String.format("Service { id=%d, name='%s', pricePerKm=%.2f }", id, name, pricePerKm);
     }
 
     // Abstract method to be implemented by subclasses
