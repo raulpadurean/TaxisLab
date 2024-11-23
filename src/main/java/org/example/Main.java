@@ -30,8 +30,11 @@ public class Main {
 
 
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Welcome to Taxi Service Management");
-        System.out.println("""
+        boolean isRunning = true;
+        while (isRunning) {
+            System.out.println("Welcome to Taxi Service Management");
+            System.out.println("""
+                
                 Options:
                 
                 0. Exit
@@ -48,14 +51,13 @@ public class Main {
                 
                 Enter option: >>>
                 """);
-        while (true) {
             int choice = scanner.nextInt();
             scanner.nextLine(); // Consume newline
 
             switch (choice) {
                 case 0:
+                    isRunning = false;
                     System.out.println("Exiting...");
-                    return;
                 case 1:
                     companyMenu();
                     break;
@@ -99,8 +101,10 @@ public class Main {
         CompanyController companyController = new CompanyController(companyService);
         Scanner scanner = new Scanner(System.in);
 
-        while (true) {
+        boolean isRunning = true;
+        while (isRunning) {
             System.out.println("""
+                    
                     Options:
                     1. Add Company
                     2. View Companies
@@ -177,9 +181,9 @@ public class Main {
                     break;
 
                 case 5:
+                    isRunning = false;
                     System.out.println("Exiting...");
-                    return;
-
+                    break;
                 default:
                     System.out.println("Invalid option. Please try again.");
             }
@@ -192,8 +196,10 @@ public class Main {
         DriverController driverController = new DriverController(driverService);
         Scanner scanner = new Scanner(System.in);
 
-        while (true) {
+        boolean isRunning = true;
+        while (isRunning) {
             System.out.println("""
+                    
                     Options:
                     1. Add Driver
                     2. View Drivers
@@ -273,8 +279,9 @@ public class Main {
                     break;
 
                 case 5:
+                    isRunning = false;
                     System.out.println("Exiting...");
-                    return;
+                    break;
 
                 default:
                     System.out.println("Invalid option. Please try again.");
@@ -288,7 +295,8 @@ public class Main {
         CompanyDriverController companyDriverController = new CompanyDriverController(companyDriverService);
         Scanner scanner = new Scanner(System.in);
 
-        while (true) {
+        boolean isRunning = true;
+        while (isRunning) {
             System.out.println("""
                     Options:
                     1. Add Company Driver
@@ -363,8 +371,9 @@ public class Main {
                     break;
 
                 case 5:
+                    isRunning = false;
                     System.out.println("Exiting...");
-                    return;
+                    break;
 
                 default:
                     System.out.println("Invalid option. Please try again.");
@@ -378,8 +387,10 @@ public class Main {
         DriverScheduleController driverScheduleController = new DriverScheduleController(driverScheduleService);
         Scanner scanner = new Scanner(System.in);
 
-        while (true) {
+        boolean isRunning = true;
+        while (isRunning) {
             System.out.println("""
+                    
                     Options:
                     1. Add Driver Schedule
                     2. View Driver Schedules
@@ -467,8 +478,9 @@ public class Main {
                     break;
 
                 case 5:
+                    isRunning = false;
                     System.out.println("Exiting...");
-                    return;
+                    break;
 
                 default:
                     System.out.println("Invalid option. Please try again.");
@@ -481,8 +493,10 @@ public class Main {
         CarController carController = new CarController(carService);
         Scanner scanner = new Scanner(System.in);
 
-        while (true) {
+        boolean isRunning = true;
+        while (isRunning) {
             System.out.println("""
+                    
                     Options:
                     1. Add Car
                     2. View Cars
@@ -578,8 +592,9 @@ public class Main {
                     break;
 
                 case 6:
+                    isRunning = false;
                     System.out.println("Exiting...");
-                    return;
+                    break;
 
                 default:
                     System.out.println("Invalid option. Please try again.");
@@ -592,8 +607,10 @@ public class Main {
         ClientController clientController = new ClientController(clientService);
         Scanner scanner = new Scanner(System.in);
 
-        while (true) {
+        boolean isRunning = true;
+        while (isRunning) {
             System.out.println("""
+                    
                     Options:
                     1. Add Client
                     2. View Clients
@@ -686,8 +703,9 @@ public class Main {
                     break;
 
                 case 6:
+                    isRunning = false;
                     System.out.println("Exiting...");
-                    return;
+                    break;
 
                 default:
                     System.out.println("Invalid option. Please try again.");
@@ -700,8 +718,10 @@ public class Main {
         BasicServiceController basicServiceController = new BasicServiceController(basicServiceService);
         Scanner scanner = new Scanner(System.in);
 
-        while (true) {
+        boolean isRunning = true;
+        while (isRunning) {
             System.out.println("""
+                    
                     Options:
                     1. Add Basic Service
                     2. View Basic Services
@@ -773,8 +793,9 @@ public class Main {
                     break;
 
                 case 5:
+                    isRunning = false;
                     System.out.println("Exiting...");
-                    return;
+                    break;
 
                 default:
                     System.out.println("Invalid option. Please try again.");
@@ -787,8 +808,10 @@ public class Main {
         CustomServiceController customServiceController = new CustomServiceController(customServiceService);
         Scanner scanner = new Scanner(System.in);
 
-        while (true) {
+        boolean isRunning = true;
+        while (isRunning) {
             System.out.println("""
+                    
                     Options:
                     1. Add Custom Service
                     2. View Custom Services
@@ -862,8 +885,9 @@ public class Main {
                     break;
 
                 case 5:
+                    isRunning = false;
                     System.out.println("Exiting...");
-                    return;
+                    break;
 
                 default:
                     System.out.println("Invalid option. Please try again.");
@@ -876,8 +900,10 @@ public class Main {
         OrderController orderController = new OrderController(orderService);
         Scanner scanner = new Scanner(System.in);
 
-        while (true) {
+        boolean isRunning = true;
+        while (isRunning) {
             System.out.println("""
+                    
                     Options:
                     1. Add Order
                     2. View Orders
@@ -982,8 +1008,9 @@ public class Main {
                     break;
 
                 case 5:
+                    isRunning = false;
                     System.out.println("Exiting...");
-                    return;
+                    break;
 
                 default:
                     System.out.println("Invalid option. Please try again.");
@@ -996,8 +1023,10 @@ public class Main {
         ReviewController reviewController = new ReviewController(reviewService);
         Scanner scanner = new Scanner(System.in);
 
-        while (true) {
+        boolean isRunning = true;
+        while (isRunning) {
             System.out.println("""
+                    
                     Options:
                     1. Add Review
                     2. View Reviews
@@ -1097,8 +1126,9 @@ public class Main {
                     break;
 
                 case 6:
+                    isRunning = false;
                     System.out.println("Exiting...");
-                    return;
+                    break;
 
                 default:
                     System.out.println("Invalid option. Please try again.");
