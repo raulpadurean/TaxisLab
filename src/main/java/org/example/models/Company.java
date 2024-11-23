@@ -60,4 +60,16 @@ public class Company implements HasId {
     public String toString() {
         return id + "," + name + ',' + email + ',' + address + ',' + phone;
     }
+
+
+    public Company parse(String line) {
+        String[] fields = line.split(",");
+        return new Company(
+                Integer.parseInt(fields[0]),
+                fields[1],
+                fields[2],
+                fields[3],
+                fields[4]
+        );
+    }
 }
