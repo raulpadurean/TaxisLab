@@ -6,8 +6,6 @@ import org.example.repositories.IRepository;
 import org.example.repositories.FileRepository;
 import org.example.services.*;
 
-import java.text.DateFormat;
-import java.time.format.DateTimeFormatter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -28,7 +26,7 @@ public class Main {
     private static final IRepository<Service> serviceRepo = new FileRepository<>("data/services.csv", Service.class);
 
 
-    public static void main(String[] args) throws ParseException {
+    public static void main(String[] args) {
 
 
         Scanner scanner = new Scanner(System.in);
@@ -375,7 +373,7 @@ public class Main {
     }
 
 
-    public static void driverScheduleMenu() throws ParseException {
+    public static void driverScheduleMenu() {
         DriverScheduleService driverScheduleService = new DriverScheduleService(driverScheduleRepo, driverRepo, companyRepo);
         DriverScheduleController driverScheduleController = new DriverScheduleController(driverScheduleService);
         Scanner scanner = new Scanner(System.in);

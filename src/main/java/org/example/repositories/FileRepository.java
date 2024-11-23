@@ -14,6 +14,17 @@ public class FileRepository<T extends HasId> implements IRepository<T> {
     public FileRepository(String filePath, Class<T> type) {
         this.filePath = filePath;
         this.type = type;
+
+        // Check if the file exists; if not, create it
+        File file = new File(filePath);
+        try {
+            if (!file.exists()) {
+                file.getParentFile().mkdirs(); // Create directories if needed
+                file.createNewFile(); // Create the file
+            }
+        } catch (IOException e) {
+            throw new RuntimeException("Error creating file: " + filePath, e);
+        }
     }
 
     @Override
@@ -31,7 +42,7 @@ public class FileRepository<T extends HasId> implements IRepository<T> {
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             return reader.lines()
                     .map(this::parse) // Parse directly using the model's parse method
-                    .filter(entity -> entity.getId() == id)
+                    .filter(entity -> Objects.equals(entity.getId(), id))
                     .findFirst()
                     .orElse(null);
         } catch (IOException e) {
@@ -56,7 +67,7 @@ public class FileRepository<T extends HasId> implements IRepository<T> {
         boolean updated = false;
 
         for (int i = 0; i < entities.size(); i++) {
-            if (entities.get(i).getId() == obj.getId()) {
+            if (Objects.equals(entities.get(i).getId(), obj.getId())) {
                 entities.set(i, obj);
                 updated = true;
                 break;
@@ -73,7 +84,7 @@ public class FileRepository<T extends HasId> implements IRepository<T> {
     @Override
     public void delete(Integer id) {
         List<T> entities = readAll();
-        boolean removed = entities.removeIf(entity -> entity.getId() == id);
+        boolean removed = entities.removeIf(entity -> Objects.equals(entity.getId(), id));
 
         if (!removed) {
             throw new RuntimeException("Entity with ID " + id + " not found");
