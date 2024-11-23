@@ -1,5 +1,7 @@
 package org.example.models;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 
@@ -61,12 +63,20 @@ public class DriverSchedule {
 
     @Override
     public String toString() {
-        return "DriverSchedule{" +
-                "id=" + id +
-                ", driverId=" + driver +
-                ", companyId=" + company +
-                ", checkIn=" + checkIn +
-                ", checkOut=" + checkOut +
-                '}';
+        return id + "," + driver + "," + company + "," + checkIn + "," + checkOut;
+    }
+
+    public static DriverSchedule parse(String line) throws ParseException {
+        String[] fields = line.split(",");
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+        return new DriverSchedule(
+                Integer.parseInt(fields[0]),
+                Driver.parse(fields[1]),
+                Company.parse(fields[2]),
+                dateFormat.parse(fields[3].trim()),
+                dateFormat.parse(fields[4].trim())
+        );
     }
 }

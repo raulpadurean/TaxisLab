@@ -57,11 +57,11 @@ public class Client implements HasId {
 
     @Override
     public String toString() {
-        return id + "," + name + ","+ email + "," + address + "," + phone;
+        return id + ";" + name + ";"+ email + ";" + address + ";" + phone;
     }
 
-    public Client parse(String line) {
-        String[] fields = line.split(",");
+    public static Client parse(String line) {
+        String[] fields = line.split(";");
         return new Client(
                 Integer.parseInt(fields[0]),
                 fields[1],

@@ -58,12 +58,12 @@ public class Company implements HasId {
 
     @Override
     public String toString() {
-        return id + "," + name + ',' + email + ',' + address + ',' + phone;
+        return id + ";" + name + ';' + email + ';' + address + ';' + phone;
     }
 
 
-    public Company parse(String line) {
-        String[] fields = line.split(",");
+    public static Company parse(String line) {
+        String[] fields = line.split(";");
         return new Company(
                 Integer.parseInt(fields[0]),
                 fields[1],
