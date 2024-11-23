@@ -57,11 +57,11 @@ public class Driver implements HasId {
 
     @Override
     public String toString() {
-        return id + "," + name + "," + email + "," + address + "," + phone;
+        return id + ";" + name + ";" + email + ";" + address + ";" + phone;
     }
 
-    public Driver parse(String line) {
-        String[] fields = line.split(",");
+    public static Driver parse(String line) {
+        String[] fields = line.split(";");
         return new Driver(
                 Integer.parseInt(fields[0]),
                 fields[1],
