@@ -292,13 +292,14 @@ public class Main {
         CarService carService = new CarService(carRepo, driverRepo);
         CarController carController = new CarController(carService);
         Scanner scanner = new Scanner(System.in);
+
         while (true) {
             System.out.println("""
                     Options:
                     1. Add Car
-                    2. View Car
+                    2. View Cars
                     3. Delete Car
-                    4. Update
+                    4. Update Car
                     5. Exit
                     """);
             int choice = scanner.nextInt();
@@ -306,44 +307,45 @@ public class Main {
 
             switch (choice) {
                 case 1:
-                    System.out.println("Enter Car details (id ,brand, model, number plate, driver id):");
-
+                    System.out.println("Enter car details (brand, model, plate number, driver ID):");
                     String brand = scanner.nextLine();
                     String model = scanner.nextLine();
                     String plateNr = scanner.nextLine();
                     int driverId = Integer.parseInt(scanner.nextLine());
-                    carController.addCar(brand, model, plateNr, driverId);
+                    carController.addCar(brand, model, plateNr, driverId); // No need to pass ID
                     break;
+
                 case 2:
                     System.out.println("List of Cars:");
                     carController.getAllCars().forEach(System.out::println);
                     break;
-                case 3:
 
-                    carController.deleteCar(readCarId(scanner));
+                case 3:
+                    System.out.println("Enter the ID of the car to delete:");
+                    int carId = scanner.nextInt();
+                    carController.deleteCar(carId);
                     break;
 
-
                 case 4:
-                    System.out.println("Enter Car details (id ,brand, model, number plate, driver id):");
-
-                    Integer id = Integer.parseInt(scanner.nextLine());
+                    System.out.println("Enter updated car details (ID, brand, model, plate number, driver ID):");
+                    int id = Integer.parseInt(scanner.nextLine());
                     brand = scanner.nextLine();
                     model = scanner.nextLine();
                     plateNr = scanner.nextLine();
                     driverId = Integer.parseInt(scanner.nextLine());
-
                     carController.updateCar(id, brand, model, plateNr, driverId);
                     break;
 
                 case 5:
                     System.out.println("Exiting...");
                     return;
+
                 default:
                     System.out.println("Invalid option");
             }
         }
     }
+
 
     public static void clientMenu() {
         ClientService clientService = new ClientService(clientRepo);

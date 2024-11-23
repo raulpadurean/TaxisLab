@@ -14,14 +14,15 @@ public class CarService {
         this.driverRepository = driverRepository;
     }
 
-    // Add a new car
+    // Add a new car with automatic ID generation
     public void addCar(String brand, String model, String plateNr, Integer driverId) {
-        // Check if the driver exists
+        // Validate if the driver exists
         Driver driver = driverRepository.read(driverId);
         if (driver == null) {
             throw new IllegalArgumentException("Driver with ID " + driverId + " does not exist.");
         }
 
+        // Generate a new ID for the car
         Integer carId = carRepository.readAll().size() + 1;
 
         // Create a new car object

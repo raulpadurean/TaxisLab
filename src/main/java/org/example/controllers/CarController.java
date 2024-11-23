@@ -12,26 +12,28 @@ public class CarController {
         this.carService = carService;
     }
 
-    public void addCar(String brand, String model, String plateNr, Integer driverId){
-
-        carService.addCar(brand, model, plateNr, driverId);
+    // Add a car
+    public void addCar(String brand, String model, String plateNr, Integer driverId) {
+        carService.addCar(brand, model, plateNr, driverId); // Pass details to service
     }
 
-    public Car getCar(int id){
+    // Get a car by ID
+    public Car getCar(int id) {
         return carService.getCar(id);
     }
 
-    public List<Car> getAllCars(){
+    // Get all cars
+    public List<Car> getAllCars() {
         return carService.getAllCars();
     }
 
-    public void updateCar(Integer id,String brand,String model,String plateNr, Integer driverId){
-
+    // Update a car
+    public void updateCar(Integer id, String brand, String model, String plateNr, Integer driverId) {
         carService.updateCar(id, brand, model, plateNr, driverId);
     }
 
+    // Delete a car
     public void deleteCar(Integer carId) {
         carService.deleteCar(carId);
-
     }
 }
