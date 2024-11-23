@@ -58,6 +58,7 @@ public class Main {
                 case 0:
                     isRunning = false;
                     System.out.println("Exiting...");
+                    break;
                 case 1:
                     companyMenu();
                     break;
