@@ -12,8 +12,11 @@ public class BasicServiceService {
         this.serviceRepository = serviceRepository;
     }
 
-    public void addBasicService(BasicService service) {
-        serviceRepository.create(service);
+    // Add a basic service with automatic ID generation
+    public void addBasicService(String name, double pricePerKm) {
+        int id = serviceRepository.readAll().size() + 1; // Generate a new ID
+        BasicService service = new BasicService(id, name, pricePerKm); // Create a new BasicService object
+        serviceRepository.create(service); // Save the service
     }
 
     public BasicService getBasicService(int id) {
@@ -24,12 +27,18 @@ public class BasicServiceService {
         return serviceRepository.readAll();
     }
 
-    public void updateBasicService(BasicService service) {
-        serviceRepository.update(service);
+    public void updateBasicService(int id, String name, double pricePerKm) {
+        BasicService existingService = serviceRepository.read(id);
+        if (existingService == null) {
+            throw new IllegalArgumentException("Basic Service with ID " + id + " does not exist.");
+        }
+
+        // Create an updated BasicService object
+        BasicService updatedService = new BasicService(id, name, pricePerKm);
+        serviceRepository.update(updatedService);
     }
 
     public void deleteBasicService(Integer basicServiceId) {
-
         serviceRepository.delete(basicServiceId);
     }
 }

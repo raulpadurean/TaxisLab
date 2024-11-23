@@ -22,23 +22,23 @@ public class DriverScheduleService {
         this.companyRepository = companyRepository;
     }
 
-    public void addDriverSchedule(Integer id, int driverId, int companyId, Date checkIn, Date checkOut) {
-        // Validate if the driver exists
+    public void addDriverSchedule(int driverId, int companyId, Date checkIn, Date checkOut) {
+        // Validate driver and company existence
         Driver driver = driverRepository.read(driverId);
         if (driver == null) {
             throw new IllegalArgumentException("Driver with ID " + driverId + " does not exist.");
         }
 
-        // Validate if the company exists
         Company company = companyRepository.read(companyId);
         if (company == null) {
             throw new IllegalArgumentException("Company with ID " + companyId + " does not exist.");
         }
 
-        // Create a DriverSchedule with Driver and Company objects
-        DriverSchedule driverSchedule = new DriverSchedule(id, driver, company, checkIn, checkOut);
+        // Generate an ID for the new DriverSchedule
+        int id = driverScheduleRepository.readAll().size() + 1;
 
-        // Save the DriverSchedule
+        // Create and save the DriverSchedule
+        DriverSchedule driverSchedule = new DriverSchedule(id, driver, company, checkIn, checkOut);
         driverScheduleRepository.create(driverSchedule);
     }
 
@@ -50,31 +50,30 @@ public class DriverScheduleService {
         return driverScheduleRepository.readAll();
     }
 
-    public void updateDriverSchedule(Integer id, int driverId, int companyId, Date checkIn, Date checkOut) {
-        // Validate if the driver schedule exists
-        DriverSchedule existingSchedule = driverScheduleRepository.read(id);
-        if (existingSchedule == null) {
-            throw new IllegalArgumentException("DriverSchedule with ID " + id + " does not exist.");
-        }
-
-        // Validate if the driver exists
+    public void updateDriverSchedule(int id, int driverId, int companyId, Date checkIn, Date checkOut) {
+        // Validate driver and company existence
         Driver driver = driverRepository.read(driverId);
         if (driver == null) {
             throw new IllegalArgumentException("Driver with ID " + driverId + " does not exist.");
         }
 
-        // Validate if the company exists
         Company company = companyRepository.read(companyId);
         if (company == null) {
             throw new IllegalArgumentException("Company with ID " + companyId + " does not exist.");
         }
 
-        // Create and update the DriverSchedule
+        // Validate existing DriverSchedule
+        DriverSchedule existingSchedule = driverScheduleRepository.read(id);
+        if (existingSchedule == null) {
+            throw new IllegalArgumentException("DriverSchedule with ID " + id + " does not exist.");
+        }
+
+        // Update and save the DriverSchedule
         DriverSchedule updatedSchedule = new DriverSchedule(id, driver, company, checkIn, checkOut);
         driverScheduleRepository.update(updatedSchedule);
     }
 
-    public void deleteDriverSchedule(Integer id) {
+    public void deleteDriverSchedule(int id) {
         driverScheduleRepository.delete(id);
     }
 }

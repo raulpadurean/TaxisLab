@@ -25,11 +25,15 @@ public class OrderController {
         return orderService.getAllOrders();
     }
 
-    public void updateOrder(Order order) {
-        orderService.updateOrder(order);
+    public void updateOrder(int id, double totalKm, int serviceId, int clientId, int driverId, int companyId, Date datetime) {
+        orderService.updateOrder(id, totalKm, serviceId, clientId, driverId, companyId, datetime);
     }
 
     public void deleteOrder(int id) {
         orderService.deleteOrder(id);
+    }
+
+    public List<Order> filterOrdersByServiceType(String serviceType) {
+        return orderService.filterOrdersByServiceType(serviceType);
     }
 }

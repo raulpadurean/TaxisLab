@@ -45,13 +45,12 @@ public class OrderService {
             throw new IllegalArgumentException("Company not found with ID: " + companyId);
         }
 
-        int orderId = orderRepository.readAll().size() + 1;
+        int orderId = orderRepository.readAll().size() + 1; // Generate new order ID
 
         // Create and add the order
         Order order = new Order(orderId, totalKm, service, client, driver, company, datetime);
         orderRepository.create(order);
     }
-
 
     public Order getOrder(int id) {
         return orderRepository.read(id);
@@ -61,8 +60,39 @@ public class OrderService {
         return orderRepository.readAll();
     }
 
-    public void updateOrder(Order order) {
-        orderRepository.update(order);
+    public void updateOrder(int id, double totalKm, int serviceId, int clientId, int driverId, int companyId, Date datetime) {
+        // Fetch the existing order
+        Order existingOrder = orderRepository.read(id);
+        if (existingOrder == null) {
+            throw new IllegalArgumentException("Order with ID " + id + " does not exist.");
+        }
+
+        // Fetch related objects from repositories
+        Service service = serviceRepository.read(serviceId);
+        if (service == null) {
+            throw new IllegalArgumentException("Service not found with ID: " + serviceId);
+        }
+
+        Client client = clientRepository.read(clientId);
+        if (client == null) {
+            throw new IllegalArgumentException("Client not found with ID: " + clientId);
+        }
+
+        Driver driver = driverRepository.read(driverId);
+        if (driver == null) {
+            throw new IllegalArgumentException("Driver not found with ID: " + driverId);
+        }
+
+        Company company = companyRepository.read(companyId);
+        if (company == null) {
+            throw new IllegalArgumentException("Company not found with ID: " + companyId);
+        }
+
+        // Create updated order object
+        Order updatedOrder = new Order(id, totalKm, service, client, driver, company, datetime);
+
+        // Update the order in the repository
+        orderRepository.update(updatedOrder);
     }
 
     public void deleteOrder(Integer orderId) {
@@ -74,6 +104,4 @@ public class OrderService {
                 .filter(order -> order.getService().getServiceType().equalsIgnoreCase(serviceType))
                 .collect(Collectors.toList());
     }
-
 }
-

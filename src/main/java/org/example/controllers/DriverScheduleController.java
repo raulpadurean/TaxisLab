@@ -14,11 +14,11 @@ public class DriverScheduleController {
         this.driverScheduleService = driverScheduleService;
     }
 
-    public void addDriverSchedule(Integer id, int driverId, int companyId, Date checkIn, Date checkOut) {
-        driverScheduleService.addDriverSchedule(id, driverId, companyId, checkIn, checkOut);
+    public void addDriverSchedule(int driverId, int companyId, Date checkIn, Date checkOut) {
+        driverScheduleService.addDriverSchedule(driverId, companyId, checkIn, checkOut);
     }
 
-    public void updateDriverSchedule(Integer id, int driverId, int companyId, Date checkIn, Date checkOut) {
+    public void updateDriverSchedule(int id, int driverId, int companyId, Date checkIn, Date checkOut) {
         driverScheduleService.updateDriverSchedule(id, driverId, companyId, checkIn, checkOut);
     }
 
@@ -30,7 +30,7 @@ public class DriverScheduleController {
         return driverScheduleService.getAllDriverSchedules();
     }
 
-    public void deleteDriverSchedule(Integer id) {
+    public void deleteDriverSchedule(int id) {
         driverScheduleService.deleteDriverSchedule(id);
     }
 }

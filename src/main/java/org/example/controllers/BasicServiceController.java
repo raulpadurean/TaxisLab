@@ -12,9 +12,8 @@ public class BasicServiceController {
         this.basicServiceService = basicServiceService;
     }
 
-    public void addBasicService(int id, String name, double pricePerKm) {
-        BasicService basicService = new BasicService(id, name, pricePerKm); // ID is set by repository
-        basicServiceService.addBasicService(basicService);
+    public void addBasicService(String name, double pricePerKm) {
+        basicServiceService.addBasicService(name, pricePerKm); // Delegate to service
     }
 
     public BasicService getBasicService(int id) {
@@ -25,12 +24,11 @@ public class BasicServiceController {
         return basicServiceService.getAllBasicServices();
     }
 
-    public void updateBasicService(BasicService basicService) {
-        basicServiceService.updateBasicService(basicService);
+    public void updateBasicService(int id, String name, double pricePerKm) {
+        basicServiceService.updateBasicService(id, name, pricePerKm);
     }
 
     public void deleteBasicService(Integer basicServiceId) {
         basicServiceService.deleteBasicService(basicServiceId);
-
     }
 }
