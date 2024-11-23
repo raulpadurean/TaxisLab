@@ -12,8 +12,11 @@ public class CompanyService {
         this.companyRepository = companyRepository;
     }
 
-    public void addCompany(Company company) {
-        companyRepository.create(company);
+    // Add a company and generate an ID automatically
+    public void addCompany(String name, String email, String address, String phone) {
+        int id = companyRepository.readAll().size() + 1; // Generate ID based on current size
+        Company company = new Company(id, name, email, address, phone); // Create a new company object
+        companyRepository.create(company); // Save the company
     }
 
     public Company getCompany(int id) {
@@ -29,7 +32,6 @@ public class CompanyService {
     }
 
     public void deleteCompany(Integer companyId) {
-
         companyRepository.delete(companyId);
     }
 }

@@ -12,9 +12,8 @@ public class CompanyController {
         this.companyService = companyService;
     }
 
-    public void addCompany(Integer id,String name, String email, String address, String phone) {
-        Company company = new Company(id, name, email, address, phone); // ID is set by repository
-        companyService.addCompany(company);
+    public void addCompany(String name, String email, String address, String phone) {
+        companyService.addCompany(name, email, address, phone);
     }
 
     public Company getCompany(int id) {
@@ -31,6 +30,5 @@ public class CompanyController {
 
     public void deleteCompany(Integer companyId) {
         companyService.deleteCompany(companyId);
-
     }
 }
