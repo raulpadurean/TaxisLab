@@ -19,12 +19,21 @@ public class CustomService extends Service {
 
     @Override
     public String getServiceType() {
-        return "Custom Service";
+        return "Custom";
     }
 
     @Override
     public String toString() {
-        return String.format("CustomService { id=%d, name='%s', pricePerKm=%.2f, extras='%s', type='%s' }",
-                getId(), getName(), getPricePerKm(), extras, getServiceType());
+        return  getServiceType() + ":" + this.id + ";" + this.name + ";" + this.pricePerKm + ";" + this.extras;
+    }
+
+    public static CustomService parse(String stringData) {
+        String[] data=stringData.split(";");
+        return new CustomService(
+                Integer.parseInt(data[0]),
+                data[1],
+                Integer.parseInt(data[2]),
+                data[3]
+        );
     }
 }

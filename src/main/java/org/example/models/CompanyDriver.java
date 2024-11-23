@@ -31,14 +31,14 @@ public class CompanyDriver {
 
     @Override
     public String toString() {
-        return "CompanyDriver{" +
-                "driver=" + driver +
-                ", company=" + company +
-                '}';
+        return driver + "," + company;
     }
 
-    @Override
-    public Integer getId() {
-        return driverId;
+    public CompanyDriver parse(String line) {
+        String[] fields = line.split(",");
+        return new CompanyDriver(
+                Driver.parse(fields[0]),
+                Company.parse(fields[1])
+        );
     }
 }

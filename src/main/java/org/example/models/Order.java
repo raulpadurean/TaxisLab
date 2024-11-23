@@ -1,5 +1,7 @@
 package org.example.models;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Order implements HasId {
@@ -13,11 +15,11 @@ public class Order implements HasId {
     private Date datetime;
 
 
-    public Order(int id,Service service, double totalKm, Client client, Driver driver, Company company, Date datetime) {
+    public Order(int id,  double totalKm, Service service, Client client, Driver driver, Company company, Date datetime) {
 
         this.id = id;
-        this.service = service;
         this.totalKm = totalKm;
+        this.service = service;
         this.client = client;
         this.driver = driver;
         this.company = company;
@@ -82,14 +84,24 @@ public class Order implements HasId {
 
     @Override
     public String toString() {
-        return "Order{" +
-                "service=" + service +
-                ", totalKm=" + totalKm +
-                ", client=" + client +
-                ", driver=" + driver +
-                ", company=" + company +
-                ", datetime=" + datetime +
-                '}';
+        return id + "," + totalKm + "," + service + "," + client + "," + driver + "," + company + "," + datetime;
+    }
+
+    public static Order parse(String line)  throws ParseException {
+        String[] fields = line.split(",");
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+        return new Order(
+                Integer.parseInt(fields[0]),
+                Double.parseDouble(fields[1]),
+                Service.parse(fields[2]),
+                Client.parse(fields[3]),
+                Driver.parse(fields[4]),
+                Company.parse(fields[5]),
+                dateFormat.parse(fields[6])
+
+        );
     }
 
 }
