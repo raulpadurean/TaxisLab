@@ -1,6 +1,5 @@
 package org.example.controllers;
 
-import org.example.models.Driver;
 import org.example.models.DriverSchedule;
 import org.example.services.DriverScheduleService;
 
@@ -15,25 +14,23 @@ public class DriverScheduleController {
         this.driverScheduleService = driverScheduleService;
     }
 
-    public void addDriverSchedule(Integer id,int driverId, int companyId, Date checkIn, Date checkOut) {
-        DriverSchedule driverSchedule = new DriverSchedule(id, driverId, companyId, checkIn, checkOut);
-        driverScheduleService.addDriverSchedule(driverSchedule);
+    public void addDriverSchedule(Integer id, int driverId, int companyId, Date checkIn, Date checkOut) {
+        driverScheduleService.addDriverSchedule(id, driverId, companyId, checkIn, checkOut);
     }
 
-    public DriverSchedule getDriverSchedule(int id){
+    public void updateDriverSchedule(Integer id, int driverId, int companyId, Date checkIn, Date checkOut) {
+        driverScheduleService.updateDriverSchedule(id, driverId, companyId, checkIn, checkOut);
+    }
+
+    public DriverSchedule getDriverSchedule(int id) {
         return driverScheduleService.getDriverSchedule(id);
     }
 
-    public List<DriverSchedule> getAllDriverSchedules(){
+    public List<DriverSchedule> getAllDriverSchedules() {
         return driverScheduleService.getAllDriverSchedules();
     }
 
-    public void updateDriverSchedule(DriverSchedule driverSchedule){
-        driverScheduleService.updateDriverSchedule(driverSchedule);
-    }
-
-    public void deleteDriverSchedule(Integer driverScheduleId) {
-        driverScheduleService.deleteDriverSchedule(driverScheduleId);
-
+    public void deleteDriverSchedule(Integer id) {
+        driverScheduleService.deleteDriverSchedule(id);
     }
 }

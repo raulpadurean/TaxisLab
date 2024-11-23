@@ -7,10 +7,10 @@ public class CompanyDriver implements HasId {
     private Driver driver;
     private Company company;
 
-    public CompanyDriver(Integer id, Driver driver, Company company) {
+    public CompanyDriver(Integer id, Company company, Driver driver) {
         this.id = id;
-        this.driver = driver;
         this.company = company;
+        this.driver = driver;
     }
 
     public Driver getDriver() {
@@ -42,8 +42,8 @@ public class CompanyDriver implements HasId {
         String[] fields = line.split(",");
         return new CompanyDriver(
                 Integer.parseInt(fields[0]),
-                Driver.parse(fields[0]),
-                Company.parse(fields[1])
+                Company.parse(fields[1]),
+                Driver.parse(fields[0])
         );
     }
 

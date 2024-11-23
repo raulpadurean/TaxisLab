@@ -9,6 +9,15 @@ public class Review implements HasId {
     private Driver driver;
     private Client client;
 
+    public Review(Integer id, int rating, String description, Company company, Driver driver, Client client) {
+        this.id = id;
+        this.rating = rating;
+        this.description = description;
+        this.company = company;
+        this.driver = driver;
+        this.client = client;
+    }
+
     public Company getCompany() {
         return company;
     }
@@ -30,15 +39,6 @@ public class Review implements HasId {
     }
 
     public void setClient(Client client) {
-        this.client = client;
-    }
-
-    public Review(Integer id, int rating, String description, Company company, Driver driver, Client client) {
-        this.id = id;
-        this.rating = rating;
-        this.description = description;
-        this.company = company;
-        this.driver = driver;
         this.client = client;
     }
 

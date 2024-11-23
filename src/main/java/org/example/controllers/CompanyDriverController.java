@@ -17,20 +17,19 @@ public class CompanyDriverController {
 
 
     public void addCompanyDriver(Integer driverId, int companyId) {
-        CompanyDriver companyDriver = new CompanyDriver(driverId,companyId);
-        companyDriverService.addCompanyDriver(companyDriver);
+        companyDriverService.addCompanyDriver(driverId, companyId);
     }
 
-    public CompanyDriver getCompanyDriver(int Id){
-        return companyDriverService.getCompanyDriver(Id);
+    public CompanyDriver getCompanyDriver(int id){
+        return companyDriverService.getCompanyDriver(id);
     }
 
     public List<CompanyDriver> getAllCompanyDrivers(){
         return companyDriverService.getAllCompanyDrivers();
     }
 
-    public void updateCompanyDriver(CompanyDriver companyDriver){
-        companyDriverService.updateCompanyDriver(companyDriver);
+    public void updateCompanyDriver(int id, int driverId, int companyId){
+        companyDriverService.updateCompanyDriver(id, companyId, driverId);
     }
 
     public void deleteCompanyDriver(Integer companyDriverId) {

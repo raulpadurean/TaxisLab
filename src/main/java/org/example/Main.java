@@ -141,7 +141,7 @@ public class Main {
     }
 
     public static void companyDriversMenu() {
-        CompanyDriverService companyDriverService = new CompanyDriverService(companyDriverRepo);
+        CompanyDriverService companyDriverService = new CompanyDriverService(companyDriverRepo, driverRepo, companyRepo);
         CompanyDriverController companyDriverController = new CompanyDriverController(companyDriverService);
         Scanner scanner = new Scanner(System.in);
         while (true) {
@@ -229,7 +229,7 @@ public class Main {
     }
 
     public static void driverScheduleMenu() throws ParseException {
-        DriverScheduleService driverScheduleService = new DriverScheduleService(driverScheduleRepo);
+        DriverScheduleService driverScheduleService = new DriverScheduleService(driverScheduleRepo, driverRepo, companyRepo);
         DriverScheduleController driverScheduleController = new DriverScheduleController(driverScheduleService);
         Scanner scanner = new Scanner(System.in);
         while (true) {
@@ -576,7 +576,7 @@ public class Main {
     }
 
     public static void reviewMenu() {
-        ReviewService reviewService = new ReviewService(reviewRepo);
+        ReviewService reviewService = new ReviewService(reviewRepo, driverRepo, companyRepo, clientRepo);
         ReviewController reviewController = new ReviewController(reviewService);
         Scanner scanner = new Scanner(System.in);
 
