@@ -13,25 +13,23 @@ public class DriverController {
         this.driverService = driverService;
     }
 
-    public void addDriver(Integer id,String name, String email, String address, String phone) {
-        Driver driver = new Driver(id, name, email, address, phone);
-        driverService.addDriver(driver);
+    public void addDriver(String name, String email, String address, String phone) {
+        driverService.addDriver(name, email, address, phone); // Delegate to service
     }
 
-    public Driver getDriver(int id){
+    public Driver getDriver(int id) {
         return driverService.getDriver(id);
     }
 
-    public List<Driver> getAllDrivers(){
+    public List<Driver> getAllDrivers() {
         return driverService.getAllDrivers();
     }
 
-    public void updateDriver(Driver driver){
-        driverService.updateDriver(driver);
+    public void updateDriver(int id, String name, String email, String address, String phone) {
+        driverService.updateDriver(id, name, email, address, phone);
     }
 
     public void deleteDriver(Integer driverId) {
         driverService.deleteDriver(driverId);
-
     }
 }

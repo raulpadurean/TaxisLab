@@ -191,13 +191,13 @@ public class Main {
         DriverService driverService = new DriverService(driverRepo);
         DriverController driverController = new DriverController(driverService);
         Scanner scanner = new Scanner(System.in);
+
         while (true) {
             System.out.println("""
                     Options:
                     1. Add Driver
-                    2. View Driver
+                    2. View Drivers
                     3. Delete Driver
-                    
                     5. Exit
                     """);
             int choice = scanner.nextInt();
@@ -205,23 +205,22 @@ public class Main {
 
             switch (choice) {
                 case 1:
-                    System.out.println("Enter driver details (id, name, email, address, phone):");
-                    int id = Integer.parseInt(scanner.nextLine());
+                    System.out.println("Enter driver details (name, email, address, phone):");
                     String name = scanner.nextLine();
                     String email = scanner.nextLine();
                     String address = scanner.nextLine();
                     String phone = scanner.nextLine();
-                    driverController.addDriver(id, name, email, address, phone);
+                    driverController.addDriver(name, email, address, phone); // No ID needed
                     break;
                 case 2:
                     System.out.println("List of Drivers:");
                     driverController.getAllDrivers().forEach(System.out::println);
                     break;
                 case 3:
-
-                    driverController.deleteDriver(readId(scanner));
+                    System.out.println("Enter the ID of the driver to delete:");
+                    int driverId = scanner.nextInt();
+                    driverController.deleteDriver(driverId);
                     break;
-
                 case 5:
                     System.out.println("Exiting...");
                     return;
@@ -230,6 +229,7 @@ public class Main {
             }
         }
     }
+
 
     public static void driverScheduleMenu() throws ParseException {
         DriverScheduleService driverScheduleService = new DriverScheduleService(driverScheduleRepo, driverRepo, companyRepo);
