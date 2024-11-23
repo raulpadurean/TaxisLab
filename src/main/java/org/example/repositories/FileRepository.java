@@ -1,6 +1,5 @@
 package org.example.repositories;
 
-import org.example.mappers.EntityMapper;
 import org.example.models.HasId;
 
 import java.io.*;
@@ -9,41 +8,46 @@ import java.util.stream.Collectors;
 
 public class FileRepository<T extends HasId> implements IRepository<T> {
 
-
     private final String filePath;
-    private final EntityMapper<T> mapper;
+    private final Class<T> type;
 
-    public FileRepository(String filePath, EntityMapper<T> mapper) {
+    public FileRepository(String filePath, Class<T> type) {
         this.filePath = filePath;
-        this.mapper = mapper;
+        this.type = type;
     }
 
     @Override
     public void create(T obj) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true))) {
-            writer.write(mapper.toCSV(obj));
+            writer.write(obj.toString()); // Use model's toString method
             writer.newLine();
         } catch (IOException e) {
-            throw new RuntimeException("Fehler beim Hinzufügen einer Entität", e);
+            throw new RuntimeException("Error adding entity", e);
         }
     }
 
     @Override
-    public T read(int id) {
+    public T read(Integer id) {
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             return reader.lines()
-                    .map(mapper::fromCSV)
+                    .map(this::parse) // Parse directly using the model's parse method
                     .filter(entity -> entity.getId() == id)
                     .findFirst()
                     .orElse(null);
         } catch (IOException e) {
-            throw new RuntimeException("Fehler beim Lesen einer Entität", e);
+            throw new RuntimeException("Error reading entity", e);
         }
     }
 
     @Override
-    public T get(Integer id) {
-        return null;
+    public List<T> readAll() {
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            return reader.lines()
+                    .map(this::parse) // Parse directly using the model's parse method
+                    .collect(Collectors.toList());
+        } catch (IOException e) {
+            throw new RuntimeException("Error reading all entities", e);
+        }
     }
 
     @Override
@@ -60,7 +64,7 @@ public class FileRepository<T extends HasId> implements IRepository<T> {
         }
 
         if (!updated) {
-            throw new RuntimeException("Entität mit ID " + obj.getId() + " nicht gefunden");
+            throw new RuntimeException("Entity with ID " + obj.getId() + " not found");
         }
 
         writeAll(entities);
@@ -68,45 +72,33 @@ public class FileRepository<T extends HasId> implements IRepository<T> {
 
     @Override
     public void delete(Integer id) {
-
-    }
-
-    @Override
-    public List<T> getAll() {
-        return List.of();
-    }
-
-    @Override
-    public void delete(int id) {
         List<T> entities = readAll();
         boolean removed = entities.removeIf(entity -> entity.getId() == id);
 
         if (!removed) {
-            throw new RuntimeException("Entität mit ID " + id + " nicht gefunden");
+            throw new RuntimeException("Entity with ID " + id + " not found");
         }
 
         writeAll(entities);
     }
 
-    private List<T> readAll() {
-        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
-            return reader.lines()
-                    .map(mapper::fromCSV)
-                    .collect(Collectors.toList());
-        } catch (IOException e) {
-            throw new RuntimeException("Fehler beim Lesen aller Entitäten", e);
-        }
-    }
-
     private void writeAll(List<T> entities) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
             for (T entity : entities) {
-                writer.write(mapper.toCSV(entity));
+                writer.write(entity.toString()); // Use model's toString method
                 writer.newLine();
             }
         } catch (IOException e) {
-            throw new RuntimeException("Fehler beim Schreiben in die Datei", e);
+            throw new RuntimeException("Error writing to file", e);
+        }
+    }
+
+    // Helper method to parse using reflection
+    private T parse(String csv) {
+        try {
+            return (T) type.getMethod("parse", String.class).invoke(null, csv);
+        } catch (Exception e) {
+            throw new RuntimeException("Error parsing entity from CSV. Ensure the model has a valid static parse(String csv) method.", e);
         }
     }
 }
-

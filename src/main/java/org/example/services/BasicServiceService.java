@@ -21,7 +21,7 @@ public class BasicServiceService {
     }
 
     public List<BasicService> getAllBasicServices() {
-        return serviceRepository.getAll();
+        return serviceRepository.readAll();
     }
 
     public void updateBasicService(BasicService service) {

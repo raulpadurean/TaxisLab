@@ -21,7 +21,7 @@ public class DriverScheduleService {
     }
 
     public List<DriverSchedule> getAllDriverSchedules() {
-        return driverScheduleRepository.getAll();
+        return driverScheduleRepository.readAll();
     }
 
     public void updateDriverSchedule(DriverSchedule driverSchedule) {

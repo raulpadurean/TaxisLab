@@ -64,9 +64,25 @@ public class Review implements HasId {
     }
 
 
-
     @Override
     public Integer getId() {
         return id;
+    }
+
+    @Override
+    public String toString() {
+        return id + "," + rating + "," + description + "," + company + "," + driver + "," + client;
+    }
+
+    public static Review parse(String line) {
+        String[] fields = line.split(",");
+        return new Review(
+                Integer.parseInt(fields[0]),
+                Integer.parseInt(fields[1]),
+                fields[2],
+                Company.parse(fields[3]),
+                Driver.parse(fields[4]),
+                Client.parse(fields[5])
+        );
     }
 }

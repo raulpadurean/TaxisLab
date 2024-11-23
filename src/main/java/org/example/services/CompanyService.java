@@ -21,7 +21,7 @@ public class CompanyService {
     }
 
     public List<Company> getAllCompanies() {
-        return companyRepository.getAll();
+        return companyRepository.readAll();
     }
 
     public void updateCompany(Company company) {

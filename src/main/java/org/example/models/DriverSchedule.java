@@ -4,14 +4,14 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class DriverSchedule {
-    private int id;
+public class DriverSchedule implements HasId {
+    private Integer id;
     private Driver driver;
     private Company company;
     private Date checkIn;
     private Date checkOut;
 
-    public DriverSchedule(int id, Driver driver, Company company, Date checkIn, Date checkOut) {
+    public DriverSchedule(Integer id, Driver driver, Company company, Date checkIn, Date checkOut) {
         this.id = id;
         this.driver = driver;
         this.company = company;
@@ -19,7 +19,8 @@ public class DriverSchedule {
         this.checkOut = checkOut;
     }
 
-    public int getId() {
+    @Override
+    public Integer getId() {
         return id;
     }
 

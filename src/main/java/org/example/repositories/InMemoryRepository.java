@@ -1,4 +1,5 @@
 package org.example.repositories;
+
 import org.example.models.HasId;
 
 import java.util.ArrayList;
@@ -15,13 +16,9 @@ public class InMemoryRepository<T extends HasId> implements IRepository<T> {
         dataStore.putIfAbsent(obj.getId(), obj);
     }
 
-    @Override
-    public T get(Integer id) {
-        return dataStore.get(id);
-    }
 
     @Override
-    public T read(int id) {
+    public T read(Integer id) {
         return dataStore.get(id);
     }
 
@@ -37,7 +34,7 @@ public class InMemoryRepository<T extends HasId> implements IRepository<T> {
     }
 
     @Override
-    public List<T> getAll() {
+    public List<T> readAll() {
         return new ArrayList<>(dataStore.values());
     }
 }

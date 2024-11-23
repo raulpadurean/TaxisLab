@@ -21,7 +21,7 @@ public class CompanyDriverService {
     }
 
     public List<CompanyDriver> getAllCompanyDrivers() {
-        return companyDriverRepository.getAll();
+        return companyDriverRepository.readAll();
     }
 
     public void updateCompanyDriver(CompanyDriver companyDriver) {

@@ -21,7 +21,7 @@ public class CustomServiceService {
     }
 
     public List<CustomService> getAllCustomServices() {
-        return customServiceRepository.getAll();
+        return customServiceRepository.readAll();
     }
 
     public void updateCustomService(CustomService service) {

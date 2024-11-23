@@ -1,13 +1,13 @@
 package org.example.models;
 
 public class Car implements HasId {
-    private int id;
+    private Integer id;
     private String brand;
     private String model;
     private String plateNr;
     private Driver driver;
 
-    public Car(int id, String brand, String model, String plateNr, Driver driver) {
+    public Car(Integer id, String brand, String model, String plateNr, Driver driver) {
         this.id = id;
         this.brand = brand;
         this.model = model;

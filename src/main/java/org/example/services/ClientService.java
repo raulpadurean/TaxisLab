@@ -23,7 +23,7 @@ public class ClientService {
     }
 
     public List<Client> getAllClients() {
-        return clientRepository.getAll();
+        return clientRepository.readAll();
     }
 
     public void updateClient(Client client) {

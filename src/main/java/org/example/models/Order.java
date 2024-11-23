@@ -6,7 +6,7 @@ import java.util.Date;
 
 public class Order implements HasId {
 
-    private int id;
+    private Integer id;
     private Service service;
     private double totalKm;
     private Client client;
@@ -15,7 +15,7 @@ public class Order implements HasId {
     private Date datetime;
 
 
-    public Order(int id,  double totalKm, Service service, Client client, Driver driver, Company company, Date datetime) {
+    public Order(Integer id,  double totalKm, Service service, Client client, Driver driver, Company company, Date datetime) {
 
         this.id = id;
         this.totalKm = totalKm;

@@ -6,7 +6,7 @@ public abstract class Service implements HasId {
     protected String name;
     protected double pricePerKm;
 
-    public Service(int id, String name, double pricePerKm) {
+    public Service(Integer id, String name, double pricePerKm) {
         if (id <= 0) {
             throw new IllegalArgumentException("ID must be positive.");
         }

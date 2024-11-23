@@ -21,7 +21,7 @@ public class ReviewService {
     }
 
     public List<Review> getAllReviews() {
-        return reviewRepository.getAll();
+        return reviewRepository.readAll();
     }
 
     public void updateReview(Review review) {

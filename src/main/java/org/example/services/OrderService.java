@@ -45,7 +45,7 @@ public class OrderService {
             throw new IllegalArgumentException("Company not found with ID: " + companyId);
         }
 
-        int orderId = orderRepository.getAll().size() + 1;
+        int orderId = orderRepository.readAll().size() + 1;
 
         // Create and add the order
         Order order = new Order(orderId, totalKm, service, client, driver, company, datetime);
@@ -58,7 +58,7 @@ public class OrderService {
     }
 
     public List<Order> getAllOrders() {
-        return orderRepository.getAll();
+        return orderRepository.readAll();
     }
 
     public void updateOrder(Order order) {
@@ -70,7 +70,7 @@ public class OrderService {
     }
 
     public List<Order> filterOrdersByServiceType(String serviceType) {
-        return orderRepository.getAll().stream()
+        return orderRepository.readAll().stream()
                 .filter(order -> order.getService().getServiceType().equalsIgnoreCase(serviceType))
                 .collect(Collectors.toList());
     }

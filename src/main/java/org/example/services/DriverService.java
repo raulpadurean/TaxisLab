@@ -20,7 +20,7 @@ public class DriverService {
     }
 
     public List<Driver> getAllDrivers() {
-        return driverRepository.getAll();
+        return driverRepository.readAll();
     }
 
     public void updateDriver(Driver driver) {
