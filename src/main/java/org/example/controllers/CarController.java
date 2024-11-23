@@ -1,6 +1,7 @@
 package org.example.controllers;
 
 import org.example.models.Car;
+import org.example.models.Driver;
 import org.example.services.CarService;
 
 import java.util.List;
@@ -13,8 +14,8 @@ public class CarController {
         this.carService = carService;
     }
 
-    public void addCar(Integer id,String brand,String model,String plateNr,int driverId){
-        Car car = new Car(id,brand,model,plateNr,driverId);
+    public void addCar(Integer id, String brand, String model, String plateNr, Driver driver){
+        Car car = new Car(id,brand,model,plateNr,driver);
         carService.addCar(car);
     }
 
@@ -26,7 +27,13 @@ public class CarController {
         return carService.getAllCars();
     }
 
-    public void updateCar(Car car){
+    public void updatesCar(Car car){
+        carService.updateCar(car);
+    }
+
+
+    public void updateCar(Integer id,String brand,String model,String plateNr,int driverId){
+        Car car = new Car(id,brand,model,plateNr,driverId);
         carService.updateCar(car);
     }
 

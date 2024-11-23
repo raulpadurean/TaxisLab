@@ -2,9 +2,9 @@ package org.example.models;
 
 public abstract class Service implements HasId {
 
-    private final Integer id;
-    private final String name;
-    private final double pricePerKm;
+    protected Integer id;
+    protected String name;
+    protected double pricePerKm;
 
     public Service(int id, String name, double pricePerKm) {
         if (id <= 0) {
@@ -34,11 +34,30 @@ public abstract class Service implements HasId {
         return pricePerKm;
     }
 
-    @Override
-    public String toString() {
-        return String.format("Service { id=%d, name='%s', pricePerKm=%.2f }", id, name, pricePerKm);
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setPricePerKm(double pricePerKm) {
+        this.pricePerKm = pricePerKm;
     }
 
     // Abstract method to be implemented by subclasses
     public abstract String getServiceType();
+
+    public static Service parse(String serviceData) {
+        String[] parts = serviceData.split(":");
+        String type = parts[0];
+
+        return switch (type) {
+            case "Basic" -> BasicService.parse(parts[1]);
+            case "Custom" -> CustomService.parse(parts[1]);
+            default -> throw new IllegalArgumentException("Unknown service type: " + type);
+        };
+    }
 }

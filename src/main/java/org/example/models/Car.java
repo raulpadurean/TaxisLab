@@ -57,12 +57,17 @@ public class Car implements HasId {
 
     @Override
     public String toString() {
-        return "Car{" +
-                "id=" + id +
-                ", brand='" + brand + '\'' +
-                ", model='" + model + '\'' +
-                ", plateNr='" + plateNr + '\'' +
-                ", driverId=" + driver +
-                '}';
+        return id + "," + brand + "," + model + "," + plateNr + "," + driver;
+    }
+
+    public static Car parse(String line) {
+        String[] fields = line.split(",");
+        return new Car(
+                Integer.parseInt(fields[0]),
+                fields[1],
+                fields[2],
+                fields[3],
+                Driver.parse(fields[4])
+        );
     }
 }

@@ -1,31 +1,45 @@
 package org.example.models;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class Order {
+public class Order implements HasId {
 
-    private int serviceId;
+    private int id;
+    private Service service;
     private double totalKm;
     private Client client;
     private Driver driver;
     private Company company;
     private Date datetime;
 
-    public Order(int serviceId, double totalKm, Client client, Driver driver, Company company, Date datetime) {
-        this.serviceId = serviceId;
+
+    public Order(int id,  double totalKm, Service service, Client client, Driver driver, Company company, Date datetime) {
+
+        this.id = id;
         this.totalKm = totalKm;
+        this.service = service;
         this.client = client;
         this.driver = driver;
         this.company = company;
         this.datetime = datetime;
     }
 
-    public int getServiceId() {
-        return serviceId;
+    public Integer getId() {
+        return id;
     }
 
-    public void setServiceId(int serviceId) {
-        this.serviceId = serviceId;
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Service getService() {
+        return service;
+    }
+
+    public void setService(Service service) {
+        this.service = service;
     }
 
     public double getTotalKm() {
@@ -70,13 +84,24 @@ public class Order {
 
     @Override
     public String toString() {
-        return "Order{" +
-                "serviceId=" + serviceId +
-                ", totalKm=" + totalKm +
-                ", client=" + client +
-                ", driver=" + driver +
-                ", company=" + company +
-                ", datetime=" + datetime +
-                '}';
+        return id + "," + totalKm + "," + service + "," + client + "," + driver + "," + company + "," + datetime;
     }
+
+    public static Order parse(String line)  throws ParseException {
+        String[] fields = line.split(",");
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+        return new Order(
+                Integer.parseInt(fields[0]),
+                Double.parseDouble(fields[1]),
+                Service.parse(fields[2]),
+                Client.parse(fields[3]),
+                Driver.parse(fields[4]),
+                Company.parse(fields[5]),
+                dateFormat.parse(fields[6])
+
+        );
+    }
+
 }
