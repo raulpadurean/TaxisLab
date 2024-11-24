@@ -6,6 +6,7 @@ import org.example.repositories.IRepository;
 import org.example.repositories.FileRepository;
 import org.example.services.*;
 
+import java.io.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -1043,7 +1044,11 @@ public class Main {
             switch (choice) {
                 case 1:
                     try {
-                        System.out.println("Enter Review details (clientId, driverId, companyId, rating, description):");
+                        System.out.println("Enter Review details (reviewId, clientId, driverId, companyId, rating, description):");
+
+                        System.out.print("Enter review ID: ");
+                        int reviewId = Integer.parseInt(scanner.nextLine());
+
                         System.out.print("Enter client ID: ");
                         int clientId = Integer.parseInt(scanner.nextLine());
 
@@ -1059,7 +1064,7 @@ public class Main {
                         System.out.print("Enter description: ");
                         String description = scanner.nextLine();
 
-                        reviewController.addReview(null, companyId, driverId, clientId, rating, description);
+                        reviewController.addReview(reviewId, companyId, driverId, clientId, rating, description);
                         System.out.println("Review added successfully.");
                     } catch (NumberFormatException e) {
                         System.out.println("Invalid input. Please enter valid IDs and rating.");
@@ -1110,20 +1115,106 @@ public class Main {
                     break;
 
                 case 5:
-//                    try {
-//                        System.out.print("Enter Company ID to find the best-rated driver: ");
-//                        int companyId = Integer.parseInt(scanner.nextLine());
-//                        Map.Entry<Driver, Double> result = reviewController.findBestRatedDriverInCompany(companyId);
-//
-//                        if (result != null) {
-//                            System.out.printf("The best-rated driver for company %d is %s with an average rating of %.2f%n",
-//                                    companyId, result.getKey().getName(), result.getValue());
-//                        } else {
-//                            System.out.printf("No valid drivers found for company %d%n", companyId);
-//                        }
-//                    } catch (NumberFormatException e) {
-//                        System.out.println("Invalid input. Please enter a valid company ID.");
-//                    }
+                    try {
+                        List<Driver> drivers = new ArrayList<>();
+                        List<Review> reviews = new ArrayList<>();
+
+                        // read CSV file and populate drivers and reviews
+                        File file = new File("C:\\Users\\pc\\IdeaProjects\\TaxisLab\\data\\reviews.csv");
+                        if (!file.exists()) {
+                            System.out.println("File not found: " + file.getAbsolutePath());
+                            return; // Exit if the file does not exist
+                        }
+
+                        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+                            String line;
+                            br.readLine();
+                            System.out.println("Started reading file...");
+
+                            // Read and print each line to verify that the file is being read
+                            int counter = 0;
+                            while ((line = br.readLine()) != null) {
+                                counter++;
+                                System.out.println("Processing line " + counter + ": " + line);  // Debugging
+
+                                String[] parts = line.split(";");
+                                System.out.println("Parts: " + Arrays.toString(parts));  // Debugging
+
+                                // Check if the line has 18 fields
+                                if (parts.length != 18) {
+                                    System.out.println("Skipping line due to incorrect number of fields: " + line);
+                                    continue;
+                                }
+
+                                try {
+                                    Integer reviewId = Integer.parseInt(parts[0]);
+                                    int rating = Integer.parseInt(parts[1]);
+                                    String description = parts[2];
+
+                                    int companyId = Integer.parseInt(parts[3]);
+                                    String companyName = parts[4];
+                                    String companyEmail = parts[5];
+                                    String companyAddress = parts[6];
+                                    String companyPhone = parts[7];
+
+                                    int driverId = Integer.parseInt(parts[8]);
+                                    String driverName = parts[9];
+                                    String driverEmail = parts[10];
+                                    String driverAddress = parts[11];
+                                    String driverPhone = parts[12];
+
+                                    int clientId = Integer.parseInt(parts[13]);
+                                    String clientName = parts[14];
+                                    String clientEmail = parts[15];
+                                    String clientAddress = parts[16];
+                                    String clientPhone = parts[17];
+
+                                    // Create Company and Client objects
+                                    Company company = new Company(companyId, companyName, companyEmail, companyAddress, companyPhone);
+                                    Client client = new Client(clientId, clientName, clientEmail, clientAddress, clientPhone);
+
+                                    // Check if the company, driver, and client objects are created correctly
+                                    System.out.println("Created Company: " + company);
+                                    System.out.println("Created Client: " + client);
+
+                                    // Add the driver if not already in the list
+                                    Driver driver = new Driver(driverId, driverName, driverPhone, driverEmail, driverAddress);
+                                    if (drivers.stream().noneMatch(d -> d.getId() == driverId)) {
+                                        drivers.add(driver);
+                                        System.out.println("Added Driver: " + driver);
+                                    }
+
+                                    // Create and add the review to the list
+                                    Review review = new Review(reviewId, rating, description, company, driver, client);
+                                    reviews.add(review);
+                                    System.out.println("Added Review: " + review);
+
+                                } catch (NumberFormatException e) {
+                                    System.out.println("Error parsing line (skipping): " + line + " | Error: " + e.getMessage());
+                                }
+                            }
+                        } catch (IOException e) {
+                            System.out.println("Error reading the file: " + e.getMessage());
+                        }
+
+                        // print the number of drivers and reviews read
+                        System.out.println("Number of drivers loaded: " + drivers.size());
+                        System.out.println("Number of reviews loaded: " + reviews.size());
+
+                        // find the best driver for company 2 (for example)
+                        int companyIdToSearch = 2; // Example company ID to search
+                        Map.Entry<Driver, Double> bestDriverEntry = ReviewController.findBestRatedDriverInCompany(companyIdToSearch, drivers, reviews);
+
+                        // result
+                        if (bestDriverEntry != null) {
+                            System.out.println("Best Driver: " + bestDriverEntry.getKey());
+                            System.out.println("Average Rating: " + bestDriverEntry.getValue());
+                        } else {
+                            System.out.println("No drivers found for the specified company.");
+                        }
+                    } catch (Exception e) {
+                        System.out.println("An error occurred: " + e.getMessage());
+                    }
                     break;
 
                 case 6:
