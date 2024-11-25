@@ -5,16 +5,36 @@ import org.example.models.Car;
 import org.example.models.Driver;
 import org.example.repositories.IRepository;
 
+/**
+ * Service class for managing cars in the taxi service application.
+ * Provides methods for adding, retrieving, updating, and deleting cars.
+ */
 public class CarService {
+
     private final IRepository<Car> carRepository;
     private final IRepository<Driver> driverRepository;
 
+    /**
+     * Constructs a CarService with the specified car and driver repositories.
+     *
+     * @param carRepository    The repository that handles CRUD operations for Car objects.
+     * @param driverRepository The repository that handles CRUD operations for Driver objects.
+     */
     public CarService(IRepository<Car> carRepository, IRepository<Driver> driverRepository) {
         this.carRepository = carRepository;
         this.driverRepository = driverRepository;
     }
 
-    // Add a new car with automatic ID generation
+    /**
+     * Adds a new car with automatic ID generation.
+     * Validates that the driver with the specified ID exists before adding the car.
+     *
+     * @param brand    The brand of the car.
+     * @param model    The model of the car.
+     * @param plateNr  The license plate number of the car.
+     * @param driverId The ID of the driver associated with the car.
+     * @throws IllegalArgumentException If the driver with the specified ID does not exist.
+     */
     public void addCar(String brand, String model, String plateNr, Integer driverId) {
         // Validate if the driver exists
         Driver driver = driverRepository.read(driverId);
@@ -32,17 +52,36 @@ public class CarService {
         carRepository.create(car);
     }
 
-    // Get a car by its ID
+    /**
+     * Retrieves a car by its ID.
+     *
+     * @param id The ID of the car to retrieve.
+     * @return The Car object with the specified ID.
+     */
     public Car getCar(int id) {
         return carRepository.read(id);
     }
 
-    // Get all cars
+    /**
+     * Retrieves all cars from the repository.
+     *
+     * @return A list of all Car objects.
+     */
     public List<Car> getAllCars() {
         return carRepository.readAll();
     }
 
-    // Update an existing car
+    /**
+     * Updates an existing car with the specified ID.
+     * Validates that both the car and the driver with the specified IDs exist before updating.
+     *
+     * @param id       The ID of the car to update.
+     * @param brand    The updated brand of the car.
+     * @param model    The updated model of the car.
+     * @param plateNr  The updated license plate number of the car.
+     * @param driverId The ID of the updated driver associated with the car.
+     * @throws IllegalArgumentException If the car or driver with the specified IDs do not exist.
+     */
     public void updateCar(Integer id, String brand, String model, String plateNr, Integer driverId) {
         // Validate if the car exists
         Car existingCar = carRepository.read(id);
@@ -63,7 +102,11 @@ public class CarService {
         carRepository.update(updatedCar);
     }
 
-    // Delete a car by its ID
+    /**
+     * Deletes a car by its ID.
+     *
+     * @param carId The ID of the car to delete.
+     */
     public void deleteCar(Integer carId) {
         carRepository.delete(carId);
     }
