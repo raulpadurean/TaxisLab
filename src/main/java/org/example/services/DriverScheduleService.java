@@ -8,12 +8,23 @@ import org.example.repositories.IRepository;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * Service class for managing DriverSchedule entities.
+ * Provides functionality to add, retrieve, update, and delete driver schedules.
+ */
 public class DriverScheduleService {
 
     private final IRepository<DriverSchedule> driverScheduleRepository;
     private final IRepository<Driver> driverRepository;
     private final IRepository<Company> companyRepository;
 
+    /**
+     * Constructs a DriverScheduleService with the specified repositories.
+     *
+     * @param driverScheduleRepository The repository for managing DriverSchedule objects.
+     * @param driverRepository         The repository for managing Driver objects.
+     * @param companyRepository        The repository for managing Company objects.
+     */
     public DriverScheduleService(IRepository<DriverSchedule> driverScheduleRepository,
                                  IRepository<Driver> driverRepository,
                                  IRepository<Company> companyRepository) {
@@ -22,6 +33,17 @@ public class DriverScheduleService {
         this.companyRepository = companyRepository;
     }
 
+    /**
+     * Adds a new driver schedule with the provided details.
+     * Automatically generates a unique ID for the schedule.
+     * Validates that the driver and company exist before creating the schedule.
+     *
+     * @param driverId The ID of the driver assigned to the schedule.
+     * @param companyId The ID of the company associated with the schedule.
+     * @param checkIn The check-in date and time for the driver.
+     * @param checkOut The check-out date and time for the driver.
+     * @throws IllegalArgumentException If the driver or company does not exist.
+     */
     public void addDriverSchedule(int driverId, int companyId, Date checkIn, Date checkOut) {
         // Validate driver and company existence
         Driver driver = driverRepository.read(driverId);
@@ -42,14 +64,36 @@ public class DriverScheduleService {
         driverScheduleRepository.create(driverSchedule);
     }
 
+    /**
+     * Retrieves a driver schedule by its ID.
+     *
+     * @param id The ID of the driver schedule to retrieve.
+     * @return The DriverSchedule object with the specified ID, or null if not found.
+     */
     public DriverSchedule getDriverSchedule(int id) {
         return driverScheduleRepository.read(id);
     }
 
+    /**
+     * Retrieves all driver schedules in the repository.
+     *
+     * @return A list of all DriverSchedule objects.
+     */
     public List<DriverSchedule> getAllDriverSchedules() {
         return driverScheduleRepository.readAll();
     }
 
+    /**
+     * Updates an existing driver schedule with the provided details.
+     * Validates that the driver and company exist before updating the schedule.
+     *
+     * @param id         The ID of the driver schedule to update.
+     * @param driverId   The ID of the driver assigned to the schedule.
+     * @param companyId  The ID of the company associated with the schedule.
+     * @param checkIn    The updated check-in date and time for the driver.
+     * @param checkOut   The updated check-out date and time for the driver.
+     * @throws IllegalArgumentException If the driver, company, or driver schedule does not exist.
+     */
     public void updateDriverSchedule(int id, int driverId, int companyId, Date checkIn, Date checkOut) {
         // Validate driver and company existence
         Driver driver = driverRepository.read(driverId);
@@ -73,6 +117,11 @@ public class DriverScheduleService {
         driverScheduleRepository.update(updatedSchedule);
     }
 
+    /**
+     * Deletes a driver schedule by its ID.
+     *
+     * @param id The ID of the driver schedule to delete.
+     */
     public void deleteDriverSchedule(int id) {
         driverScheduleRepository.delete(id);
     }

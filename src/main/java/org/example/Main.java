@@ -13,7 +13,14 @@ import java.util.*;
 
 // Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
 // then press Enter. You can now see whitespace characters in your code.
+
+/**
+ * Main class for the Taxi Service Management application.
+ * This class initializes repositories and provides menus for managing various entities.
+ */
 public class Main {
+
+    // Repositories for various entities in the application
     private static final IRepository<Car> carRepo = new FileRepository<>("data/cars.csv", Car.class);
     private static final IRepository<BasicService> basicServiceRepo = new FileRepository<>("data/basic_services.csv", BasicService.class);
     private static final IRepository<Client> clientRepo = new FileRepository<>("data/clients.csv", Client.class);
@@ -26,7 +33,12 @@ public class Main {
     private static final IRepository<Review> reviewRepo = new FileRepository<>("data/reviews.csv", Review.class);
     private static final IRepository<Service> serviceRepo = new FileRepository<>("data/services.csv", Service.class);
 
-
+    /**
+     * The main entry point for the application.
+     * Displays the main menu and provides access to various entity management menus.
+     *
+     * @param args Command-line arguments (not used).
+     */
     public static void main(String[] args) {
 
 
@@ -97,6 +109,11 @@ public class Main {
         }
 
     }
+
+    /**
+     * Displays the menu for managing companies.
+     * Provides options to add, view, update, and delete company records.
+     */
 
     public static void companyMenu() {
         CompanyService companyService = new CompanyService(companyRepo);
@@ -191,7 +208,10 @@ public class Main {
             }
         }
     }
-
+    /**
+     * Menu for managing company driver assignments.
+     * Provides options to add, view, update, and delete company-driver associations.
+     */
 
     public static void driverMenu() {
         DriverService driverService = new DriverService(driverRepo);
@@ -291,6 +311,10 @@ public class Main {
         }
     }
 
+    /**
+     * Menu for managing company driver assignments.
+     * Provides options to add, view, update, and delete company-driver associations.
+     */
 
     public static void companyDriversMenu() {
         CompanyDriverService companyDriverService = new CompanyDriverService(companyDriverRepo, driverRepo, companyRepo);
@@ -383,6 +407,10 @@ public class Main {
         }
     }
 
+    /**
+     * Menu for managing driver schedules.
+     * Provides options to add, view, update, and delete driver schedules.
+     */
 
     public static void driverScheduleMenu() {
         DriverScheduleService driverScheduleService = new DriverScheduleService(driverScheduleRepo, driverRepo, companyRepo);
@@ -489,6 +517,18 @@ public class Main {
             }
         }
     }
+
+    /**
+     * Displays the Car Management menu and processes user input.
+     *
+     * Options include:
+     * - Add a car.
+     * - View all cars.
+     * - Retrieve a car by ID.
+     * - Update a car.
+     * - Delete a car.
+     * - Exit the menu.
+     */
 
     public static void carMenu() {
         CarService carService = new CarService(carRepo, driverRepo);
@@ -604,6 +644,18 @@ public class Main {
         }
     }
 
+    /**
+     * Displays the Client Management menu and processes user input.
+     *
+     * Options include:
+     * - Add a client.
+     * - View all clients.
+     * - Retrieve a client by ID.
+     * - Update a client.
+     * - Delete a client.
+     * - Exit the menu.
+     */
+
     public static void clientMenu() {
         ClientService clientService = new ClientService(clientRepo);
         ClientController clientController = new ClientController(clientService);
@@ -715,6 +767,18 @@ public class Main {
         }
     }
 
+
+    /**
+     * Displays the Basic Service Management menu and processes user input.
+     *
+     * Options include:
+     * - Add a basic service.
+     * - View all basic services.
+     * - Update a basic service.
+     * - Delete a basic service.
+     * - Exit the menu.
+     */
+
     public static void basicServiceMenu() {
         BasicServiceService basicServiceService = new BasicServiceService(basicServiceRepo);
         BasicServiceController basicServiceController = new BasicServiceController(basicServiceService);
@@ -804,6 +868,18 @@ public class Main {
             }
         }
     }
+
+    /**
+     * Launches the menu for managing Custom Services.
+     * Users can add, view, update, and delete custom services.
+     *
+     * Functionalities:
+     * - Add a custom service with details such as name, price per km, and extras.
+     * - View all existing custom services.
+     * - Update a custom service by providing an ID and new details.
+     * - Delete a custom service by its ID.
+     * - Exit the menu.
+     */
 
     public static void customServiceMenu() {
         CustomServiceService customServiceService = new CustomServiceService(customServiceRepo);
@@ -896,6 +972,19 @@ public class Main {
             }
         }
     }
+
+    /**
+     * Launches the menu for managing Orders.
+     * Users can add, view, update, and delete orders.
+     *
+     * Functionalities:
+     * - Add an order with details such as service ID, total km, client ID,
+     *   driver ID, company ID, and date/time.
+     * - View all existing orders.
+     * - Update an order by providing an ID and new details.
+     * - Delete an order by its ID.
+     * - Exit the menu.
+     */
 
     public static void orderMenu() {
         OrderService orderService = new OrderService(orderRepo, serviceRepo, clientRepo, driverRepo, companyRepo);
@@ -1019,6 +1108,20 @@ public class Main {
             }
         }
     }
+
+    /**
+     * Launches the menu for managing Reviews.
+     * Users can add, view, update, and delete reviews, and find the best-rated driver.
+     *
+     * Functionalities:
+     * - Add a review with details such as review ID, client ID, driver ID,
+     *   company ID, rating, and description.
+     * - View all existing reviews.
+     * - Update a review by providing an ID and new details.
+     * - Delete a review by its ID.
+     * - Find the best-rated driver for a specific company by analyzing reviews.
+     * - Exit the menu.
+     */
 
     public static void reviewMenu() {
         ReviewService reviewService = new ReviewService(reviewRepo, driverRepo, companyRepo, clientRepo);

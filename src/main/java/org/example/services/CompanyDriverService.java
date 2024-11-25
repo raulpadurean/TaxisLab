@@ -7,12 +7,23 @@ import org.example.repositories.IRepository;
 
 import java.util.List;
 
+/**
+ * Service class for managing the relationship between companies and drivers.
+ * Provides methods to add, retrieve, update, and delete CompanyDriver objects.
+ */
 public class CompanyDriverService {
 
     private final IRepository<CompanyDriver> companyDriverRepository;
     private final IRepository<Driver> driverRepository;
     private final IRepository<Company> companyRepository;
 
+    /**
+     * Constructs a CompanyDriverService with the specified repositories.
+     *
+     * @param companyDriverRepository The repository for managing CompanyDriver objects.
+     * @param driverRepository        The repository for managing Driver objects.
+     * @param companyRepository       The repository for managing Company objects.
+     */
     public CompanyDriverService(IRepository<CompanyDriver> companyDriverRepository,
                                 IRepository<Driver> driverRepository,
                                 IRepository<Company> companyRepository) {
@@ -21,6 +32,14 @@ public class CompanyDriverService {
         this.companyRepository = companyRepository;
     }
 
+    /**
+     * Adds a new CompanyDriver relationship.
+     * Validates that both the driver and company exist before creating the relationship.
+     *
+     * @param driverId  The ID of the driver.
+     * @param companyId The ID of the company.
+     * @throws IllegalArgumentException If the driver or company does not exist.
+     */
     public void addCompanyDriver(int driverId, int companyId) {
         // Validate if the driver exists
         Driver driver = driverRepository.read(driverId);
@@ -42,14 +61,34 @@ public class CompanyDriverService {
         companyDriverRepository.create(companyDriver);
     }
 
+    /**
+     * Retrieves a CompanyDriver by its ID.
+     *
+     * @param id The ID of the CompanyDriver.
+     * @return The CompanyDriver object with the specified ID, or null if not found.
+     */
     public CompanyDriver getCompanyDriver(int id) {
         return companyDriverRepository.read(id);
     }
 
+    /**
+     * Retrieves all CompanyDriver relationships.
+     *
+     * @return A list of all CompanyDriver objects.
+     */
     public List<CompanyDriver> getAllCompanyDrivers() {
         return companyDriverRepository.readAll();
     }
 
+    /**
+     * Updates an existing CompanyDriver relationship.
+     * Validates that the CompanyDriver, driver, and company exist before performing the update.
+     *
+     * @param id        The ID of the CompanyDriver to update.
+     * @param driverId  The ID of the new driver.
+     * @param companyId The ID of the new company.
+     * @throws IllegalArgumentException If the CompanyDriver, driver, or company does not exist.
+     */
     public void updateCompanyDriver(int id, int driverId, int companyId) {
         // Validate if the CompanyDriver exists
         CompanyDriver existingCompanyDriver = companyDriverRepository.read(id);
@@ -74,6 +113,11 @@ public class CompanyDriverService {
         companyDriverRepository.update(updatedCompanyDriver);
     }
 
+    /**
+     * Deletes a CompanyDriver relationship by its ID.
+     *
+     * @param companyDriverId The ID of the CompanyDriver to delete.
+     */
     public void deleteCompanyDriver(Integer companyDriverId) {
         companyDriverRepository.delete(companyDriverId);
     }
