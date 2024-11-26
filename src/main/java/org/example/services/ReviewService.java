@@ -175,4 +175,46 @@ public class ReviewService {
 
         return bestDriver != null ? Map.entry(bestDriver, bestAverage) : null;
     }
+
+    /**
+     * Finds the clients favourite driver by calculating the average rating of each driver.
+     * The driver with the highest average rating is returned along with their average rating.
+     *
+     * @param clientId The ID of the client to find his favourite driver.
+     * @param drivers   A list of all drivers.
+     * @param reviews   A list of all reviews.
+     * @return A Map.Entry containing the best-rated driver and their average rating.
+     *         Returns null if no driver is found for the specified client.
+     */
+
+    public static Map.Entry<Driver, Double> findFavouriteDriverByClient(int clientId, List<Driver> drivers, List<Review> reviews) {
+        Map<Driver, List<Integer>> driverRatings = new HashMap<>();
+
+        // Gather ratings for drivers by the specified client
+        for (Review review : reviews) {
+            if (review.getClient().getId() == clientId) {
+                // Add the rating to the driver's list
+                driverRatings.computeIfAbsent(review.getDriver(), k -> new ArrayList<>()).add(review.getRating());
+            }
+        }
+
+        // Calculate the average rating for each driver
+        Driver favouriteDriver = null;
+        double bestAverage = -1;
+
+        for (Map.Entry<Driver, List<Integer>> entry : driverRatings.entrySet()) {
+            Driver driver = entry.getKey();
+            List<Integer> ratings = entry.getValue();
+
+            double average = ratings.stream().mapToInt(Integer::intValue).average().orElse(0);
+
+            if (average > bestAverage) {
+                favouriteDriver = driver;
+                bestAverage = average;
+            }
+        }
+
+        return favouriteDriver != null ? Map.entry(favouriteDriver, bestAverage) : null;
+    }
+
 }

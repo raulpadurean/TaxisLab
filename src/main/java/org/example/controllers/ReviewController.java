@@ -102,4 +102,18 @@ public class ReviewController {
     public static Map.Entry<Driver, Double> findBestRatedDriverInCompany(int companyId, List<Driver> drivers, List<Review> reviews) {
         return ReviewService.findBestRatedDriverInCompany(companyId, drivers, reviews);
     }
+
+    /**
+     * Finds clients favourite driver by evaluating the reviews.
+     * Delegates the actual operation to the {@link ReviewService}.
+     *
+     * @param clientId The ID of the client.
+     * @param drivers A list of {@link Driver} objects to be evaluated.
+     * @param reviews A list of {@link Review} objects to be considered for rating.
+     * @return A {@link Map.Entry} containing the {@link Driver} and their rating.
+     */
+
+    public static Map.Entry<Driver, Double> findFavouriteDriverByClient(int clientId, List<Driver> drivers, List<Review> reviews) {
+        return ReviewService.findFavouriteDriverByClient(clientId, drivers, reviews);
+    }
 }
