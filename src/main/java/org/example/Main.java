@@ -726,7 +726,8 @@ public class Main {
                     3. Get Client by ID
                     4. Update Client
                     5. Delete Client
-                    6. Exit
+                    6. Sort Client By Name
+                    7. Exit
                     """);
             int choice = scanner.nextInt();
             scanner.nextLine(); // Consume newline
@@ -812,6 +813,17 @@ public class Main {
                     break;
 
                 case 6:
+
+
+                    System.out.println("Sorted by name ");
+
+                    clientController.sortClientByName().forEach(System.out::println);
+
+
+
+                    break;
+
+                case 7:
                     isRunning = false;
                     System.out.println("Exiting...");
                     break;
