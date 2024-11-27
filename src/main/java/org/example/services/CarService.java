@@ -1,6 +1,13 @@
 package org.example.services;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
+
 import org.example.models.Car;
 import org.example.models.Driver;
 import org.example.repositories.IRepository;
@@ -110,4 +117,38 @@ public class CarService {
     public void deleteCar(Integer carId) {
         carRepository.delete(carId);
     }
+
+    private List<Car> cars = new ArrayList<>();
+
+
+
+    public void loadCarsFromFile(String filePath) throws IOException {
+        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                try {
+                    cars.add(Car.parse(line)); // Parse each line into a Car object
+                } catch (IllegalArgumentException e) {
+                    System.err.println("Skipping invalid line: " + e.getMessage());
+                }
+            }
+        }
+    }
+
+    public void sortCarsByPlateNr() {
+        cars.sort(Comparator.comparing(Car::getPlateNr, String.CASE_INSENSITIVE_ORDER));
+    }
+
+    public List<Car> getSortedCars() {
+        return new ArrayList<>(cars); // Return a copy to preserve encapsulation
+    }
+
+
+    public List<Car> filterCarsByBrand(String brand) {
+        return cars.stream()
+                .filter(car -> car.getBrand().equalsIgnoreCase(brand))
+                .collect(Collectors.toList());
+    }
+
+
 }

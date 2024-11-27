@@ -128,7 +128,7 @@ public class Car implements HasId {
      */
     @Override
     public String toString() {
-        return id + "," + brand + "," + model + "," + plateNr + "," + driver;
+        return id + ";" + brand + ";" + model + ";" + plateNr + ";" + driver;
     }
 
     /**
@@ -139,14 +139,35 @@ public class Car implements HasId {
      * @param line The string representation of the car object.
      * @return A new Car object created from the string data.
      */
+
     public static Car parse(String line) {
-        String[] fields = line.split(",");
-        return new Car(
-                Integer.parseInt(fields[0]),
-                fields[1],
-                fields[2],
-                fields[3],
-                Driver.parse(fields[4]) // Assuming Driver has a parse method to create a Driver object from a string
-        );
+        String[] fields = line.split(";");
+
+
+        if (fields.length != 9) {
+            throw new IllegalArgumentException("CSV line does not have the expected number of fields. Found: " + fields.length);
+        }
+        try{
+            Integer id = Integer.parseInt(fields[0]); // Review ID
+
+            String brand = fields[1];
+            String model = fields[2];
+            String plateNr = fields[3];
+
+
+            Driver driver = new Driver(
+                    Integer.parseInt(fields[4]),  // ID
+                    fields[5],                    // Name
+                    fields[6],                    // Email
+                    fields[7],                    // Phone
+                    fields[8]                     // Address
+            );
+            return new Car(id,brand,model,plateNr,driver);
+        } catch (NumberFormatException e) {
+            throw new RuntimeException(e);
+        }
+
+        // Assuming Driver has a parse method to create a Driver object from a string
+
     }
 }
