@@ -998,9 +998,10 @@ public class Main {
                     Options:
                     1. Add Order
                     2. View Orders
-                    3. Update Order
-                    4. Delete Order
-                    5. Exit
+                    3. Filter by Service Type (b/c)
+                    4. Update Order
+                    5. Delete Order
+                    6. Exit
                     """);
             System.out.print("Enter your choice: ");
             int choice = scanner.nextInt();
@@ -1049,6 +1050,13 @@ public class Main {
                     break;
 
                 case 3:
+                    System.out.println("Choose Basic (b) or Custom (c):");
+                    String type = scanner.nextLine();
+                    if (type.equals("c")){type="Custom";} else {type="Basic";}
+                    orderController.filterOrdersByServiceType(type).forEach(System.out::println);
+                    break;
+
+                case 4:
                     try {
                         System.out.print("Enter Order ID to update: ");
                         int orderIdToUpdate = scanner.nextInt();
@@ -1087,7 +1095,7 @@ public class Main {
                     }
                     break;
 
-                case 4:
+                case 5:
                     try {
                         System.out.print("Enter the ID of the Order to delete: ");
                         int orderIdToDelete = scanner.nextInt();
@@ -1098,7 +1106,7 @@ public class Main {
                     }
                     break;
 
-                case 5:
+                case 6:
                     isRunning = false;
                     System.out.println("Exiting...");
                     break;
