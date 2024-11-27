@@ -83,6 +83,11 @@ public class ClientController {
         clientService.deleteClient(clientId);
     }
 
+
+    /**
+     *  Sorting Clients by their Name
+     */
+
     public List<Client> sortClientByName() {
         return clientService.sortClientByName();
     }

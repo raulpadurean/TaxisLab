@@ -97,6 +97,10 @@ public class ClientService {
     }
 
 
+    /**
+     *  Sorting Clients by their Name
+     */
+
     public List<Client> sortClientByName() {
         return clientRepository.readAll().stream()
                 .sorted(Comparator.comparing(Client::getName, String.CASE_INSENSITIVE_ORDER))

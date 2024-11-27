@@ -528,6 +528,8 @@ public class Main {
      * - Retrieve a car by ID.
      * - Update a car.
      * - Delete a car.
+     * - Filter Car By Brand
+     * - Sort Cars by Number Plate
      * - Exit the menu.
      */
 
@@ -708,6 +710,7 @@ public class Main {
      * - Retrieve a client by ID.
      * - Update a client.
      * - Delete a client.
+     * - Sort Client By name
      * - Exit the menu.
      */
 
