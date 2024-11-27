@@ -85,16 +85,44 @@ public class CarController {
         carService.deleteCar(carId);
     }
 
-    public void loadCarsFromFile(String filePath) throws IOException {carService.loadCarsFromFile(filePath);}
+    /**
+     * Loads cars from a CSV file using the CarService.
+     * Each line in the file is parsed into a Car object.
+     *
+     * @param filePath The path to the CSV file containing car data.
+     * @throws IOException If an error occurs while reading the file.
+     */
+    public void loadCarsFromFile(String filePath) throws IOException {
+        carService.loadCarsFromFile(filePath);
+    }
 
+    /**
+     * Filters the list of cars by the specified brand using the CarService.
+     * The filtering is case-insensitive.
+     *
+     * @param brand The brand to filter cars by.
+     * @return A list of cars that match the specified brand.
+     */
     public List<Car> filterCarsByBrand(String brand) {
         return carService.filterCarsByBrand(brand);
     }
 
-    public List<Car> getSortedCars(){return carService.getSortedCars();}
+    /**
+     * Retrieves the list of cars sorted by plate number from the CarService.
+     * The sorting is performed in ascending order and is case-insensitive.
+     *
+     * @return A sorted list of cars by plate number.
+     */
+    public List<Car> getSortedCars() {
+        return carService.getSortedCars();
+    }
 
-    public void sortCarsByPlateNr() {carService.sortCarsByPlateNr();}
-
-
+    /**
+     * Sorts the list of cars by their plate number in ascending order using the CarService.
+     * The comparison is case-insensitive to ensure uniform sorting.
+     */
+    public void sortCarsByPlateNr() {
+        carService.sortCarsByPlateNr();
+    }
 
 }

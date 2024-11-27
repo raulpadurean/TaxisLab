@@ -118,10 +118,18 @@ public class CarService {
         carRepository.delete(carId);
     }
 
+    /**
+     * The list of cars managed by this service.
+     */
     private List<Car> cars = new ArrayList<>();
 
-
-
+    /**
+     * Loads cars from a CSV file and stores them in the service's list.
+     * Each line in the file is expected to represent a car in a specific format.
+     *
+     * @param filePath The path to the CSV file containing car data.
+     * @throws IOException If an error occurs while reading the file.
+     */
     public void loadCarsFromFile(String filePath) throws IOException {
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             String line;
@@ -135,20 +143,34 @@ public class CarService {
         }
     }
 
+    /**
+     * Sorts the list of cars by their plate number in ascending order.
+     * The comparison is case-insensitive to ensure uniform sorting.
+     */
     public void sortCarsByPlateNr() {
         cars.sort(Comparator.comparing(Car::getPlateNr, String.CASE_INSENSITIVE_ORDER));
     }
 
+    /**
+     * Retrieves the list of cars after sorting. This method returns a copy
+     * of the list to ensure the internal state of the service is not modified.
+     *
+     * @return A sorted list of cars by plate number.
+     */
     public List<Car> getSortedCars() {
         return new ArrayList<>(cars); // Return a copy to preserve encapsulation
     }
 
-
+    /**
+     * Filters the list of cars by the specified brand.
+     * The filtering is case-insensitive.
+     *
+     * @param brand The brand to filter cars by.
+     * @return A list of cars that match the specified brand.
+     */
     public List<Car> filterCarsByBrand(String brand) {
         return cars.stream()
                 .filter(car -> car.getBrand().equalsIgnoreCase(brand))
                 .collect(Collectors.toList());
     }
-
-
 }
