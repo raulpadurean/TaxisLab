@@ -154,6 +154,7 @@ public class Car implements HasId {
             String model = fields[2];
             String plateNr = fields[3];
 
+
             Driver driver = new Driver(
                     Integer.parseInt(fields[4]),  // ID
                     fields[5],                    // Name
