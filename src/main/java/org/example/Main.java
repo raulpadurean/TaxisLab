@@ -545,7 +545,8 @@ public class Main {
                     3. Get Car by ID
                     4. Update Car
                     5. Delete Car
-                    6. Exit
+                    6. Filter Car By Brand
+                    7. Exit
                     """);
             int choice = scanner.nextInt();
             scanner.nextLine(); // Consume newline
@@ -634,6 +635,35 @@ public class Main {
                     break;
 
                 case 6:
+
+                    String filePath = "C:\\Users\\pc\\IdeaProjects\\TaxisLab\\data\\cars.csv"; // Path to the CSV file
+
+                    System.out.println("Give the name of the brand: ... ");
+
+                    String filterBrand = scanner.nextLine(); // Brand to filter by
+
+
+
+                    try {
+                        // Load cars from the file
+                        carController.loadCarsFromFile(filePath);
+
+                        // Filter cars by brand
+                        List<Car> filteredCars = carController.filterCarsByBrand(filterBrand);
+
+                        // Display filtered cars
+                        System.out.println("Filtered cars:");
+                        filteredCars.forEach(System.out::println);
+
+
+                    } catch (IOException e) {
+                        System.err.println("Error: " + e.getMessage());
+                    }
+
+
+                    break;
+
+                case 7:
                     isRunning = false;
                     System.out.println("Exiting...");
                     break;

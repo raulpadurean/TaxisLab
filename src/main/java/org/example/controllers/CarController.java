@@ -3,6 +3,7 @@ package org.example.controllers;
 import org.example.models.Car;
 import org.example.services.CarService;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -81,4 +82,11 @@ public class CarController {
     public void deleteCar(Integer carId) {
         carService.deleteCar(carId);
     }
+
+    public void loadCarsFromFile(String filePath) throws IOException {carService.loadCarsFromFile(filePath);}
+
+    public List<Car> filterCarsByBrand(String brand) {
+        return carService.filterCarsByBrand(brand);
+    }
+
 }
