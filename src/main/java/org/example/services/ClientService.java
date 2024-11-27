@@ -1,9 +1,12 @@
 package org.example.services;
 
+import org.example.models.Car;
 import org.example.models.Client;
 import org.example.repositories.IRepository;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Service class for managing clients in the taxi service application.
@@ -92,4 +95,13 @@ public class ClientService {
     public void deleteClient(Integer clientId) {
         clientRepository.delete(clientId);
     }
+
+
+    public List<Client> sortClientByName() {
+        return clientRepository.readAll().stream()
+                .sorted(Comparator.comparing(Client::getName, String.CASE_INSENSITIVE_ORDER))
+                .collect(Collectors.toList());
+    }
+
+
 }
