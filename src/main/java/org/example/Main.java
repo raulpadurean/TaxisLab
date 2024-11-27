@@ -644,6 +644,7 @@ public class Main {
 
 
 
+
                     try {
                         // Load cars from the file
                         carController.loadCarsFromFile(filePath);

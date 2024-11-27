@@ -78,6 +78,7 @@ public class CarController {
      * Delegates to the {@link CarService} to perform the actual deletion.
      *
      * @param carId The unique identifier of the car to delete.
+     *
      */
     public void deleteCar(Integer carId) {
         carService.deleteCar(carId);

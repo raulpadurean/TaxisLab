@@ -139,6 +139,7 @@ public class Car implements HasId {
      * @param line The string representation of the car object.
      * @return A new Car object created from the string data.
      */
+
     public static Car parse(String line) {
         String[] fields = line.split(";");
 

@@ -132,6 +132,7 @@ public class CarService {
         }
     }
 
+
     public List<Car> filterCarsByBrand(String brand) {
         return cars.stream()
                 .filter(car -> car.getBrand().equalsIgnoreCase(brand))
