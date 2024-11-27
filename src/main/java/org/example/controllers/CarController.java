@@ -91,4 +91,10 @@ public class CarController {
         return carService.filterCarsByBrand(brand);
     }
 
+    public List<Car> getSortedCars(){return carService.getSortedCars();}
+
+    public void sortCarsByPlateNr() {carService.sortCarsByPlateNr();}
+
+
+
 }

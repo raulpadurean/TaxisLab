@@ -547,7 +547,8 @@ public class Main {
                     4. Update Car
                     5. Delete Car
                     6. Filter Car By Brand
-                    7. Exit
+                    7. Sort cars by plate number
+                    8. Exit
                     """);
             int choice = scanner.nextInt();
             scanner.nextLine(); // Consume newline
@@ -666,6 +667,28 @@ public class Main {
                     break;
 
                 case 7:
+                    String fileCars = "C:\\Users\\pc\\IdeaProjects\\TaxisLab\\data\\cars.csv"; // Path to the CSV file
+
+
+                    try {
+                        // Load cars from the file
+                        carController.loadCarsFromFile(fileCars);
+
+                        // Sort cars by plate number
+                        carController.sortCarsByPlateNr();
+
+                        // Display sorted cars
+                        System.out.println("Cars sorted by plate number:");
+                        carController.getSortedCars().forEach(System.out::println);
+
+                    } catch (IOException e) {
+                        System.err.println("Error: " + e.getMessage());
+                    }
+
+
+                    break;
+
+                case 8:
                     isRunning = false;
                     System.out.println("Exiting...");
                     break;
