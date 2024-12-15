@@ -7,7 +7,7 @@ package org.example.models;
  */
 public class CustomService extends Service {
 
-    private final String extras;
+    private String extras;
 
     /**
      * Constructs a new CustomService object with the specified parameters.
@@ -19,11 +19,16 @@ public class CustomService extends Service {
      * @throws IllegalArgumentException If the extras parameter is null or empty.
      */
     public CustomService(int id, String name, double pricePerKm, String extras) {
-        super(id, name, pricePerKm);
+        super(id, name, pricePerKm, ServiceType.CUSTOM);
         if (extras == null || extras.trim().isEmpty()) {
             throw new IllegalArgumentException("Extras cannot be null or empty.");
         }
         this.extras = extras;
+    }
+
+
+    public CustomService() {
+
     }
 
     /**
@@ -41,8 +46,12 @@ public class CustomService extends Service {
      * @return The string "Custom", representing the type of service.
      */
     @Override
-    public String getServiceType() {
-        return "Custom";
+    public ServiceType getType() {
+        return this.type;
+    }
+
+    public void setExtras(String extras) {
+        this.extras = extras;
     }
 
     /**
@@ -53,7 +62,7 @@ public class CustomService extends Service {
      */
     @Override
     public String toString() {
-        return getServiceType() + ":" + this.id + ";" + this.name + ";" + this.pricePerKm + ";" + this.extras;
+        return getType() + ":" + this.id + ";" + this.name + ";" + this.pricePerKm + ";" + this.extras;
     }
 
     /**

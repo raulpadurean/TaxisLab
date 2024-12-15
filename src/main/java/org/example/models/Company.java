@@ -29,6 +29,8 @@ public class Company implements HasId {
         this.phone = phone;
     }
 
+    public Company() {}
+
     /**
      * Retrieves the unique identifier of the company.
      *

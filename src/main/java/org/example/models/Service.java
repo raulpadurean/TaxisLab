@@ -12,6 +12,7 @@ public abstract class Service implements HasId {
     protected Integer id;
     protected String name;
     protected double pricePerKm;
+    protected ServiceType type;
 
     /**
      * Constructs a Service object with the specified ID, name, and price per kilometer.
@@ -23,7 +24,7 @@ public abstract class Service implements HasId {
      * @param pricePerKm  The price per kilometer for the service. Cannot be negative.
      * @throws IllegalArgumentException If any argument is invalid (e.g., ID is non-positive, name is empty, or price is negative).
      */
-    public Service(Integer id, String name, double pricePerKm) {
+    public Service(Integer id, String name, double pricePerKm, ServiceType type) {
         if (id <= 0) {
             throw new IllegalArgumentException("ID must be positive.");
         }
@@ -36,7 +37,11 @@ public abstract class Service implements HasId {
         this.id = id;
         this.name = name;
         this.pricePerKm = pricePerKm;
+        this.type = type;
     }
+
+
+    public Service() {}
 
     /**
      * Retrieves the unique identifier of the service.
@@ -98,7 +103,11 @@ public abstract class Service implements HasId {
      *
      * @return A string representing the service type (e.g., "Basic", "Custom").
      */
-    public abstract String getServiceType();
+    public abstract ServiceType getType();
+
+    public void setType(ServiceType type) {
+        this.type = type;
+    }
 
     /**
      * Parses a string representation of a service and returns the corresponding service object.

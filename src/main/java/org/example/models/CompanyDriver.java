@@ -24,6 +24,9 @@ public class CompanyDriver implements HasId {
         this.driver = driver;
     }
 
+
+    public CompanyDriver() {}
+
     /**
      * Retrieves the driver associated with the company.
      *

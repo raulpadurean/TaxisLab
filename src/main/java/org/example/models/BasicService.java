@@ -15,7 +15,11 @@ public class BasicService extends Service {
      * @param pricePerKm  The price per kilometer for the service.
      */
     public BasicService(Integer id, String name, double pricePerKm) {
-        super(id, name, pricePerKm);
+        super(id, name, pricePerKm, ServiceType.BASIC);
+    }
+
+    public BasicService() {
+
     }
 
     /**
@@ -24,8 +28,8 @@ public class BasicService extends Service {
      * @return A string representing the type of service ("Basic").
      */
     @Override
-    public String getServiceType() {
-        return "Basic";
+    public ServiceType getType() {
+        return this.type;
     }
 
     /**
@@ -37,7 +41,7 @@ public class BasicService extends Service {
      */
     @Override
     public String toString() {
-        return getServiceType() + ":" + this.id + ";" + this.name + ";" + this.pricePerKm;
+        return getType() + ":" + this.id + ";" + this.name + ";" + this.pricePerKm;
     }
 
     /**

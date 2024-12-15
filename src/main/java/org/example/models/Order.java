@@ -1,8 +1,8 @@
 package org.example.models;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  * Represents an order made by a client for a service, including details such as the service requested,
@@ -17,7 +17,7 @@ public class Order implements HasId {
     private Client client;
     private Driver driver;
     private Company company;
-    private Date datetime;
+    private LocalDateTime datetime;
 
     /**
      * Constructs an Order object with the specified details.
@@ -30,7 +30,7 @@ public class Order implements HasId {
      * @param company The company that owns the order.
      * @param datetime The date and time when the order was made.
      */
-    public Order(Integer id, double totalKm, Service service, Client client, Driver driver, Company company, Date datetime) {
+    public Order(Integer id, double totalKm, Service service, Client client, Driver driver, Company company, LocalDateTime datetime) {
         this.id = id;
         this.totalKm = totalKm;
         this.service = service;
@@ -39,6 +39,8 @@ public class Order implements HasId {
         this.company = company;
         this.datetime = datetime;
     }
+
+    public Order() {}
 
     /**
      * Retrieves the unique identifier for the order.
@@ -154,7 +156,7 @@ public class Order implements HasId {
      *
      * @return The datetime of the order.
      */
-    public Date getDatetime() {
+    public LocalDateTime getDatetime() {
         return datetime;
     }
 
@@ -163,7 +165,7 @@ public class Order implements HasId {
      *
      * @param datetime The datetime to set for the order.
      */
-    public void setDatetime(Date datetime) {
+    public void setDatetime(LocalDateTime datetime) {
         this.datetime = datetime;
     }
 
@@ -191,8 +193,8 @@ public class Order implements HasId {
     public static Order parse(String line) throws ParseException {
         String[] fields = line.split(",");
 
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        LocalDateTime datetime = LocalDateTime.parse(fields[6], formatter);
         return new Order(
                 Integer.parseInt(fields[0]),
                 Double.parseDouble(fields[1]),
@@ -200,7 +202,7 @@ public class Order implements HasId {
                 Client.parse(fields[3]),
                 Driver.parse(fields[4]),
                 Company.parse(fields[5]),
-                dateFormat.parse(fields[6])
+                datetime
         );
     }
 }

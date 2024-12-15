@@ -33,6 +33,8 @@ public class Review implements HasId {
         this.client = client;
     }
 
+    public Review() {}
+
     /**
      * Retrieves the company associated with the review.
      *

@@ -1,8 +1,8 @@
 package org.example.models;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  * Represents the schedule of a driver within a company, including the driver's work shift times.
@@ -13,8 +13,8 @@ public class DriverSchedule implements HasId {
     private Integer id;
     private Driver driver;
     private Company company;
-    private Date checkIn;
-    private Date checkOut;
+    private LocalDateTime checkIn;
+    private LocalDateTime checkOut;
 
     /**
      * Constructs a new DriverSchedule object with the specified parameters.
@@ -25,13 +25,15 @@ public class DriverSchedule implements HasId {
      * @param checkIn  The check-in date and time of the driver.
      * @param checkOut The check-out date and time of the driver.
      */
-    public DriverSchedule(Integer id, Driver driver, Company company, Date checkIn, Date checkOut) {
+    public DriverSchedule(Integer id, Driver driver, Company company, LocalDateTime checkIn, LocalDateTime checkOut) {
         this.id = id;
         this.driver = driver;
         this.company = company;
         this.checkIn = checkIn;
         this.checkOut = checkOut;
     }
+
+    public DriverSchedule() {}
 
     /**
      * Retrieves the unique identifier for the driver schedule.
@@ -93,7 +95,7 @@ public class DriverSchedule implements HasId {
      *
      * @return The check-in time of the driver.
      */
-    public Date getCheckIn() {
+    public LocalDateTime getCheckIn() {
         return checkIn;
     }
 
@@ -102,7 +104,7 @@ public class DriverSchedule implements HasId {
      *
      * @param checkIn The check-in time to set for the driver.
      */
-    public void setCheckIn(Date checkIn) {
+    public void setCheckIn(LocalDateTime checkIn) {
         this.checkIn = checkIn;
     }
 
@@ -111,7 +113,7 @@ public class DriverSchedule implements HasId {
      *
      * @return The check-out time of the driver.
      */
-    public Date getCheckOut() {
+    public LocalDateTime getCheckOut() {
         return checkOut;
     }
 
@@ -120,7 +122,7 @@ public class DriverSchedule implements HasId {
      *
      * @param checkOut The check-out time to set for the driver.
      */
-    public void setCheckOut(Date checkOut) {
+    public void setCheckOut(LocalDateTime checkOut) {
         this.checkOut = checkOut;
     }
 
@@ -148,14 +150,17 @@ public class DriverSchedule implements HasId {
     public static DriverSchedule parse(String line) throws ParseException {
         String[] fields = line.split(",");
 
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+        LocalDateTime checkIn = LocalDateTime.parse(fields[3].trim(), dateTimeFormatter);
+        LocalDateTime checkOut = LocalDateTime.parse(fields[4].trim(), dateTimeFormatter);
 
         return new DriverSchedule(
                 Integer.parseInt(fields[0]),
                 Driver.parse(fields[1]),
                 Company.parse(fields[2]),
-                dateFormat.parse(fields[3].trim()),
-                dateFormat.parse(fields[4].trim())
+                checkIn,
+                checkOut
         );
     }
 }

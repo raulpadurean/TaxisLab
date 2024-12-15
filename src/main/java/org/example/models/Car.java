@@ -29,6 +29,8 @@ public class Car implements HasId {
         this.driver = driver;
     }
 
+    public Car() {}
+
     /**
      * Retrieves the unique identifier of the car.
      *

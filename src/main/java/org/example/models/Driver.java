@@ -29,6 +29,9 @@ public class Driver implements HasId {
         this.phone = phone;
     }
 
+
+    public Driver() {}
+
     /**
      * Retrieves the unique identifier for the driver.
      *

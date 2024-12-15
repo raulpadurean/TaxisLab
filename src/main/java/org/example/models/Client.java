@@ -29,6 +29,9 @@ public class Client implements HasId {
         this.phone = phone;
     }
 
+
+    public Client() {}
+
     /**
      * Retrieves the unique identifier of the client.
      *
