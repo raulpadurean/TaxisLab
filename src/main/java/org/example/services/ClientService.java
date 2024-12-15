@@ -1,6 +1,5 @@
 package org.example.services;
 
-import org.example.models.Car;
 import org.example.models.Client;
 import org.example.repositories.IRepository;
 

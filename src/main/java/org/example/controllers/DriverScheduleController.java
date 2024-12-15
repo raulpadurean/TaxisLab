@@ -3,7 +3,7 @@ package org.example.controllers;
 import org.example.models.DriverSchedule;
 import org.example.services.DriverScheduleService;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -34,7 +34,7 @@ public class DriverScheduleController {
      * @param checkIn The check-in time of the driver.
      * @param checkOut The check-out time of the driver.
      */
-    public void addDriverSchedule(int driverId, int companyId, Date checkIn, Date checkOut) {
+    public void addDriverSchedule(int driverId, int companyId, LocalDateTime checkIn, LocalDateTime checkOut) {
         driverScheduleService.addDriverSchedule(driverId, companyId, checkIn, checkOut);
     }
 
@@ -48,7 +48,7 @@ public class DriverScheduleController {
      * @param checkIn The updated check-in time.
      * @param checkOut The updated check-out time.
      */
-    public void updateDriverSchedule(int id, int driverId, int companyId, Date checkIn, Date checkOut) {
+    public void updateDriverSchedule(int id, int driverId, int companyId, LocalDateTime checkIn, LocalDateTime checkOut) {
         driverScheduleService.updateDriverSchedule(id, driverId, companyId, checkIn, checkOut);
     }
 

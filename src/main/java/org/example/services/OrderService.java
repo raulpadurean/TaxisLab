@@ -3,7 +3,7 @@ package org.example.services;
 import org.example.models.*;
 import org.example.repositories.IRepository;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -48,7 +48,7 @@ public class OrderService {
      * @param datetime  The datetime of the order.
      * @throws IllegalArgumentException If any related entity (Service, Client, Driver, Company) is not found.
      */
-    public void addOrder(double totalKm, int serviceId, int clientId, int driverId, int companyId, Date datetime) {
+    public void addOrder(double totalKm, int serviceId, int clientId, int driverId, int companyId, LocalDateTime datetime) {
         // Fetch related objects from repositories
         Service service = serviceRepository.read(serviceId);
         if (service == null) {
@@ -109,7 +109,7 @@ public class OrderService {
      * @param datetime  The updated datetime of the order.
      * @throws IllegalArgumentException If the order with the given ID or any related entity is not found.
      */
-    public void updateOrder(int id, double totalKm, int serviceId, int clientId, int driverId, int companyId, Date datetime) {
+    public void updateOrder(int id, double totalKm, int serviceId, int clientId, int driverId, int companyId, LocalDateTime datetime) {
         // Fetch the existing order
         Order existingOrder = orderRepository.read(id);
         if (existingOrder == null) {
@@ -159,9 +159,9 @@ public class OrderService {
      * @param serviceType The service type to filter orders by.
      * @return A list of orders that match the specified service type.
      */
-    public List<Order> filterOrdersByServiceType(String serviceType) {
+    public List<Order> filterOrdersByServiceType(ServiceType serviceType) {
         return orderRepository.readAll().stream()
-                .filter(order -> order.getService().getServiceType().equalsIgnoreCase(serviceType))
+                .filter(order -> order.getService().getType().equals(serviceType))
                 .collect(Collectors.toList());
     }
 }

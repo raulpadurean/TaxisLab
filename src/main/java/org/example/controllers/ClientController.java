@@ -1,7 +1,6 @@
 package org.example.controllers;
 
 import org.example.models.Client;
-import org.example.models.Order;
 import org.example.services.ClientService;
 
 import java.util.List;

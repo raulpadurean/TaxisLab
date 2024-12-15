@@ -5,7 +5,7 @@ import org.example.models.Driver;
 import org.example.models.DriverSchedule;
 import org.example.repositories.IRepository;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -44,7 +44,7 @@ public class DriverScheduleService {
      * @param checkOut The check-out date and time for the driver.
      * @throws IllegalArgumentException If the driver or company does not exist.
      */
-    public void addDriverSchedule(int driverId, int companyId, Date checkIn, Date checkOut) {
+    public void addDriverSchedule(int driverId, int companyId, LocalDateTime checkIn, LocalDateTime checkOut) {
         // Validate driver and company existence
         Driver driver = driverRepository.read(driverId);
         if (driver == null) {
@@ -94,7 +94,7 @@ public class DriverScheduleService {
      * @param checkOut   The updated check-out date and time for the driver.
      * @throws IllegalArgumentException If the driver, company, or driver schedule does not exist.
      */
-    public void updateDriverSchedule(int id, int driverId, int companyId, Date checkIn, Date checkOut) {
+    public void updateDriverSchedule(int id, int driverId, int companyId, LocalDateTime checkIn, LocalDateTime checkOut) {
         // Validate driver and company existence
         Driver driver = driverRepository.read(driverId);
         if (driver == null) {

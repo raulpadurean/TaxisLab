@@ -1,5 +1,9 @@
 package org.example.services;
 
+import org.example.models.Car;
+import org.example.models.Driver;
+import org.example.repositories.IRepository;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -7,10 +11,6 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import org.example.models.Car;
-import org.example.models.Driver;
-import org.example.repositories.IRepository;
 
 /**
  * Service class for managing cars in the taxi service application.

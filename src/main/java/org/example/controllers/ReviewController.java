@@ -1,9 +1,7 @@
 package org.example.controllers;
 
-import org.example.models.Review;
 import org.example.models.Driver;
-import org.example.models.Company;
-import org.example.models.Client;
+import org.example.models.Review;
 import org.example.services.ReviewService;
 
 import java.util.List;

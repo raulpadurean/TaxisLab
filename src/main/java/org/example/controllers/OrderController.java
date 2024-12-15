@@ -1,9 +1,10 @@
 package org.example.controllers;
 
 import org.example.models.Order;
+import org.example.models.ServiceType;
 import org.example.services.OrderService;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -36,7 +37,7 @@ public class OrderController {
      * @param companyId The ID of the company managing the order.
      * @param datetime The date and time when the order is placed.
      */
-    public void addOrder(double totalKm, int serviceId, int clientId, int driverId, int companyId, Date datetime) {
+    public void addOrder(double totalKm, int serviceId, int clientId, int driverId, int companyId, LocalDateTime datetime) {
         orderService.addOrder(totalKm, serviceId, clientId, driverId, companyId, datetime);
     }
 
@@ -73,7 +74,7 @@ public class OrderController {
      * @param companyId The updated company ID.
      * @param datetime The updated date and time for the order.
      */
-    public void updateOrder(int id, double totalKm, int serviceId, int clientId, int driverId, int companyId, Date datetime) {
+    public void updateOrder(int id, double totalKm, int serviceId, int clientId, int driverId, int companyId, LocalDateTime datetime) {
         orderService.updateOrder(id, totalKm, serviceId, clientId, driverId, companyId, datetime);
     }
 
@@ -91,10 +92,10 @@ public class OrderController {
      * Filters and retrieves orders based on the service type.
      * Delegates the actual filtering to the {@link OrderService}.
      *
-     * @param serviceType The type of the service used for the order (e.g., "Basic" or "Custom").
+     * @param type The type of the service used for the order (e.g., "Basic" or "Custom").
      * @return A list of orders matching the specified service type.
      */
-    public List<Order> filterOrdersByServiceType(String serviceType) {
-        return orderService.filterOrdersByServiceType(serviceType);
+    public List<Order> filterOrdersByServiceType(ServiceType type) {
+        return orderService.filterOrdersByServiceType(type);
     }
 }
