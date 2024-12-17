@@ -19,6 +19,7 @@ public class Order implements HasId {
     private Company company;
     private LocalDateTime datetime;
 
+
     /**
      * Constructs an Order object with the specified details.
      *
