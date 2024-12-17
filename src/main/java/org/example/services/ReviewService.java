@@ -1,5 +1,7 @@
 package org.example.services;
 
+import org.example.exceptions.EntityNotFoundException;
+import org.example.exceptions.ValidationException;
 import org.example.models.Client;
 import org.example.models.Company;
 import org.example.models.Driver;
@@ -147,6 +149,10 @@ public class ReviewService {
      *         Returns null if no driver is found for the specified company.
      */
     public static Map.Entry<Driver, Double> findBestRatedDriverInCompany(int companyId, List<Driver> drivers, List<Review> reviews) {
+        if (companyId <= 0) {
+            throw new ValidationException("Company ID must be positive.");
+        }
+
         Map<Driver, List<Integer>> driverRatings = new HashMap<>();
 
         // Get ratings for drivers in the specified company
@@ -196,6 +202,10 @@ public class ReviewService {
                 // Add the rating to the driver's list
                 driverRatings.computeIfAbsent(review.getDriver(), k -> new ArrayList<>()).add(review.getRating());
             }
+        }
+
+        if (driverRatings.isEmpty()) {
+            throw new EntityNotFoundException("No reviews found for client with ID: " + clientId);
         }
 
         // Calculate the average rating for each driver
