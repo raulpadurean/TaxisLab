@@ -1,13 +1,17 @@
 
+import org.example.exceptions.EntityNotFoundException;
+import org.example.exceptions.ValidationException;
 import org.example.models.Car;
 import org.example.models.Client;
 import org.example.models.Driver;
 import org.example.models.*;
+import org.example.services.ReviewService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -533,6 +537,94 @@ class ApplicationTest {
         assertNull(review);
     }
 
+    @Test
+    void testFindFavouriteDriverByClient() {
+        // Client with reviews
+        int clientId = 1;
+        Driver driver1 = new Driver(101, "Raul", "raul@gmail.com", "Dima", "0777");
+        Driver driver2 = new Driver(102, "Jane", "jane@gmial.com", "Doja", "0999");
 
+        Client client = new Client(clientId, "Ion", "ion@gmail.com", "Dabc", "1234");
+        Company company = new Company(1, "Transport", "transport@gmail.com", "Dabc", "1234");
+
+        List<Review> reviews = List.of(
+                new Review(1, 5, "Great", company, driver1, client),
+                new Review(2, 4, "Good", company, driver1, client),
+                new Review(3, 3, "Okay", company, driver2, client)
+        );
+
+        // Find favorite driver
+        Map.Entry<Driver, Double> result = ReviewService.findFavouriteDriverByClient(clientId, List.of(driver1, driver2), reviews);
+
+        assertNotNull(result, "Expected a favorite driver to be found.");
+        assertEquals(driver1, result.getKey(), "Expected driver1 to be the favorite driver.");
+        assertEquals(4.5, result.getValue(), 0.01, "Expected average rating of 4.5 for driver1.");
+    }
+
+    @Test
+    void testFindFavouriteDriverByClientThrowsEntityNotFoundException() {
+        // Prepare test data
+        int clientId = 999; // Non-existent client ID
+        List<Driver> drivers = new ArrayList<>(); // No drivers
+        List<Review> reviews = new ArrayList<>(); // No reviews
+
+        // Execute and verify exception is thrown
+        EntityNotFoundException exception = assertThrows(
+                EntityNotFoundException.class,
+                () -> {
+                    ReviewService.findFavouriteDriverByClient(clientId, drivers, reviews);
+                },
+                "Expected EntityNotFoundException to be thrown when no reviews exist for the client."
+        );
+
+        // Assert exception message
+        assertEquals("No reviews found for client with ID: " + clientId, exception.getMessage());
+    }
+
+
+    @Test
+    void testFindBestRatedDriverInCompany() {
+        // Setup test data
+        Company company1 = new Company(1, "Company A", "contact@companya.com", "Dabc", "1234");
+        Company company2 = new Company(2, "Company B", "contact@companyb.com", "Dxyz", "5678");
+
+        Driver driver1 = new Driver(1, "Mihai", "mihai@gmail.com", "1234", "Dabc");
+        Driver driver2 = new Driver(2, "Andrei", "andrei@gmail.com", "2345", "Ddef");
+        Driver driver3 = new Driver(3, "Maria", "maria@gmail.com", "3456", "Dghi");
+
+        Review review1 = new Review(1, 5, "Excellent", company1, driver1, new Client(1, "Vasile", "vasile@gmail.com", "Dabc", "1234"));
+        Review review2 = new Review(2, 4, "Good", company1, driver1, new Client(2, "Ana", "ana@gmail.com", "Dxyz", "5678"));
+        Review review3 = new Review(3, 3, "Average", company1, driver2, new Client(3, "George", "george@gmail.com", "Ddef", "7890"));
+        Review review4 = new Review(4, 4, "Good", company2, driver3, new Client(4, "Ioana", "ioana@gmail.com", "Dghi", "8901"));
+
+        List<Driver> drivers = List.of(driver1, driver2, driver3);
+        List<Review> reviews = List.of(review1, review2, review3, review4);
+
+        // Call the method
+        Map.Entry<Driver, Double> result = ReviewService.findBestRatedDriverInCompany(1, drivers, reviews);
+
+        // Assert the result
+        assertNotNull(result, "The result should not be null.");
+        assertEquals(driver1, result.getKey(), "Driver1 should be the best-rated driver in Company 1.");
+        assertEquals(4.5, result.getValue(), 0.01, "The average rating of Driver1 should be 4.5.");
+    }
+
+
+    @Test
+    void testFindBestRatedDriverInCompanyThrowsValidationException() {
+        // Setup test data
+        Driver driver1 = new Driver(1, "Mihai", "mihai@gmail.com", "1234", "Dabc");
+        Driver driver2 = new Driver(2, "Andrei", "andrei@gmail.com", "2345", "Ddef");
+        Company company1 = new Company(1, "Company A", "contact@companya.com", "Dabc", "1234");
+        Review review1 = new Review(1, 5, "Excellent", company1, driver1, new Client(1, "Vasile", "vasile@gmail.com", "Dabc", "1234"));
+
+        List<Driver> drivers = List.of(driver1, driver2);
+        List<Review> reviews = List.of(review1);
+
+        // Call the method with invalid companyId (-1) and assert the exception
+        assertThrows(ValidationException.class,
+                () -> ReviewService.findBestRatedDriverInCompany(-1, drivers, reviews),
+                "ValidationException should be thrown for negative company ID.");
+    }
 
 }
