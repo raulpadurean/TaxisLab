@@ -51,8 +51,31 @@ public class Main {
      * @param args Command-line arguments (not used).
      */
     public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
 
-        REPO_TYPE = RepoType.DATABASE;
+
+
+        while (REPO_TYPE == null) {
+            System.out.println("""
+                Choose repo type:\
+                0. EXIT
+                1. IN MEMORY
+                2. FILE
+                3. DATABASE
+                """);
+
+            System.out.print("Enter your choice: ");
+            int choice = scanner.nextInt();
+            scanner.nextLine();
+
+            switch (choice) {
+                case 0 -> System.exit(0);
+                case 1 -> REPO_TYPE = RepoType.IN_MEMORY;
+                case 2 -> REPO_TYPE = RepoType.FILE;
+                case 3 -> REPO_TYPE = RepoType.DATABASE;
+                default -> System.out.println("Invalid choice, try again.");
+            }
+        }
         boolean issetRepo = setRepos(REPO_TYPE);
 
         if (!issetRepo) {
@@ -64,6 +87,7 @@ public class Main {
         showHomeMenu();
 
     }
+
 
     private static void setDBConnection() {
         if (REPO_TYPE.toString().equals("DATABASE")) {
@@ -173,7 +197,7 @@ public class Main {
 
             Function<ResultSet, BasicService> basicServiceParser = BasicServiceParser.createParser();
             Function<ResultSet, CustomService> customServiceParser = CustomServiceParser.createParser();
-            Function<ResultSet, Service> serviceParser = ServiceParser.createParser(dbConnection.connection);
+
 
             Function<ResultSet, Order> orderParser = OrderParser.createParser(serviceRepo, clientRepo, driverRepo, companyRepo);
             Function<ResultSet, Review> reviewParser = ReviewParser.createParser(companyRepo, driverRepo, clientRepo);
@@ -184,7 +208,7 @@ public class Main {
             driverScheduleRepo = new DbRepository<>(dbConnection.connection, "driver_schedules", driverScheduleParser);
             orderRepo = new DbRepository<>(dbConnection.connection, "orders", orderParser);
             reviewRepo = new DbRepository<>(dbConnection.connection, "reviews", reviewParser);
-            serviceRepo = new DbRepository<>(dbConnection.connection, "services", serviceParser);
+          
 
             return true;
         }

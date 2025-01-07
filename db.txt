@@ -1,0 +1,93 @@
+CREATE TABLE clients (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    address TEXT NOT NULL,
+    phone VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE companies (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    address TEXT NOT NULL,
+    phone VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE drivers (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    address TEXT NOT NULL,
+    phone VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE cars (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    brand VARCHAR(255) NOT NULL,
+    model VARCHAR(255) NOT NULL,
+    plate_nr VARCHAR(50) UNIQUE NOT NULL,
+    driver_id INT,
+    FOREIGN KEY (driver_id) REFERENCES drivers(id)
+);
+
+CREATE TABLE company_drivers (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    driver_id INT NOT NULL,
+    company_id INT NOT NULL,
+    FOREIGN KEY (driver_id) REFERENCES drivers(id),
+    FOREIGN KEY (company_id) REFERENCES companies(id)
+);
+
+CREATE TABLE basic_services (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    price_per_km DOUBLE NOT NULL,
+    type VARCHAR(255) default "BASIC"
+);
+
+CREATE TABLE custom_services (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    price_per_km DOUBLE NOT NULL,
+    extras TEXT NOT NULL,
+    type VARCHAR(255) default "CUSTOM"
+);
+
+CREATE TABLE driver_schedules (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    driver_id INT NOT NULL,
+    company_id INT NOT NULL,
+    check_in DATETIME NOT NULL,
+    check_out DATETIME,
+    FOREIGN KEY (driver_id) REFERENCES drivers(id),
+    FOREIGN KEY (company_id) REFERENCES companies(id)
+);
+
+CREATE TABLE orders (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    total_km DOUBLE NOT NULL,
+    client_id INT NOT NULL,
+    driver_id INT NOT NULL,
+    company_id INT NOT NULL,
+    datetime DATETIME NOT NULL,
+    basic_service_id INT,
+    custom_service_id INT,
+    FOREIGN KEY (basic_service_id) REFERENCES basic_services(id),
+    FOREIGN KEY (custom_service_id) REFERENCES custom_services(id),
+    FOREIGN KEY (client_id) REFERENCES clients(id),
+    FOREIGN KEY (driver_id) REFERENCES drivers(id),
+    FOREIGN KEY (company_id) REFERENCES companies(id)
+);
+
+CREATE TABLE reviews (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    rating INT NOT NULL,
+    description TEXT,
+    company_id INT NOT NULL,
+    driver_id INT NOT NULL,
+    client_id INT NOT NULL,
+    FOREIGN KEY (company_id) REFERENCES companies(id),
+    FOREIGN KEY (driver_id) REFERENCES drivers(id),
+    FOREIGN KEY (client_id) REFERENCES clients(id)
+);
