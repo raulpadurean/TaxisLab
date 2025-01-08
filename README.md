@@ -4,17 +4,18 @@ Each driver has a tablet on which he sees the taxi orders sent by the dispatcher
 
 Each taxi order has the address where the driver must arrive, the station from which the taxi is called (closest one to the address), the customer's name and any preferences (car model, does he have a puppy), besides that, there is a button with which the driver accepts the order. The first one from that station will be chosen.
 
-The client can register and login.
 
 Each driver has an ID profile (car registration number or call sign), name, surname.
 
 Each driver has a car .A car has model and brand, license plate , car color, car shape (COMBI OR NOT), whether it is carrying animals or not and the station it is currently in.
 
+Each Driver has a schedule
+
+Each Driver has a driver schedule.
+
 The application shows the driver the commands sent by the dispatcher
 
-The application shows the driver and the dispatcher in which station and the position in respective station. (distance)
-
-All drivers can register for the same order.
+the dispacher chooses the driver and asingns it a order
 The app chooses the first driver in the station assigned to the order address 
 
 Order example 
