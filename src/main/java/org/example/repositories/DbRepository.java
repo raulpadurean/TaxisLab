@@ -24,13 +24,12 @@ public class DbRepository<T> implements IRepository<T> {
     @Override
     public void create(T obj) {
         String sql = generateInsertQuery(obj);
-        System.out.println("Generated SQL: " + sql);
         try (PreparedStatement stmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             populateInsertParameters(stmt, obj);
             stmt.executeUpdate();
-            System.out.println("Insert successful!");
+            System.out.println("Insert successful! SQL: " + sql);
         } catch (SQLException e) {
-            throw new DatabaseException("Failed to insert into " + tableName, e);
+            throw new DatabaseException("Failed to insert into " + tableName + ": " + e.getMessage(), e);
         }
     }
 
@@ -39,12 +38,13 @@ public class DbRepository<T> implements IRepository<T> {
         String sql = "SELECT * FROM " + tableName + " WHERE id = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setInt(1, id);
-            ResultSet rs = stmt.executeQuery();
-            if (rs.next()) {
-                return parser.apply(rs);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return parser.apply(rs);
+                }
             }
         } catch (SQLException e) {
-            throw new DatabaseException("Failed to read from " + tableName, e);
+            throw new DatabaseException("Failed to read from " + tableName + ": " + e.getMessage(), e);
         }
         throw new EntityNotFoundException("Entity not found in " + tableName + " with ID: " + id);
     }
@@ -52,13 +52,12 @@ public class DbRepository<T> implements IRepository<T> {
     @Override
     public void update(T obj) {
         String sql = generateUpdateQuery(obj);
-        System.out.println("Generated SQL: " + sql);
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             populateUpdateParameters(stmt, obj);
             stmt.executeUpdate();
-            System.out.println("Update successful!");
+            System.out.println("Update successful! SQL: " + sql);
         } catch (SQLException e) {
-            throw new DatabaseException("Failed to update " + tableName, e);
+            throw new DatabaseException("Failed to update " + tableName + ": " + e.getMessage(), e);
         }
     }
 
@@ -68,9 +67,9 @@ public class DbRepository<T> implements IRepository<T> {
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setInt(1, id);
             stmt.executeUpdate();
-            System.out.println("Delete successful!");
+            System.out.println("Delete successful! SQL: " + sql);
         } catch (SQLException e) {
-            throw new DatabaseException("Failed to delete from " + tableName, e);
+            throw new DatabaseException("Failed to delete from " + tableName + ": " + e.getMessage(), e);
         }
     }
 
@@ -78,13 +77,13 @@ public class DbRepository<T> implements IRepository<T> {
     public List<T> readAll() {
         String sql = "SELECT * FROM " + tableName;
         List<T> results = new ArrayList<>();
-        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            ResultSet rs = stmt.executeQuery();
+        try (PreparedStatement stmt = connection.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
             while (rs.next()) {
                 results.add(parser.apply(rs));
             }
         } catch (SQLException e) {
-            throw new DatabaseException("Failed to read all from " + tableName, e);
+            throw new DatabaseException("Failed to read all from " + tableName + ": " + e.getMessage(), e);
         }
         return results;
     }
@@ -92,116 +91,77 @@ public class DbRepository<T> implements IRepository<T> {
     private String generateInsertQuery(T obj) {
         StringBuilder columns = new StringBuilder();
         StringBuilder values = new StringBuilder();
-        boolean firstField = true; // Track whether it is the first field
 
         for (Field field : getAllFields(obj.getClass())) {
             field.setAccessible(true);
 
-            if (field.getName().equals("id")) {
-                continue; // Skip auto-generated IDs
-            }
+            if (field.getName().equals("id")) continue; // Skip auto-generated ID
 
-            // Append column and value
-            if (!firstField) {
+            if (columns.length() > 0) {
                 columns.append(", ");
                 values.append(", ");
-            } else {
-                firstField = false; // The first field has been handled
             }
 
-            // Handle relational fields
-            if (isNestedEntity(field)) {
-                columns.append(convertToSnakeCase(field.getName())).append("_id");
-                values.append("?");
-            } else {
-                columns.append(convertToSnakeCase(field.getName()));
-                values.append("?");
-            }
+            String columnName = isNestedEntity(field) ? convertToSnakeCase(field.getName()) + "_id" : convertToSnakeCase(field.getName());
+            columns.append(columnName);
+            values.append("?");
         }
 
         return "INSERT INTO " + tableName + " (" + columns + ") VALUES (" + values + ")";
     }
 
-
     private String generateUpdateQuery(T obj) {
         StringBuilder setClause = new StringBuilder();
-        boolean hasId = false;
 
         for (Field field : getAllFields(obj.getClass())) {
             field.setAccessible(true);
-            if (field.getName().equals("id")) {
-                hasId = true;
-                continue; // Skip `id` in SET clause
-            }
 
-            if (isNestedEntity(field)) {
-                setClause.append(", ").append(convertToSnakeCase(field.getName())).append("_id = ?");
-            } else {
-                if (setClause.length() > 0) {
-                    setClause.append(", ");
-                }
-                setClause.append(convertToSnakeCase(field.getName())).append(" = ?");
-            }
-        }
+            if (field.getName().equals("id")) continue; // Skip ID in SET clause
 
-        if (!hasId) {
-            throw new DatabaseException("Cannot update entity without 'id' field", new Exception());
+            if (setClause.length() > 0) setClause.append(", ");
+
+            String columnName = isNestedEntity(field) ? convertToSnakeCase(field.getName()) + "_id" : convertToSnakeCase(field.getName());
+            setClause.append(columnName).append(" = ?");
         }
 
         return "UPDATE " + tableName + " SET " + setClause + " WHERE id = ?";
     }
 
     private void populateInsertParameters(PreparedStatement stmt, T obj) throws SQLException {
-        int index = 1;
-        try {
-            for (Field field : getAllFields(obj.getClass())) {
-                field.setAccessible(true);
-                if (field.getName().equals("id")) {
-                    continue; // Skip id
-                }
-                if (isNestedEntity(field)) {
-                    Object nestedObj = field.get(obj);
-                    stmt.setObject(index++, getNestedId(nestedObj)); // Use the ID of the nested entity
-                } else {
-                    stmt.setObject(index++, field.get(obj));
-                }
-            }
-        } catch (IllegalAccessException e) {
-            throw new RuntimeException("Failed to populate insert parameters", e);
-        }
+        populateParameters(stmt, obj, false);
     }
 
     private void populateUpdateParameters(PreparedStatement stmt, T obj) throws SQLException {
+        populateParameters(stmt, obj, true);
+    }
+
+    private void populateParameters(PreparedStatement stmt, T obj, boolean includeId) throws SQLException {
         int index = 1;
-        Integer idValue = null;
 
         try {
             for (Field field : getAllFields(obj.getClass())) {
                 field.setAccessible(true);
-                if (field.getName().equals("id")) {
-                    idValue = (Integer) field.get(obj);
-                    continue;
-                }
-                if (isNestedEntity(field)) {
-                    Object nestedObj = field.get(obj);
-                    stmt.setObject(index++, getNestedId(nestedObj));
-                } else {
-                    stmt.setObject(index++, field.get(obj));
-                }
+                if (!includeId && field.getName().equals("id")) continue;
+
+                Object value = isNestedEntity(field) ? getNestedId(field.get(obj)) : field.get(obj);
+                if (value instanceof Enum) value = ((Enum<?>) value).name();
+
+                System.out.println("Binding parameter " + index + ": [" + field.getName() + "] = " + value);
+                stmt.setObject(index++, value);
             }
-            if (idValue == null) {
-                throw new DatabaseException("Object does not have an 'id' field set", new Exception());
+
+            if (includeId) {
+                Field idField = obj.getClass().getDeclaredField("id");
+                idField.setAccessible(true);
+                stmt.setObject(index, idField.get(obj)); // Bind ID
             }
-            stmt.setInt(index, idValue);
-        } catch (IllegalAccessException e) {
-            throw new RuntimeException("Failed to populate update parameters", e);
+        } catch (IllegalAccessException | NoSuchFieldException e) {
+            throw new RuntimeException("Failed to populate parameters", e);
         }
     }
 
     private Object getNestedId(Object nestedObj) throws IllegalAccessException {
-        if (nestedObj == null) {
-            return null;
-        }
+        if (nestedObj == null) return null;
         try {
             Field idField = nestedObj.getClass().getDeclaredField("id");
             idField.setAccessible(true);
@@ -213,9 +173,7 @@ public class DbRepository<T> implements IRepository<T> {
 
     private boolean isNestedEntity(Field field) {
         Class<?> fieldType = field.getType();
-        return !(fieldType.isPrimitive() ||
-                fieldType.getName().startsWith("java.") ||
-                fieldType.isEnum());
+        return !(fieldType.isPrimitive() || fieldType.getName().startsWith("java.") || fieldType.isEnum());
     }
 
     private List<Field> getAllFields(Class<?> type) {
@@ -232,11 +190,8 @@ public class DbRepository<T> implements IRepository<T> {
     private String convertToSnakeCase(String fieldName) {
         StringBuilder sb = new StringBuilder();
         for (char c : fieldName.toCharArray()) {
-            if (Character.isUpperCase(c)) {
-                sb.append("_").append(Character.toLowerCase(c));
-            } else {
-                sb.append(c);
-            }
+            if (Character.isUpperCase(c)) sb.append("_").append(Character.toLowerCase(c));
+            else sb.append(c);
         }
         return sb.toString();
     }
